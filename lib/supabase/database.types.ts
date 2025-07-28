@@ -67,6 +67,38 @@ export interface Database {
           created_at?: string
         }
       }
+      airports: {
+        Row: {
+          id: string
+          city_id: string
+          iata_code: string
+          name: string
+          city_name: string
+          is_primary: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          city_id: string
+          iata_code: string
+          name: string
+          city_name?: string
+          is_primary?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          city_id?: string
+          iata_code?: string
+          name?: string
+          city_name?: string
+          is_primary?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+      }
       deals: {
         Row: {
           id: string
