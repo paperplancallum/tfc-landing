@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 
@@ -9,7 +8,7 @@ export default function AboutPage() {
       <section className="bg-gradient-to-br from-primary to-primary/80 text-white py-16">
         <div className="container text-center">
           <h1 className="text-4xl font-bold mb-4">
-            About Tom's Flight Club
+            About Tom&apos;s Flight Club
           </h1>
           <p className="text-xl max-w-2xl mx-auto">
             We're on a mission to make travel more accessible by finding the best flight deals for our members
@@ -23,7 +22,7 @@ export default function AboutPage() {
           <div className="prose prose-lg mx-auto">
             <h2 className="text-3xl font-bold mb-6">Our Story</h2>
             <p>
-              Tom's Flight Club was founded in 2015 by Tom, a travel enthusiast who discovered a knack for finding incredible flight deals. What started as sharing deals with friends quickly grew into a community of thousands of travelers saving money on their adventures.
+              Tom&apos;s Flight Club was founded in 2015 by Tom, a travel enthusiast who discovered a knack for finding incredible flight deals. What started as sharing deals with friends quickly grew into a community of thousands of travelers saving money on their adventures.
             </p>
             <p>
               Today, we serve over 100,000 members worldwide, helping them explore the world without breaking the bank. Our team of travel experts works around the clock to find and verify the best flight deals, typically 50-75% off regular prices.
@@ -75,7 +74,7 @@ export default function AboutPage() {
             Ready to Start Your Journey?
           </h2>
           <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            Join thousands of travelers who are exploring the world for less with Tom's Flight Club
+            Join thousands of travelers who are exploring the world for less with Tom&apos;s Flight Club
           </p>
           <div className="flex gap-4 justify-center">
             <Link href="/join">

@@ -12,10 +12,10 @@ export default function VerifyEmailPage() {
             Check your email
           </h1>
           <p className="text-gray-600 mb-6">
-            We've sent you a confirmation email. Please click the link in the email to verify your account.
+            We&apos;ve sent you a confirmation email. Please click the link in the email to verify your account.
           </p>
           <p className="text-sm text-gray-500 mb-6">
-            Didn't receive the email? Check your spam folder or request a new one.
+            Didn&apos;t receive the email? Check your spam folder or request a new one.
           </p>
           <Link href="/auth/login">
             <Button variant="outline">
