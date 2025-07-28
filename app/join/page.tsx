@@ -1,0 +1,178 @@
+import Link from 'next/link'
+import { Check, X } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { FAQAccordion } from '@/components/faq-accordion'
+import { TestimonialCarousel } from '@/components/testimonial-carousel'
+import { createClient } from '@/lib/supabase/server'
+import { PlanSelector } from '@/components/plan-selector'
+
+// Always use live links for now since test products aren't set up
+const plans = [
+  {
+    id: 'premium_3mo',
+    name: '3 Months',
+    price: '$7.99',
+    period: '/month',
+    total: '$23.97 billed quarterly',
+    featured: false,
+    stripeLink: process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK_3_MONTHS,
+  },
+  {
+    id: 'premium_year',
+    name: 'Yearly',
+    price: '$4.99',
+    period: '/month',
+    total: '$59.99 billed annually',
+    featured: true,
+    badge: 'MOST POPULAR',
+    savings: 'BEST VALUE',
+    stripeLink: process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK_YEARLY,
+  },
+  {
+    id: 'premium_6mo',
+    name: '6 Months',
+    price: '$5.99',
+    period: '/month',
+    total: '$35.94 billed every 6 months',
+    featured: false,
+    stripeLink: process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK_6_MONTHS,
+  },
+]
+
+const features = {
+  premium: [
+    '9 Daily Deals',
+    'Deals sent at 7am',
+    'Deals are more recent and likely to be available still',
+    'Priority customer support',
+    'Cancel anytime',
+  ],
+  free: [
+    '3 Daily Deals',
+    'Deals sent at 10am',
+    'Deals are more likely to be gone by the time you book',
+    'Basic support',
+    'Limited features',
+  ],
+}
+
+export default async function JoinPage() {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  
+  // Get user's current plan if logged in
+  let userPlan = null
+  if (user) {
+    const { data: profile } = await supabase
+      .from('users')
+      .select('plan')
+      .eq('id', user.id)
+      .single()
+    userPlan = profile?.plan
+  }
+
+  return (
+    <div className="min-h-screen bg-white">
+      {/* Hero */}
+      <section className="bg-gradient-to-br from-primary to-primary/80 text-white py-16">
+        <div className="container text-center">
+          <h1 className="text-4xl font-bold mb-4">
+            {userPlan === 'premium' 
+              ? 'You\'re Already a Premium Member!' 
+              : 'Join Tom\'s Flight Club Premium'}
+          </h1>
+          <p className="text-xl">
+            {userPlan === 'premium'
+              ? 'Enjoy your exclusive access to the best flight deals'
+              : 'Get exclusive access to the best flight deals before anyone else'}
+          </p>
+        </div>
+      </section>
+
+      {/* Comparison */}
+      <section className="py-16 bg-gray-50">
+        <div className="container">
+          <h2 className="text-3xl font-bold text-center mb-12">
+            Premium vs Free Membership
+          </h2>
+          
+          <div className="max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-8">
+              {/* Premium */}
+              <div className="bg-white rounded-lg p-8 border-2 border-primary">
+                <h3 className="text-2xl font-bold mb-6 text-primary">
+                  Premium {userPlan === 'premium' && '(Your Plan)'}
+                </h3>
+                <ul className="space-y-4">
+                  {features.premium.map((feature, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <Check className="text-green-500 mt-0.5" size={20} />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              
+              {/* Free */}
+              <div className="bg-white rounded-lg p-8 border border-gray-300">
+                <h3 className="text-2xl font-bold mb-6">
+                  Free {userPlan === 'free' && '(Your Plan)'}
+                </h3>
+                <ul className="space-y-4">
+                  {features.free.map((feature, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <X className="text-gray-400 mt-0.5" size={20} />
+                      <span className="text-gray-600">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                {!user && (
+                  <div className="mt-8">
+                    <Link href="/auth/signup">
+                      <Button variant="outline" className="w-full">
+                        Sign Up for Free
+                      </Button>
+                    </Link>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing - Only show if not already premium */}
+      {userPlan !== 'premium' && (
+        <section className="py-16">
+          <div className="container">
+            <h2 className="text-3xl font-bold text-center mb-12">
+              Choose Your Plan
+            </h2>
+            
+            <PlanSelector plans={plans} />
+          </div>
+        </section>
+      )}
+
+      {/* Testimonials */}
+      <section className="py-16 bg-gray-50">
+        <div className="container">
+          <h2 className="text-3xl font-bold text-center mb-12">
+            What Our Members Say
+          </h2>
+          <TestimonialCarousel />
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-16">
+        <div className="container max-w-4xl">
+          <h2 className="text-3xl font-bold text-center mb-12">
+            Frequently Asked Questions
+          </h2>
+          <FAQAccordion />
+        </div>
+      </section>
+    </div>
+  )
+}
