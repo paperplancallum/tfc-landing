@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "app/deal/[slug]/page.tsx": {
+      "maxDuration": 10
+    }
+  }
+}

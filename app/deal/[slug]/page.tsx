@@ -14,6 +14,7 @@ export default async function DealPage({ params }: DealPageProps) {
   const { slug } = await params
   const supabase = await createClient()
   
+  // Parse the slug: lhr-bcn-28072025
   console.log('Deal page - slug:', slug)
   
   // Parse the slug: lhr-bcn-28072025
