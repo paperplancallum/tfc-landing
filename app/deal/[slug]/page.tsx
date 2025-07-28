@@ -11,11 +11,20 @@ interface DealPageProps {
 }
 
 export default async function DealPage({ params }: DealPageProps) {
+  // Check if Supabase is configured
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    console.log('Supabase not configured')
+    notFound()
+  }
+  
   const supabase = await createClient()
+  
+  console.log('Deal page - slug:', params.slug)
   
   // Parse the slug: lon-bcn-28072025
   const parts = params.slug.split('-')
   if (parts.length !== 3) {
+    console.log('Invalid slug format - parts:', parts)
     notFound()
   }
   
@@ -26,6 +35,13 @@ export default async function DealPage({ params }: DealPageProps) {
   const month = dateStr.substring(2, 4)
   const year = dateStr.substring(4, 8)
   const searchDate = `${year}-${month}-${day}`
+  
+  console.log('Parsed values:', {
+    departureCode,
+    destinationCode,
+    dateStr,
+    searchDate
+  })
   
   // Map airport codes to city codes
   const airportToCityMap: { [key: string]: string } = {
@@ -44,18 +60,32 @@ export default async function DealPage({ params }: DealPageProps) {
   }
   
   // Check if it's an airport code and convert to city code
-  const cityCode = airportToCityMap[departureCode.toUpperCase()] || departureCode.toUpperCase()
+  const departureCodeUpper = departureCode.toUpperCase()
+  const cityCode = airportToCityMap[departureCodeUpper] || departureCodeUpper
+  
+  console.log('City lookup:', {
+    departureCode,
+    departureCodeUpper,
+    cityCode
+  })
   
   // Get city by code
-  const { data: departureCity } = await supabase
+  const { data: departureCity, error: cityError } = await supabase
     .from('cities')
     .select('*')
     .eq('iata_code', cityCode)
     .single()
     
+  if (cityError) {
+    console.log('City lookup error:', cityError)
+  }
+    
   if (!departureCity) {
+    console.log('City not found for code:', cityCode)
     notFound()
   }
+  
+  console.log('Found city:', departureCity)
   
   // Map destination codes to city names for the query
   const destinationMap: { [key: string]: string } = {
@@ -92,10 +122,15 @@ export default async function DealPage({ params }: DealPageProps) {
     'fco': 'Rome'
   }
   
-  const destinationCity = destinationMap[destinationCode] || ''
+  const destinationCity = destinationMap[destinationCode.toLowerCase()] || ''
+  
+  console.log('Destination lookup:', {
+    destinationCode,
+    destinationCity
+  })
   
   // Get the deal
-  const { data: deals } = await supabase
+  const { data: deals, error: dealsError } = await supabase
     .from('deals')
     .select('*')
     .eq('departure_city_id', departureCity.id)
@@ -104,7 +139,16 @@ export default async function DealPage({ params }: DealPageProps) {
     .lte('found_at', `${searchDate}T23:59:59`)
     .order('found_at', { ascending: true })
     
+  console.log('Deal query:', {
+    departure_city_id: departureCity.id,
+    destination: `${destinationCity}%`,
+    searchDate,
+    found: deals?.length || 0,
+    error: dealsError
+  })
+    
   if (!deals || deals.length === 0) {
+    console.log('No deals found')
     notFound()
   }
   
