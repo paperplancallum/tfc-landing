@@ -244,6 +244,39 @@ export default async function DealPage({ params }: DealPageProps) {
               </div>
             </div>
             
+            {/* Available Dates */}
+            {(deal.departure_dates || deal.return_dates) && (
+              <div className="mb-8">
+                <h3 className="text-lg font-semibold mb-4">Available Travel Dates</h3>
+                <div className="grid md:grid-cols-2 gap-6">
+                  {deal.departure_dates && deal.departure_dates.length > 0 && (
+                    <div>
+                      <p className="text-sm text-gray-600 mb-2">Departure Dates:</p>
+                      <div className="space-y-1">
+                        {deal.departure_dates.map((date, index) => (
+                          <div key={index} className="text-sm bg-gray-50 px-3 py-2 rounded">
+                            {format(new Date(date), 'EEEE, MMMM d, yyyy')}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {deal.return_dates && deal.return_dates.length > 0 && (
+                    <div>
+                      <p className="text-sm text-gray-600 mb-2">Return Dates:</p>
+                      <div className="space-y-1">
+                        {deal.return_dates.map((date, index) => (
+                          <div key={index} className="text-sm bg-gray-50 px-3 py-2 rounded">
+                            {format(new Date(date), 'EEEE, MMMM d, yyyy')}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+            
             {/* CTA */}
             <div className="border-t pt-8">
               <h2 className="text-xl font-semibold mb-4">Ready to Book?</h2>
