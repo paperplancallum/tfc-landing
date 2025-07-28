@@ -12,6 +12,18 @@ interface DealPageProps {
 
 export default async function DealPage({ params }: DealPageProps) {
   const { slug } = await params
+  
+  // Check if Supabase is configured
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    console.error('Supabase environment variables not configured')
+    return (
+      <div className="p-8">
+        <h1 className="text-2xl font-bold">Configuration Error</h1>
+        <p>Supabase is not configured properly.</p>
+      </div>
+    )
+  }
+  
   const supabase = await createClient()
   
   console.log('Deal page - slug:', slug)
@@ -108,7 +120,21 @@ export default async function DealPage({ params }: DealPageProps) {
     
   if (!deals || deals.length === 0) {
     console.log('No deals found')
-    notFound()
+    // Return a debug page instead of 404 for now
+    return (
+      <div className="p-8">
+        <h1 className="text-2xl font-bold">No Deal Found</h1>
+        <p>Query parameters:</p>
+        <pre className="bg-gray-100 p-4 rounded mt-2">
+          {JSON.stringify({
+            departure_airport: departureAirport.toUpperCase(),
+            destination_city: destinationCity,
+            searchDate,
+            error: dealsError
+          }, null, 2)}
+        </pre>
+      </div>
+    )
   }
   
   // Take the first deal if multiple exist for the same date
