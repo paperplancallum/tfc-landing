@@ -71,14 +71,20 @@ export default async function DealPage({ params }: DealPageProps) {
     destinationCity
   })
   
-  // First, let's check if we have the columns we expect
-  const { data: sampleDeal } = await supabase
+  // First, let's check what Barcelona deals exist
+  const { data: allBarcelonaDeals } = await supabase
     .from('deals')
     .select('*')
-    .limit(1)
-    .single()
+    .eq('departure_airport', 'LHR')
+    .ilike('destination_city', '%Barcelona%')
     
-  console.log('Sample deal structure:', Object.keys(sampleDeal || {}))
+  console.log('All Barcelona deals from LHR:', allBarcelonaDeals?.map(d => ({
+    id: d.id,
+    departure_airport: d.departure_airport,
+    destination_city: d.destination_city,
+    found_at: d.found_at,
+    formatted_date: new Date(d.found_at).toISOString().split('T')[0]
+  })))
   
   // Get the deal using the new schema
   // The deals table now has departure_airport and destination_city columns
