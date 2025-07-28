@@ -63,19 +63,11 @@ export default async function DealsPage({ params }: { params: { city: string } }
     }
   }
 
-  // Get all airports for this city
-  const { data: airports } = await supabase
-    .from('airports')
-    .select('id')
-    .eq('city_id', city.id)
-
-  const airportIds = airports?.map(a => a.id) || []
-
-  // Get deals for all airports in the city
+  // Get deals for this city using the city name
   let query = supabase
     .from('deals')
     .select('*')
-    .in('departure_airport_id', airportIds)
+    .eq('departure_city', city.name)
     .order('found_at', { ascending: false })
 
   // Filter based on user's plan
@@ -95,7 +87,7 @@ export default async function DealsPage({ params }: { params: { city: string } }
     const { data: premiumDeals } = await supabase
       .from('deals')
       .select('*')
-      .in('departure_airport_id', airportIds)
+      .eq('departure_city', city.name)
       .eq('is_premium', true)
       .order('found_at', { ascending: false })
       .limit(6)

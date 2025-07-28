@@ -41,24 +41,41 @@ export default async function AllDealsPage() {
   // Get the most recent deal for each city
   const dealsByCity = []
   
-  if (cities) {
-    for (const city of cities) {
-      const { data: deals } = await supabase
-        .from('deals')
-        .select('*')
-        .eq('departure_city_id', city.id)
-        .eq('is_premium', false) // Only show free deals in the preview
-        .order('found_at', { ascending: false })
-        .limit(1)
-      
-      if (deals && deals.length > 0) {
-        dealsByCity.push({
-          city,
-          deal: deals[0]
-        })
+  // First, get all non-premium deals
+  const { data: allDeals } = await supabase
+    .from('deals')
+    .select('*')
+    .eq('is_premium', false)
+    .order('found_at', { ascending: false })
+  
+  // Group deals by departure city
+  const dealsByCityName = new Map()
+  
+  if (allDeals) {
+    for (const deal of allDeals) {
+      const cityKey = deal.departure_city || 'Unknown'
+      if (!dealsByCityName.has(cityKey)) {
+        dealsByCityName.set(cityKey, deal)
       }
     }
   }
+  
+  // Create the final array with city info
+  for (const [cityName, deal] of dealsByCityName) {
+    const city = cities?.find(c => c.name === cityName) || {
+      id: deal.id,
+      name: cityName,
+      iata_code: deal.departure_airport || 'XXX'
+    }
+    
+    dealsByCity.push({
+      city,
+      deal
+    })
+  }
+  
+  // Sort by city name
+  dealsByCity.sort((a, b) => a.city.name.localeCompare(b.city.name))
 
   return (
     <div className="min-h-screen bg-gray-50">

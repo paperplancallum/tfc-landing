@@ -84,7 +84,8 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Create Supabase client
+    // Create Supabase client with service role to bypass RLS
+    // In production, you should use SUPABASE_SERVICE_ROLE_KEY
     const supabase = await createClient()
 
     // Insert deals
