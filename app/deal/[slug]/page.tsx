@@ -71,6 +71,15 @@ export default async function DealPage({ params }: DealPageProps) {
     destinationCity
   })
   
+  // First, let's check if we have the columns we expect
+  const { data: sampleDeal } = await supabase
+    .from('deals')
+    .select('*')
+    .limit(1)
+    .single()
+    
+  console.log('Sample deal structure:', Object.keys(sampleDeal || {}))
+  
   // Get the deal using the new schema
   // The deals table now has departure_airport and destination_city columns
   const { data: deals, error: dealsError } = await supabase

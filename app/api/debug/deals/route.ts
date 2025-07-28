@@ -23,9 +23,13 @@ export async function GET() {
     
     return NextResponse.json({
       total_deals: count,
+      sample_columns: deals && deals.length > 0 ? Object.keys(deals[0]) : [],
       latest_deals: deals?.map(d => ({
         id: d.id,
+        all_fields: d,
+        // Include all potentially relevant fields
         departure_city: d.departure_city,
+        departure_city_id: d.departure_city_id,
         destination_city: d.destination_city,
         departure_airport: d.departure_airport,
         destination_airport: d.destination_airport,
