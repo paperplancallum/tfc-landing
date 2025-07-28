@@ -42,16 +42,23 @@ export default async function AllDealsPage() {
   const dealsByCity = []
   
   // First, get all non-premium deals
-  const { data: allDeals } = await supabase
+  const { data: allDeals, error: dealsError } = await supabase
     .from('deals')
     .select('*')
     .eq('is_premium', false)
     .order('found_at', { ascending: false })
   
+  if (dealsError) {
+    console.error('Error fetching deals:', dealsError)
+  }
+  
+  console.log('All deals fetched:', allDeals?.length, 'deals')
+  
   // Group deals by departure city
   const dealsByCityName = new Map()
   
   if (allDeals) {
+    console.log('Latest deal created at:', allDeals[0]?.created_at)
     for (const deal of allDeals) {
       const cityKey = deal.departure_city || 'Unknown'
       if (!dealsByCityName.has(cityKey)) {
