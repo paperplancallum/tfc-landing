@@ -29,11 +29,18 @@ export async function GET() {
         destination_city: d.destination_city,
         departure_airport: d.departure_airport,
         destination_airport: d.destination_airport,
+        destination: d.destination,
         price: d.price,
         currency: d.currency,
         is_premium: d.is_premium,
         created_at: d.created_at,
-        found_at: d.found_at
+        found_at: d.found_at,
+        // Format found_at date for URL
+        url_date: d.found_at ? new Date(d.found_at).toLocaleDateString('en-GB', {
+          day: '2-digit',
+          month: '2-digit', 
+          year: 'numeric'
+        }).replace(/\//g, '') : null
       }))
     })
   } catch (error) {

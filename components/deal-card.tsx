@@ -75,7 +75,7 @@ export function DealCard({ deal, isLocked, departureCity = 'lon', departureCityN
   }
   
   const dateString = formatDateForUrl(deal.found_at)
-  const dealUrl = `/flight-deal/${actualDepartureCode}-${destinationCode}-${dateString}`
+  const dealUrl = `/deal/${actualDepartureCode}-${destinationCode}-${dateString}`
 
   return (
     <div className="card overflow-hidden relative flex flex-col">
