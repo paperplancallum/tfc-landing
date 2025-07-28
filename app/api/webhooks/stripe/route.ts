@@ -3,11 +3,17 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import Stripe from 'stripe'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+const stripeKey = process.env.STRIPE_SECRET_KEY || process.env.STRIPE_SECRET_KEY_TEST
+const stripe = stripeKey ? new Stripe(stripeKey, {
   apiVersion: '2024-12-18.acacia',
-})
+}) : null
 
 export async function POST(request: NextRequest) {
+  // Return early if Stripe is not configured
+  if (!stripe || !process.env.STRIPE_WEBHOOK_SECRET) {
+    return NextResponse.json({ error: 'Webhook not configured' }, { status: 503 })
+  }
+  
   const body = await request.text()
   const signature = headers().get('stripe-signature')!
   

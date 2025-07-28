@@ -1,13 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
 
-// For now, use live key since test products aren't set up
-const stripe = new Stripe(
-  process.env.STRIPE_SECRET_KEY!,
-  {
-    apiVersion: '2024-12-18.acacia',
-  }
-)
+// Initialize Stripe only if secret key is available
+const stripeKey = process.env.STRIPE_SECRET_KEY || process.env.STRIPE_SECRET_KEY_TEST
+const stripe = stripeKey ? new Stripe(stripeKey, {
+  apiVersion: '2024-12-18.acacia',
+}) : null
 
 // Map plan IDs to price IDs
 const PRICE_IDS = {
@@ -24,6 +22,13 @@ const PRICE_IDS = {
 
 export async function POST(request: NextRequest) {
   try {
+    // Check if Stripe is configured
+    if (!stripe) {
+      return NextResponse.json({ 
+        error: 'Payment system not configured. Please use payment links.' 
+      }, { status: 503 })
+    }
+    
     const { planId } = await request.json()
     
     if (!planId) {
