@@ -68,9 +68,10 @@ export function DealCard({ deal, isLocked, departureCity = 'lon', departureCityN
   // Format date from found_at as DDMMYYYY
   const formatDateForUrl = (dateString: string) => {
     const date = new Date(dateString)
-    const day = date.getDate().toString().padStart(2, '0')
-    const month = (date.getMonth() + 1).toString().padStart(2, '0')
-    const year = date.getFullYear()
+    // Use UTC methods to avoid timezone issues
+    const day = date.getUTCDate().toString().padStart(2, '0')
+    const month = (date.getUTCMonth() + 1).toString().padStart(2, '0')
+    const year = date.getUTCFullYear()
     return `${day}${month}${year}`
   }
   
