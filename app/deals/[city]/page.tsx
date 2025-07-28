@@ -24,7 +24,8 @@ interface City {
   iata_code: string
 }
 
-export default async function DealsPage({ params }: { params: { city: string } }) {
+export default async function DealsPage({ params }: { params: Promise<{ city: string }> }) {
+  const { city: cityParam } = await params
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   
@@ -32,7 +33,7 @@ export default async function DealsPage({ params }: { params: { city: string } }
   let { data: city } = await supabase
     .from('cities')
     .select('*')
-    .ilike('name', params.city.replace('-', ' '))
+    .ilike('name', cityParam.replace('-', ' '))
     .single()
     
   // If not found by name, try IATA code
@@ -40,7 +41,7 @@ export default async function DealsPage({ params }: { params: { city: string } }
     const { data: cityByCode } = await supabase
       .from('cities')
       .select('*')
-      .eq('iata_code', params.city.toUpperCase())
+      .eq('iata_code', cityParam.toUpperCase())
       .single()
     city = cityByCode
   }
