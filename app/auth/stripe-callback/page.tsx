@@ -1,12 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import { Lock, Mail, Loader2, CheckCircle } from 'lucide-react'
 
-export default function StripeCallbackPage() {
+function StripeCallbackForm() {
   const [loading, setLoading] = useState(true)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -221,5 +221,13 @@ export default function StripeCallbackPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function StripeCallbackPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50 flex items-center justify-center"><div className="animate-spin">Loading...</div></div>}>
+      <StripeCallbackForm />
+    </Suspense>
   )
 }
