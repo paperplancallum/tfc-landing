@@ -70,7 +70,12 @@ export interface Database {
       deals: {
         Row: {
           id: string
-          departure_city_id: string
+          departure_city_id: string | null
+          departure_airport_id: string | null
+          departure_airport: string
+          destination_airport: string
+          departure_city: string
+          destination_city: string
           destination: string
           price: number
           currency: string
@@ -81,11 +86,24 @@ export interface Database {
           is_premium: boolean
           expires_at: string | null
           created_at: string
+          airline: string | null
+          booking_url: string | null
+          description: string | null
+          departure_dates: string[] | null
+          return_dates: string[] | null
+          deal_type: string
+          stops: number
+          cabin_class: string
         }
         Insert: {
           id?: string
-          departure_city_id: string
-          destination: string
+          departure_city_id?: string | null
+          departure_airport_id?: string | null
+          departure_airport: string
+          destination_airport: string
+          departure_city: string
+          destination_city: string
+          destination?: string
           price: number
           currency?: string
           trip_length: number
@@ -95,10 +113,23 @@ export interface Database {
           is_premium?: boolean
           expires_at?: string | null
           created_at?: string
+          airline?: string | null
+          booking_url?: string | null
+          description?: string | null
+          departure_dates?: string[] | null
+          return_dates?: string[] | null
+          deal_type?: string
+          stops?: number
+          cabin_class?: string
         }
         Update: {
           id?: string
-          departure_city_id?: string
+          departure_city_id?: string | null
+          departure_airport_id?: string | null
+          departure_airport?: string
+          destination_airport?: string
+          departure_city?: string
+          destination_city?: string
           destination?: string
           price?: number
           currency?: string
@@ -109,6 +140,14 @@ export interface Database {
           is_premium?: boolean
           expires_at?: string | null
           created_at?: string
+          airline?: string | null
+          booking_url?: string | null
+          description?: string | null
+          departure_dates?: string[] | null
+          return_dates?: string[] | null
+          deal_type?: string
+          stops?: number
+          cabin_class?: string
         }
       }
       subscriptions: {
