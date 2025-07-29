@@ -75,51 +75,50 @@ export default async function AllDealsPage() {
   
   console.log('All deals fetched:', allDeals?.length, 'deals')
   
-  // Group deals by departure city
-  const dealsByCityName = new Map()
-  
+  // Transform all deals for display
   if (allDeals) {
     console.log('Latest deal created at:', allDeals[0]?.created_at)
+    console.log('First deal structure:', JSON.stringify(allDeals[0], null, 2))
+    
     for (const deal of allDeals) {
-      const cityKey = deal.from_airport_city || 'Unknown'
-      if (!dealsByCityName.has(cityKey)) {
-        dealsByCityName.set(cityKey, deal)
+      const city = cities?.find(c => c.name === deal.from_airport_city) || {
+        id: deal.id,
+        name: deal.from_airport_city || 'Unknown',
+        iata_code: deal.from_airport_code || 'XXX'
       }
+      
+      // Transform new deal structure to old structure for DealCard compatibility
+      const transformedDeal = {
+        id: deal.id,
+        destination: `${deal.to_airport_city || deal.to_airport_code}, ${deal.to_airport_country || ''}`.trim(),
+        price: deal.price || 0,
+        currency: deal.currency || 'GBP',
+        trip_length: deal.trip_duration || 0,
+        travel_month: deal.departure_date ? 
+          new Date(deal.departure_date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : 
+          'Flexible dates',
+        photo_url: deal.destination_city_image,
+        is_premium: false, // New structure doesn't have this field
+        found_at: deal.deal_found_date || deal.created_at,
+        departure_city_id: deal.from_airport_code
+      }
+      
+      dealsByCity.push({
+        city,
+        deal: transformedDeal
+      })
     }
-  }
-  
-  // Create the final array with city info
-  for (const [cityName, deal] of dealsByCityName) {
-    const city = cities?.find(c => c.name === cityName) || {
-      id: deal.id,
-      name: cityName,
-      iata_code: deal.from_airport_code || 'XXX'
-    }
-    
-    // Transform new deal structure to old structure for DealCard compatibility
-    const transformedDeal = {
-      id: deal.id,
-      destination: `${deal.to_airport_city || deal.to_airport_code}, ${deal.to_airport_country || ''}`.trim(),
-      price: deal.price || 0,
-      currency: deal.currency || 'GBP',
-      trip_length: deal.trip_duration || 0,
-      travel_month: deal.departure_date ? 
-        new Date(deal.departure_date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : 
-        'Flexible dates',
-      photo_url: deal.destination_city_image,
-      is_premium: false, // New structure doesn't have this field
-      found_at: deal.deal_found_date || deal.created_at,
-      departure_city_id: deal.from_airport_code
-    }
-    
-    dealsByCity.push({
-      city,
-      deal: transformedDeal
-    })
   }
   
   // Sort by city name
   dealsByCity.sort((a, b) => a.city.name.localeCompare(b.city.name))
+  
+  console.log('Final dealsByCity array length:', dealsByCity.length)
+  console.log('Final deals:', dealsByCity.map(d => ({
+    cityName: d.city.name,
+    destination: d.deal.destination,
+    price: d.deal.price
+  })))
 
   return (
     <div className="min-h-screen bg-gray-50">

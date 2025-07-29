@@ -30,12 +30,37 @@ export default async function DealsPage({ params }: { params: Promise<{ city: st
   const { data: { user } } = await supabase.auth.getUser()
   
   // Get city info - handle both full names and IATA codes for backward compatibility
-  let { data: city } = await supabase
+  let city: City | null = null
+  const cityName = cityParam.replace(/-/g, ' ')
+  
+  // First try to find in cities table
+  let { data: cityFromTable } = await supabase
     .from('cities')
     .select('*')
-    .ilike('name', cityParam.replace('-', ' '))
+    .ilike('name', cityName)
     .single()
     
+  if (cityFromTable) {
+    city = cityFromTable
+  } else {
+    // If not found in cities table, check if there are deals from this city
+    const { data: dealFromCity } = await supabase
+      .from('deals')
+      .select('from_airport_city, from_airport_code')
+      .ilike('from_airport_city', cityName)
+      .limit(1)
+      .single()
+    
+    if (dealFromCity) {
+      // Create a pseudo city object
+      city = {
+        id: `city-${cityName.toLowerCase().replace(/\s+/g, '-')}`,
+        name: dealFromCity.from_airport_city,
+        iata_code: dealFromCity.from_airport_code
+      }
+    }
+  }
+  
   // If not found by name, try IATA code
   if (!city) {
     const { data: cityByCode } = await supabase
@@ -64,37 +89,53 @@ export default async function DealsPage({ params }: { params: Promise<{ city: st
     }
   }
 
-  // Get deals for this city using the city name
+  // Get deals for this city using the new structure
   let query = supabase
     .from('deals')
     .select('*')
-    .eq('departure_city', city.name)
-    .order('found_at', { ascending: false })
+    .eq('from_airport_city', city.name)
+    .order('created_at', { ascending: false })
 
   // Filter based on user's plan
   if (userPlan === 'free') {
-    // Free users see up to 3 non-premium deals
-    query = query.eq('is_premium', false).limit(3)
+    // Free users see up to 3 deals
+    query = query.limit(3)
   } else {
     // Premium users see all deals (up to 9)
     query = query.limit(9)
   }
 
-  const { data: deals } = await query
+  const { data: rawDeals } = await query
 
-  // Get some premium deals to show as locked for free users
+  // Transform deals to match the Deal interface
+  const transformDeal = (deal: any): Deal => ({
+    id: deal.id,
+    destination: `${deal.to_airport_city || deal.to_airport_code}, ${deal.to_airport_country || ''}`.trim(),
+    price: deal.price || 0,
+    currency: deal.currency || 'GBP',
+    trip_length: deal.trip_duration || 0,
+    travel_month: deal.departure_date ? 
+      new Date(deal.departure_date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : 
+      'Flexible dates',
+    photo_url: deal.destination_city_image,
+    is_premium: false,
+    found_at: deal.deal_found_date || deal.created_at
+  })
+
+  const deals = rawDeals?.map(transformDeal) || []
+
+  // Get some additional deals to show as locked for free users
   let lockedDeals: Deal[] = []
-  if (userPlan === 'free') {
+  if (userPlan === 'free' && deals && deals.length >= 3) {
     const { data: premiumDeals } = await supabase
       .from('deals')
       .select('*')
-      .eq('departure_city', city.name)
-      .eq('is_premium', true)
-      .order('found_at', { ascending: false })
-      .limit(6)
+      .eq('from_airport_city', city.name)
+      .order('created_at', { ascending: false })
+      .range(3, 8) // Get deals 4-9 to show as locked
     
     if (premiumDeals) {
-      lockedDeals = premiumDeals
+      lockedDeals = premiumDeals.map(transformDeal)
     }
   }
 
