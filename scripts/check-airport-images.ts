@@ -1,54 +1,76 @@
 import { createClient } from '@supabase/supabase-js';
-import dotenv from 'dotenv';
+import * as dotenv from 'dotenv';
+import * as path from 'path';
 
 // Load environment variables
-dotenv.config({ path: '.env.local' });
+dotenv.config({ path: path.join(__dirname, '..', '.env.local') });
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY!;
 
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+if (!supabaseUrl || !supabaseServiceKey) {
+  console.error('Missing required environment variables');
+  process.exit(1);
+}
+
+const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
 async function checkAirportImages() {
-  // Check if column exists by querying a few airports
-  const { data: airports, error } = await supabase
-    .from('airports')
-    .select('iata_code, city_image_url')
-    .in('iata_code', ['LHR', 'JFK', 'LAX', 'CDG', 'NRT'])
-    .limit(5);
-
-  if (error) {
-    console.error('Error querying airports:', error);
-    return;
+  // Check specific airports including FNC and BER
+  const airports = ['FNC', 'BER', 'ZRH', 'BCN', 'GVA', 'LHR', 'JFK'];
+  
+  console.log('Checking specific airports:');
+  for (const code of airports) {
+    const { data } = await supabase
+      .from('airports')
+      .select('iata_code, city_name, city_image_url')
+      .eq('iata_code', code)
+      .single();
+      
+    console.log(`${code} (${data?.city_name || 'Unknown'}): ${data?.city_image_url || 'NO IMAGE'}`);
   }
-
-  console.log('Sample airports:');
-  airports?.forEach(airport => {
-    console.log(`${airport.iata_code}: ${airport.city_image_url || 'NULL'}`);
-  });
-
-  // Count how many airports have city_image_url populated
-  const { count: totalCount } = await supabase
-    .from('airports')
-    .select('*', { count: 'exact', head: true });
-
-  const { count: withImageCount } = await supabase
+  
+  // Check how many airports have images
+  const { count: withImages } = await supabase
     .from('airports')
     .select('*', { count: 'exact', head: true })
     .not('city_image_url', 'is', null);
-
-  console.log(`\nTotal airports: ${totalCount}`);
-  console.log(`Airports with city_image_url: ${withImageCount}`);
-
-  // Check storage for uploaded images
-  const { data: files, error: storageError } = await supabase.storage
-    .from('city-images')
-    .list('', { limit: 10 });
-
-  if (!storageError && files) {
-    console.log(`\nImages in storage: ${files.length}`);
-    console.log('Sample files:', files.slice(0, 5).map(f => f.name).join(', '));
+    
+  const { count: total } = await supabase
+    .from('airports')
+    .select('*', { count: 'exact', head: true });
+    
+  console.log(`\nAirports with images: ${withImages}/${total}`);
+  
+  // Check the BER -> FNC deal
+  const { data: deal } = await supabase
+    .from('deals')
+    .select('*')
+    .eq('from_airport_code', 'BER')
+    .eq('to_airport_code', 'FNC')
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .single();
+    
+  if (deal) {
+    console.log('\nBER -> FNC deal found:');
+    console.log('  to_airport_city:', deal.to_airport_city);
+    console.log('  destination_city_image in deal:', deal.destination_city_image || 'NONE');
+  } else {
+    console.log('\nNo BER -> FNC deal found');
   }
+  
+  // Check if there's any deal with destination_city_image
+  const { data: dealsWithImages } = await supabase
+    .from('deals')
+    .select('from_airport_code, to_airport_code, destination_city_image')
+    .not('destination_city_image', 'is', null)
+    .limit(5);
+    
+  console.log('\nDeals with destination_city_image:');
+  dealsWithImages?.forEach(d => {
+    console.log(`  ${d.from_airport_code} -> ${d.to_airport_code}: ${d.destination_city_image}`);
+  });
 }
 
 checkAirportImages();

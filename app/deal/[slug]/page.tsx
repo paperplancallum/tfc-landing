@@ -256,10 +256,19 @@ export default async function DealPage({ params }: DealPageProps) {
               <p className="text-gray-600 mb-6">
                 Click below to search for this deal on flight booking sites. Prices and availability may vary.
               </p>
-              <Button size="lg" className="w-full md:w-auto">
-                Book Flights
-                <ExternalLink className="ml-2 h-4 w-4" />
-              </Button>
+              {deal.deal_url ? (
+                <a href={deal.deal_url} target="_blank" rel="noopener noreferrer">
+                  <Button size="lg" className="w-full md:w-auto">
+                    Book Flights
+                    <ExternalLink className="ml-2 h-4 w-4" />
+                  </Button>
+                </a>
+              ) : (
+                <Button size="lg" className="w-full md:w-auto" disabled>
+                  Book Flights (No link available)
+                  <ExternalLink className="ml-2 h-4 w-4" />
+                </Button>
+              )}
             </div>
             
           </div>
