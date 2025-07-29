@@ -1,0 +1,2 @@
+﻿Deal Number,Autonumber,From (Airport Code),Airport City (from From (Airport Code)),Airport Country (from From (Airport Code)),To (Airport Code),Airport Name (from To (Airport Code)),Airport City (from To (Airport Code)),Airport Country (from To (Airport Code)),Departure Date,Return Date,Trip Duration,Deal Found Date,Price,Currency,Airline,Destination City Image
+DEAL-1,1,BCN,Barcelona,Spain,LHR,London Heathrow Airport,London,United Kingdom,29/7/2025,31/7/2025,2,29/7/2025,,,,
