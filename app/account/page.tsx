@@ -20,12 +20,34 @@ export default async function AccountPage() {
   // Get user's home city
   let homeCity = null
   if (profile?.home_city_id) {
-    const { data: city } = await supabase
-      .from('cities')
-      .select('*')
-      .eq('id', profile.home_city_id)
-      .single()
-    homeCity = city
+    // Check if it's a real UUID or a pseudo-ID
+    if (profile.home_city_id.startsWith('city-')) {
+      // It's a pseudo-ID, extract the city name
+      const cityName = profile.home_city_id.replace('city-', '').replace(/-/g, ' ')
+      // Find the city from deals
+      const { data: dealCity } = await supabase
+        .from('deals')
+        .select('departure_city, departure_airport')
+        .ilike('departure_city', cityName)
+        .limit(1)
+        .single()
+      
+      if (dealCity) {
+        homeCity = {
+          id: profile.home_city_id,
+          name: dealCity.departure_city,
+          iata_code: dealCity.departure_airport
+        }
+      }
+    } else {
+      // It's a real UUID from the cities table
+      const { data: city } = await supabase
+        .from('cities')
+        .select('*')
+        .eq('id', profile.home_city_id)
+        .single()
+      homeCity = city
+    }
   }
 
   // Get subscription info

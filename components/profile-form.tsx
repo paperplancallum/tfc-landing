@@ -30,14 +30,52 @@ export function ProfileForm({ user, profile, homeCity }: ProfileFormProps) {
   })
 
   async function loadCities() {
-    const { data } = await supabase
+    // Get cities from cities table
+    const { data: citiesData } = await supabase
       .from('cities')
       .select('*')
       .order('name')
     
-    if (data) {
-      setCities(data)
+    // Get unique departure cities from deals
+    const { data: dealsData } = await supabase
+      .from('deals')
+      .select('departure_city, departure_airport')
+      .not('departure_city', 'is', null)
+    
+    // Create a map to avoid duplicates
+    const cityMap = new Map()
+    
+    // Add cities from cities table
+    if (citiesData) {
+      citiesData.forEach(city => {
+        cityMap.set(city.name.toLowerCase(), {
+          id: city.id,
+          name: city.name,
+          iata_code: city.iata_code
+        })
+      })
     }
+    
+    // Add departure cities from deals (if not already in map)
+    if (dealsData) {
+      const uniqueDepartureCities = [...new Set(dealsData.map(d => d.departure_city))]
+      uniqueDepartureCities.forEach(cityName => {
+        if (cityName && !cityMap.has(cityName.toLowerCase())) {
+          // Create a pseudo-ID for cities not in the cities table
+          // This allows them to be selected and saved as home_city_id
+          const pseudoId = `city-${cityName.toLowerCase().replace(/\s+/g, '-')}`
+          cityMap.set(cityName.toLowerCase(), {
+            id: pseudoId,
+            name: cityName,
+            iata_code: dealsData.find(d => d.departure_city === cityName)?.departure_airport || ''
+          })
+        }
+      })
+    }
+    
+    // Convert map to array and sort
+    const allCities = Array.from(cityMap.values()).sort((a, b) => a.name.localeCompare(b.name))
+    setCities(allCities)
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
