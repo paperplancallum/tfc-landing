@@ -76,7 +76,10 @@ export function DealCardNew({ deal, isLocked = false }: DealCardNewProps) {
           </p>
           <span className="text-lg font-bold text-primary">
             {deal.currency === 'USD' ? '$' : deal.currency === 'GBP' ? '£' : deal.currency === 'EUR' ? '€' : deal.currency}
-            {deal.price ? (deal.price / 100).toFixed(2) : 'TBD'}
+            {deal.price ? (
+              // EUR prices are stored in cents, GBP prices are stored as whole numbers
+              deal.currency === 'EUR' ? (deal.price / 100).toFixed(2) : deal.price.toFixed(2)
+            ) : 'TBD'}
           </span>
         </div>
         

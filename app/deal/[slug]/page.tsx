@@ -50,69 +50,51 @@ export default async function DealPage({ params }: DealPageProps) {
     searchDate
   })
   
-  // Map airport codes to city names for the destination
-  const destinationAirportToCityMap: { [key: string]: string } = {
-    'bcn': 'Barcelona',
-    'ams': 'Amsterdam',
-    'fco': 'Rome',
-    'rom': 'Rome',
-    'cdg': 'Paris',
-    'par': 'Paris',
-    'mad': 'Madrid',
-    'lis': 'Lisbon',
-    'ber': 'Berlin',
-    'dub': 'Dublin',
-    'vie': 'Vienna',
-    'prg': 'Prague',
-    'nrt': 'Tokyo',
-    'hnd': 'Tokyo',
-    'jfk': 'New York',
-    'lga': 'New York',
-    'ewr': 'New York',
-    'lax': 'Los Angeles',
-    'mia': 'Miami',
-    'syd': 'Sydney',
-    'bkk': 'Bangkok',
-    'sin': 'Singapore',
-    'dxb': 'Dubai'
-  }
+  // Get destination city name from airports table
+  const { data: destinationAirportData } = await supabase
+    .from('airports')
+    .select('city_name')
+    .eq('iata_code', destinationAirport.toUpperCase())
+    .single()
   
-  const destinationCity = destinationAirportToCityMap[destinationAirport.toLowerCase()] || ''
+  const destinationCity = destinationAirportData?.city_name || ''
   
   console.log('Destination lookup:', {
     destinationAirport,
-    destinationCity
+    destinationCity,
+    airportData: destinationAirportData
   })
   
-  // First, let's check what Barcelona deals exist
-  const { data: allBarcelonaDeals } = await supabase
+  // Debug: Check what deals exist for this route
+  const { data: debugDeals } = await supabase
     .from('deals')
     .select('*')
-    .eq('from_airport_code', 'LHR')
-    .ilike('to_airport_city', '%Barcelona%')
+    .eq('from_airport_code', departureAirport.toUpperCase())
+    .eq('to_airport_code', destinationAirport.toUpperCase())
+    .order('deal_found_date', { ascending: false })
+    .limit(5)
     
-  console.log('All Barcelona deals from LHR:', allBarcelonaDeals?.map(d => ({
+  console.log('Debug - All deals for this route:', debugDeals?.map(d => ({
     id: d.id,
-    from_airport_code: d.from_airport_code,
-    to_airport_city: d.to_airport_city,
-    deal_found_date: d.deal_found_date,
-    formatted_date: d.deal_found_date
+    from: `${d.from_airport_code} (${d.from_airport_city})`,
+    to: `${d.to_airport_code} (${d.to_airport_city})`,
+    price: d.price,
+    date: d.deal_found_date
   })))
   
-  // Get the deal using the new schema
-  // The deals table now has from_airport_code and to_airport_city columns
+  // Get the deal using airport codes which are more reliable than city names
   const { data: deals, error: dealsError } = await supabase
     .from('deals')
     .select('*')
     .eq('from_airport_code', departureAirport.toUpperCase())
-    .ilike('to_airport_city', `${destinationCity}%`)
+    .eq('to_airport_code', destinationAirport.toUpperCase())
     .gte('deal_found_date', searchDate)
     .lte('deal_found_date', searchDate)
     .order('created_at', { ascending: true })
     
   console.log('Deal query:', {
-    departure_airport: departureAirport.toUpperCase(),
-    destination_city: `${destinationCity}%`,
+    from_airport_code: departureAirport.toUpperCase(),
+    to_airport_code: destinationAirport.toUpperCase(),
     searchDate,
     found: deals?.length || 0,
     error: dealsError
@@ -127,7 +109,8 @@ export default async function DealPage({ params }: DealPageProps) {
         <p>Query parameters:</p>
         <pre className="bg-gray-100 p-4 rounded mt-2">
           {JSON.stringify({
-            departure_airport: departureAirport.toUpperCase(),
+            from_airport_code: departureAirport.toUpperCase(),
+            to_airport_code: destinationAirport.toUpperCase(),
             destination_city: destinationCity,
             searchDate,
             error: dealsError
@@ -218,7 +201,10 @@ export default async function DealPage({ params }: DealPageProps) {
               </p>
               <div className="text-4xl font-bold text-primary mt-4">
                 {deal.currency === 'USD' ? '$' : deal.currency === 'GBP' ? '£' : deal.currency === 'EUR' ? '€' : deal.currency}
-                {deal.price ? (deal.price / 100).toFixed(2) : 'TBD'}
+                {deal.price ? (
+                  // EUR prices are stored in cents, GBP prices are stored as whole numbers
+                  deal.currency === 'EUR' ? (deal.price / 100).toFixed(2) : deal.price.toFixed(2)
+                ) : 'TBD'}
               </div>
             </div>
             
