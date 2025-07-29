@@ -1,0 +1,3481 @@
+[
+  {
+    "iata_code": "LGW",
+    "name": "'London Gatwick Airport",
+    "city_name": "'London",
+    "is_primary": false,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "STN",
+    "name": "'London Stansted Airport",
+    "city_name": "'London",
+    "is_primary": false,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LTN",
+    "name": "'London Luton Airport",
+    "city_name": "'London",
+    "is_primary": false,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LCY",
+    "name": "'London City Airport",
+    "city_name": "'London",
+    "is_primary": false,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MAN",
+    "name": "'Manchester Airport",
+    "city_name": "'Manchester",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "EDI",
+    "name": "'Edinburgh Airport",
+    "city_name": "'Edinburgh",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BHX",
+    "name": "'Birmingham Airport",
+    "city_name": "'Birmingham",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "GLA",
+    "name": "'Glasgow Airport",
+    "city_name": "'Glasgow",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BRS",
+    "name": "'Bristol Airport",
+    "city_name": "'Bristol",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "NCL",
+    "name": "'Newcastle Airport",
+    "city_name": "'Newcastle",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LPL",
+    "name": "'Liverpool John Lennon Airport",
+    "city_name": "'Liverpool",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BFS",
+    "name": "'Belfast International Airport",
+    "city_name": "'Belfast",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LBA",
+    "name": "'Leeds Bradford Airport",
+    "city_name": "'Leeds",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "EMA",
+    "name": "'East Midlands Airport",
+    "city_name": "'Nottingham",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ABZ",
+    "name": "'Aberdeen International Airport",
+    "city_name": "'Aberdeen",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SOU",
+    "name": "'Southampton Airport",
+    "city_name": "'Southampton",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "EXT",
+    "name": "'Exeter Airport",
+    "city_name": "'Exeter",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CWL",
+    "name": "'Cardiff Airport",
+    "city_name": "'Cardiff",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "NWI",
+    "name": "'Norwich Airport",
+    "city_name": "'Norwich",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "DND",
+    "name": "'Dundee Airport",
+    "city_name": "'Dundee",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SEN",
+    "name": "'London Southend Airport",
+    "city_name": "'London",
+    "is_primary": false,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BEB",
+    "name": "'Benbecula Airport",
+    "city_name": "'Benbecula",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CAL",
+    "name": "'Campbeltown Airport",
+    "city_name": "'Campbeltown",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ISC",
+    "name": "'St. Mary''s Airport",
+    "city_name": "'Isles of Scilly",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LEQ",
+    "name": "'Land''s End Airport",
+    "city_name": "'Land''s End",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "PPW",
+    "name": "'Papa Westray Airport",
+    "city_name": "'Papa Westray",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "WIC",
+    "name": "'Wick Airport",
+    "city_name": "'Wick",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LAX",
+    "name": "'Los Angeles International Airport",
+    "city_name": "'Los Angeles",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ORD",
+    "name": "'O''Hare International Airport",
+    "city_name": "'Chicago",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ATL",
+    "name": "'Hartsfield-Jackson Atlanta International Airport",
+    "city_name": "'Atlanta",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "DFW",
+    "name": "'Dallas/Fort Worth International Airport",
+    "city_name": "'Dallas",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "DEN",
+    "name": "'Denver International Airport",
+    "city_name": "'Denver",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SFO",
+    "name": "'San Francisco International Airport",
+    "city_name": "'San Francisco",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SEA",
+    "name": "'Seattle-Tacoma International Airport",
+    "city_name": "'Seattle",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LAS",
+    "name": "'Harry Reid International Airport",
+    "city_name": "'Las Vegas",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MCO",
+    "name": "'Orlando International Airport",
+    "city_name": "'Orlando",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MIA",
+    "name": "'Miami International Airport",
+    "city_name": "'Miami",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CLT",
+    "name": "'Charlotte Douglas International Airport",
+    "city_name": "'Charlotte",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "PHX",
+    "name": "'Phoenix Sky Harbor International Airport",
+    "city_name": "'Phoenix",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "IAH",
+    "name": "'George Bush Intercontinental Airport",
+    "city_name": "'Houston",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BOS",
+    "name": "'Logan International Airport",
+    "city_name": "'Boston",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MSP",
+    "name": "'Minneapolis-Saint Paul International Airport",
+    "city_name": "'Minneapolis",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "DTW",
+    "name": "'Detroit Metropolitan Wayne County Airport",
+    "city_name": "'Detroit",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "FLL",
+    "name": "'Fort Lauderdale-Hollywood International Airport",
+    "city_name": "'Fort Lauderdale",
+    "is_primary": false,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "PHL",
+    "name": "'Philadelphia International Airport",
+    "city_name": "'Philadelphia",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LGA",
+    "name": "'LaGuardia Airport",
+    "city_name": "'New York",
+    "is_primary": false,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "EWR",
+    "name": "'Newark Liberty International Airport",
+    "city_name": "'Newark",
+    "is_primary": false,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "DCA",
+    "name": "'Ronald Reagan Washington National Airport",
+    "city_name": "'Washington",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "IAD",
+    "name": "'Washington Dulles International Airport",
+    "city_name": "'Washington",
+    "is_primary": false,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MDW",
+    "name": "'Chicago Midway International Airport",
+    "city_name": "'Chicago",
+    "is_primary": false,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "DAL",
+    "name": "'Dallas Love Field",
+    "city_name": "'Dallas",
+    "is_primary": false,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "HOU",
+    "name": "'William P. Hobby Airport",
+    "city_name": "'Houston",
+    "is_primary": false,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "OAK",
+    "name": "'Oakland International Airport",
+    "city_name": "'Oakland",
+    "is_primary": false,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SJC",
+    "name": "'San Jose International Airport",
+    "city_name": "'San Jose",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BUR",
+    "name": "'Hollywood Burbank Airport",
+    "city_name": "'Burbank",
+    "is_primary": false,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "AUS",
+    "name": "'Austin-Bergstrom International Airport",
+    "city_name": "'Austin",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BNA",
+    "name": "'Nashville International Airport",
+    "city_name": "'Nashville",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MSY",
+    "name": "'Louis Armstrong New Orleans International Airport",
+    "city_name": "'New Orleans",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "RDU",
+    "name": "'Raleigh-Durham International Airport",
+    "city_name": "'Raleigh",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MCI",
+    "name": "'Kansas City International Airport",
+    "city_name": "'Kansas City",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SMF",
+    "name": "'Sacramento International Airport",
+    "city_name": "'Sacramento",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SLC",
+    "name": "'Salt Lake City International Airport",
+    "city_name": "'Salt Lake City",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "STL",
+    "name": "'St. Louis Lambert International Airport",
+    "city_name": "'St. Louis",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "TPA",
+    "name": "'Tampa International Airport",
+    "city_name": "'Tampa",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "PDX",
+    "name": "'Portland International Airport",
+    "city_name": "'Portland",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CVG",
+    "name": "'Cincinnati/Northern Kentucky International Airport",
+    "city_name": "'Cincinnati",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "PIT",
+    "name": "'Pittsburgh International Airport",
+    "city_name": "'Pittsburgh",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MKE",
+    "name": "'Milwaukee Mitchell International Airport",
+    "city_name": "'Milwaukee",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CLE",
+    "name": "'Cleveland Hopkins International Airport",
+    "city_name": "'Cleveland",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SAT",
+    "name": "'San Antonio International Airport",
+    "city_name": "'San Antonio",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SNA",
+    "name": "'John Wayne Airport",
+    "city_name": "'Santa Ana",
+    "is_primary": false,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "IND",
+    "name": "'Indianapolis International Airport",
+    "city_name": "'Indianapolis",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "JAX",
+    "name": "'Jacksonville International Airport",
+    "city_name": "'Jacksonville",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CMH",
+    "name": "'John Glenn Columbus International Airport",
+    "city_name": "'Columbus",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ONT",
+    "name": "'Ontario International Airport",
+    "city_name": "'Ontario",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BDL",
+    "name": "'Bradley International Airport",
+    "city_name": "'Hartford",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ABQ",
+    "name": "'Albuquerque International Sunport",
+    "city_name": "'Albuquerque",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BUF",
+    "name": "'Buffalo Niagara International Airport",
+    "city_name": "'Buffalo",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "OMA",
+    "name": "'Eppley Airfield",
+    "city_name": "'Omaha",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "TUL",
+    "name": "'Tulsa International Airport",
+    "city_name": "'Tulsa",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "OKC",
+    "name": "'Will Rogers World Airport",
+    "city_name": "'Oklahoma City",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "PVD",
+    "name": "'T. F. Green Airport",
+    "city_name": "'Providence",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "RIC",
+    "name": "'Richmond International Airport",
+    "city_name": "'Richmond",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MEM",
+    "name": "'Memphis International Airport",
+    "city_name": "'Memphis",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "GRR",
+    "name": "'Gerald R. Ford International Airport",
+    "city_name": "'Grand Rapids",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BOI",
+    "name": "'Boise Airport",
+    "city_name": "'Boise",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "TUS",
+    "name": "'Tucson International Airport",
+    "city_name": "'Tucson",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BHM",
+    "name": "'Birmingham-Shuttlesworth International Airport",
+    "city_name": "'Birmingham",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "DSM",
+    "name": "'Des Moines International Airport",
+    "city_name": "'Des Moines",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ROC",
+    "name": "'Greater Rochester International Airport",
+    "city_name": "'Rochester",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LIT",
+    "name": "'Clinton National Airport",
+    "city_name": "'Little Rock",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "GEG",
+    "name": "'Spokane International Airport",
+    "city_name": "'Spokane",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ORF",
+    "name": "'Norfolk International Airport",
+    "city_name": "'Norfolk",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "DAY",
+    "name": "'Dayton International Airport",
+    "city_name": "'Dayton",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "GSO",
+    "name": "'Piedmont Triad International Airport",
+    "city_name": "'Greensboro",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MSN",
+    "name": "'Dane County Regional Airport",
+    "city_name": "'Madison",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CHS",
+    "name": "'Charleston International Airport",
+    "city_name": "'Charleston",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "TYS",
+    "name": "'McGhee Tyson Airport",
+    "city_name": "'Knoxville",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SYR",
+    "name": "'Syracuse Hancock International Airport",
+    "city_name": "'Syracuse",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "PWM",
+    "name": "'Portland International Jetport",
+    "city_name": "'Portland",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "RNO",
+    "name": "'Reno-Tahoe International Airport",
+    "city_name": "'Reno",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "FAT",
+    "name": "'Fresno Yosemite International Airport",
+    "city_name": "'Fresno",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BTR",
+    "name": "'Baton Rouge Metropolitan Airport",
+    "city_name": "'Baton Rouge",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ALB",
+    "name": "'Albany International Airport",
+    "city_name": "'Albany",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "JAN",
+    "name": "'Jackson-Medgar Wiley Evers International Airport",
+    "city_name": "'Jackson",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SDF",
+    "name": "'Louisville Muhammad Ali International Airport",
+    "city_name": "'Louisville",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CAE",
+    "name": "'Columbia Metropolitan Airport",
+    "city_name": "'Columbia",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MDT",
+    "name": "'Harrisburg International Airport",
+    "city_name": "'Harrisburg",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "GSP",
+    "name": "'Greenville-Spartanburg International Airport",
+    "city_name": "'Greenville",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SBN",
+    "name": "'South Bend International Airport",
+    "city_name": "'South Bend",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "XNA",
+    "name": "'Northwest Arkansas National Airport",
+    "city_name": "'Fayetteville",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SAV",
+    "name": "'Savannah/Hilton Head International Airport",
+    "city_name": "'Savannah",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "FWA",
+    "name": "'Fort Wayne International Airport",
+    "city_name": "'Fort Wayne",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "TRI",
+    "name": "'Tri-Cities Airport",
+    "city_name": "'Bristol",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LEX",
+    "name": "'Blue Grass Airport",
+    "city_name": "'Lexington",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "FAR",
+    "name": "'Hector International Airport",
+    "city_name": "'Fargo",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "HSV",
+    "name": "'Huntsville International Airport",
+    "city_name": "'Huntsville",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LNK",
+    "name": "'Lincoln Airport",
+    "city_name": "'Lincoln",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "PNS",
+    "name": "'Pensacola International Airport",
+    "city_name": "'Pensacola",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MOB",
+    "name": "'Mobile Regional Airport",
+    "city_name": "'Mobile",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "FSD",
+    "name": "'Joe Foss Field",
+    "city_name": "'Sioux Falls",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MLI",
+    "name": "'Quad Cities International Airport",
+    "city_name": "'Moline",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CAK",
+    "name": "'Akron-Canton Airport",
+    "city_name": "'Akron",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "EVV",
+    "name": "'Evansville Regional Airport",
+    "city_name": "'Evansville",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ATW",
+    "name": "'Appleton International Airport",
+    "city_name": "'Appleton",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CID",
+    "name": "'Eastern Iowa Airport",
+    "city_name": "'Cedar Rapids",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SGF",
+    "name": "'Springfield-Branson National Airport",
+    "city_name": "'Springfield",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MLB",
+    "name": "'Orlando Melbourne International Airport",
+    "city_name": "'Melbourne",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MOT",
+    "name": "'Minot International Airport",
+    "city_name": "'Minot",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BIL",
+    "name": "'Billings Logan International Airport",
+    "city_name": "'Billings",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "RAP",
+    "name": "'Rapid City Regional Airport",
+    "city_name": "'Rapid City",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MBS",
+    "name": "'MBS International Airport",
+    "city_name": "'Saginaw",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LSE",
+    "name": "'La Crosse Regional Airport",
+    "city_name": "'La Crosse",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "GRB",
+    "name": "'Green Bay Austin Straubel International Airport",
+    "city_name": "'Green Bay",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BIS",
+    "name": "'Bismarck Municipal Airport",
+    "city_name": "'Bismarck",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SPI",
+    "name": "'Abraham Lincoln Capital Airport",
+    "city_name": "'Springfield",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "GFK",
+    "name": "'Grand Forks International Airport",
+    "city_name": "'Grand Forks",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MSO",
+    "name": "'Missoula International Airport",
+    "city_name": "'Missoula",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "GTF",
+    "name": "'Great Falls International Airport",
+    "city_name": "'Great Falls",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "JAC",
+    "name": "'Jackson Hole Airport",
+    "city_name": "'Jackson",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CYS",
+    "name": "'Cheyenne Regional Airport",
+    "city_name": "'Cheyenne",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CMI",
+    "name": "'University of Illinois Willard Airport",
+    "city_name": "'Champaign",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BMI",
+    "name": "'Central Illinois Regional Airport",
+    "city_name": "'Bloomington",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "RST",
+    "name": "'Rochester International Airport",
+    "city_name": "'Rochester",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "EAU",
+    "name": "'Chippewa Valley Regional Airport",
+    "city_name": "'Eau Claire",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "DLH",
+    "name": "'Duluth International Airport",
+    "city_name": "'Duluth",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LAN",
+    "name": "'Capital Region International Airport",
+    "city_name": "'Lansing",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CWA",
+    "name": "'Central Wisconsin Airport",
+    "city_name": "'Wausau",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "HIB",
+    "name": "'Range Regional Airport",
+    "city_name": "'Hibbing",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "IMT",
+    "name": "'Ford Airport",
+    "city_name": "'Iron Mountain",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "AZO",
+    "name": "'Kalamazoo/Battle Creek International Airport",
+    "city_name": "'Kalamazoo",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BJI",
+    "name": "'Bemidji Regional Airport",
+    "city_name": "'Bemidji",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BRD",
+    "name": "'Brainerd Lakes Regional Airport",
+    "city_name": "'Brainerd",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "INL",
+    "name": "'Falls International Airport",
+    "city_name": "'International Falls",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "GUM",
+    "name": "'Antonio B. Won Pat International Airport",
+    "city_name": "'Guam",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "HNL",
+    "name": "'Daniel K. Inouye International Airport",
+    "city_name": "'Honolulu",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "OGG",
+    "name": "'Kahului Airport",
+    "city_name": "'Maui",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "KOA",
+    "name": "'Ellison Onizuka Kona International Airport",
+    "city_name": "'Kona",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LIH",
+    "name": "'Lihue Airport",
+    "city_name": "'Kauai",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ITO",
+    "name": "'Hilo International Airport",
+    "city_name": "'Hilo",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SJU",
+    "name": "'Luis Muñoz Marín International Airport",
+    "city_name": "'San Juan",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "PSE",
+    "name": "'Mercedita Airport",
+    "city_name": "'Ponce",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BQN",
+    "name": "'Rafael Hernández Airport",
+    "city_name": "'Aguadilla",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ANC",
+    "name": "'Ted Stevens Anchorage International Airport",
+    "city_name": "'Anchorage",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "FAI",
+    "name": "'Fairbanks International Airport",
+    "city_name": "'Fairbanks",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "JNU",
+    "name": "'Juneau International Airport",
+    "city_name": "'Juneau",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SIT",
+    "name": "'Sitka Rocky Gutierrez Airport",
+    "city_name": "'Sitka",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "KTN",
+    "name": "'Ketchikan International Airport",
+    "city_name": "'Ketchikan",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ADQ",
+    "name": "'Kodiak Airport",
+    "city_name": "'Kodiak",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BET",
+    "name": "'Bethel Airport",
+    "city_name": "'Bethel",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "OME",
+    "name": "'Nome Airport",
+    "city_name": "'Nome",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "OTZ",
+    "name": "'Ralph Wien Memorial Airport",
+    "city_name": "'Kotzebue",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BRW",
+    "name": "'Wiley Post-Will Rogers Memorial Airport",
+    "city_name": "'Barrow",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SCC",
+    "name": "'Deadhorse Airport",
+    "city_name": "'Deadhorse",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "DUT",
+    "name": "'Unalaska Airport",
+    "city_name": "'Unalaska",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CDV",
+    "name": "'Merle K. Smith Airport",
+    "city_name": "'Cordova",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "YAK",
+    "name": "'Yakutat Airport",
+    "city_name": "'Yakutat",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "WRG",
+    "name": "'Wrangell Airport",
+    "city_name": "'Wrangell",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "PSG",
+    "name": "'Petersburg James A. Johnson Airport",
+    "city_name": "'Petersburg",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "KKA",
+    "name": "'Koyuk Alfred Adams Airport",
+    "city_name": "'Koyuk",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "DLG",
+    "name": "'Dillingham Airport",
+    "city_name": "'Dillingham",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "AKN",
+    "name": "'King Salmon Airport",
+    "city_name": "'King Salmon",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "PVD",
+    "name": "'T. F. Green Airport",
+    "city_name": "'Providence",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "HVN",
+    "name": "'Tweed New Haven Airport",
+    "city_name": "'New Haven",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SWF",
+    "name": "'New York Stewart International Airport",
+    "city_name": "'Newburgh",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ALB",
+    "name": "'Albany International Airport",
+    "city_name": "'Albany",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BGR",
+    "name": "'Bangor International Airport",
+    "city_name": "'Bangor",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BTV",
+    "name": "'Burlington International Airport",
+    "city_name": "'Burlington",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "PWM",
+    "name": "'Portland International Jetport",
+    "city_name": "'Portland",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MHT",
+    "name": "'Manchester-Boston Regional Airport",
+    "city_name": "'Manchester",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ORH",
+    "name": "'Worcester Regional Airport",
+    "city_name": "'Worcester",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MVY",
+    "name": "'Martha''s Vineyard Airport",
+    "city_name": "'Martha''s Vineyard",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ACK",
+    "name": "'Nantucket Memorial Airport",
+    "city_name": "'Nantucket",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "HYA",
+    "name": "'Barnstable Municipal Airport",
+    "city_name": "'Hyannis",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "EWB",
+    "name": "'New Bedford Regional Airport",
+    "city_name": "'New Bedford",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "PVD",
+    "name": "'T. F. Green Airport",
+    "city_name": "'Providence",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BED",
+    "name": "'Laurence G. Hanscom Field",
+    "city_name": "'Bedford",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "PSM",
+    "name": "'Portsmouth International Airport",
+    "city_name": "'Portsmouth",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LEB",
+    "name": "'Lebanon Municipal Airport",
+    "city_name": "'Lebanon",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "RUT",
+    "name": "'Rutland - Southern Vermont Regional Airport",
+    "city_name": "'Rutland",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "AUG",
+    "name": "'Augusta State Airport",
+    "city_name": "'Augusta",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "PQI",
+    "name": "'Northern Maine Regional Airport",
+    "city_name": "'Presque Isle",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BGR",
+    "name": "'Bangor International Airport",
+    "city_name": "'Bangor",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "RKD",
+    "name": "'Knox County Regional Airport",
+    "city_name": "'Rockland",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ORY",
+    "name": "'Orly Airport",
+    "city_name": "'Paris",
+    "is_primary": false,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "AMS",
+    "name": "'Amsterdam Airport Schiphol",
+    "city_name": "'Amsterdam",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "FRA",
+    "name": "'Frankfurt Airport",
+    "city_name": "'Frankfurt",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MAD",
+    "name": "'Adolfo Suárez Madrid-Barajas Airport",
+    "city_name": "'Madrid",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BCN",
+    "name": "'Barcelona-El Prat Airport",
+    "city_name": "'Barcelona",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "FCO",
+    "name": "'Leonardo da Vinci-Fiumicino Airport",
+    "city_name": "'Rome",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MUC",
+    "name": "'Munich Airport",
+    "city_name": "'Munich",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ZRH",
+    "name": "'Zurich Airport",
+    "city_name": "'Zurich",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "VIE",
+    "name": "'Vienna International Airport",
+    "city_name": "'Vienna",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CPH",
+    "name": "'Copenhagen Airport",
+    "city_name": "'Copenhagen",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "OSL",
+    "name": "'Oslo Airport",
+    "city_name": "'Oslo",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ARN",
+    "name": "'Stockholm Arlanda Airport",
+    "city_name": "'Stockholm",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "HEL",
+    "name": "'Helsinki Airport",
+    "city_name": "'Helsinki",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "DUB",
+    "name": "'Dublin Airport",
+    "city_name": "'Dublin",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LIS",
+    "name": "'Lisbon Airport",
+    "city_name": "'Lisbon",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ATH",
+    "name": "'Athens International Airport",
+    "city_name": "'Athens",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "IST",
+    "name": "'Istanbul Airport",
+    "city_name": "'Istanbul",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BRU",
+    "name": "'Brussels Airport",
+    "city_name": "'Brussels",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "WAW",
+    "name": "'Warsaw Chopin Airport",
+    "city_name": "'Warsaw",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "PRG",
+    "name": "'Václav Havel Airport Prague",
+    "city_name": "'Prague",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BUD",
+    "name": "'Budapest Ferenc Liszt International Airport",
+    "city_name": "'Budapest",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "OTP",
+    "name": "'Henri Coandă International Airport",
+    "city_name": "'Bucharest",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BEG",
+    "name": "'Belgrade Nikola Tesla Airport",
+    "city_name": "'Belgrade",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ZAG",
+    "name": "'Zagreb Airport",
+    "city_name": "'Zagreb",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SOF",
+    "name": "'Sofia Airport",
+    "city_name": "'Sofia",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "TLL",
+    "name": "'Tallinn Airport",
+    "city_name": "'Tallinn",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "RIX",
+    "name": "'Riga International Airport",
+    "city_name": "'Riga",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "VNO",
+    "name": "'Vilnius Airport",
+    "city_name": "'Vilnius",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "KEF",
+    "name": "'Keflavík International Airport",
+    "city_name": "'Reykjavík",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BGO",
+    "name": "'Bergen Airport",
+    "city_name": "'Bergen",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "TRD",
+    "name": "'Trondheim Airport",
+    "city_name": "'Trondheim",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SVG",
+    "name": "'Stavanger Airport",
+    "city_name": "'Stavanger",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "GOT",
+    "name": "'Göteborg Landvetter Airport",
+    "city_name": "'Gothenburg",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MMX",
+    "name": "'Malmö Airport",
+    "city_name": "'Malmö",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BLL",
+    "name": "'Billund Airport",
+    "city_name": "'Billund",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "AAR",
+    "name": "'Aarhus Airport",
+    "city_name": "'Aarhus",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "TRF",
+    "name": "'Sandefjord Airport",
+    "city_name": "'Oslo",
+    "is_primary": false,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "NYO",
+    "name": "'Stockholm Skavsta Airport",
+    "city_name": "'Stockholm",
+    "is_primary": false,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CIA",
+    "name": "'Rome Ciampino Airport",
+    "city_name": "'Rome",
+    "is_primary": false,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BGY",
+    "name": "'Milan Bergamo Airport",
+    "city_name": "'Milan",
+    "is_primary": false,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MXP",
+    "name": "'Milan Malpensa Airport",
+    "city_name": "'Milan",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LIN",
+    "name": "'Milan Linate Airport",
+    "city_name": "'Milan",
+    "is_primary": false,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "VCE",
+    "name": "'Venice Marco Polo Airport",
+    "city_name": "'Venice",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "NAP",
+    "name": "'Naples International Airport",
+    "city_name": "'Naples",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BLQ",
+    "name": "'Bologna Guglielmo Marconi Airport",
+    "city_name": "'Bologna",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "FLR",
+    "name": "'Florence Airport",
+    "city_name": "'Florence",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "TRN",
+    "name": "'Turin Airport",
+    "city_name": "'Turin",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "PSA",
+    "name": "'Pisa International Airport",
+    "city_name": "'Pisa",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CAG",
+    "name": "'Cagliari Elmas Airport",
+    "city_name": "'Cagliari",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CTA",
+    "name": "'Catania-Fontanarossa Airport",
+    "city_name": "'Catania",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "PMO",
+    "name": "'Falcone-Borsellino Airport",
+    "city_name": "'Palermo",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BRI",
+    "name": "'Bari Karol Wojtyła Airport",
+    "city_name": "'Bari",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "GVA",
+    "name": "'Geneva Airport",
+    "city_name": "'Geneva",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BSL",
+    "name": "'EuroAirport Basel-Mulhouse-Freiburg",
+    "city_name": "'Basel",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BRN",
+    "name": "'Bern Airport",
+    "city_name": "'Bern",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LUG",
+    "name": "'Lugano Airport",
+    "city_name": "'Lugano",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "DUS",
+    "name": "'Düsseldorf Airport",
+    "city_name": "'Düsseldorf",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "HAM",
+    "name": "'Hamburg Airport",
+    "city_name": "'Hamburg",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BER",
+    "name": "'Berlin Brandenburg Airport",
+    "city_name": "'Berlin",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CGN",
+    "name": "'Cologne Bonn Airport",
+    "city_name": "'Cologne",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "STR",
+    "name": "'Stuttgart Airport",
+    "city_name": "'Stuttgart",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "NUE",
+    "name": "'Nuremberg Airport",
+    "city_name": "'Nuremberg",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "HAJ",
+    "name": "'Hannover Airport",
+    "city_name": "'Hannover",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LEJ",
+    "name": "'Leipzig/Halle Airport",
+    "city_name": "'Leipzig",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "DRS",
+    "name": "'Dresden Airport",
+    "city_name": "'Dresden",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BRE",
+    "name": "'Bremen Airport",
+    "city_name": "'Bremen",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "DTM",
+    "name": "'Dortmund Airport",
+    "city_name": "'Dortmund",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "FMO",
+    "name": "'Münster Osnabrück Airport",
+    "city_name": "'Münster",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "PAD",
+    "name": "'Paderborn Lippstadt Airport",
+    "city_name": "'Paderborn",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "NRN",
+    "name": "'Weeze Airport",
+    "city_name": "'Düsseldorf",
+    "is_primary": false,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "HHN",
+    "name": "'Frankfurt-Hahn Airport",
+    "city_name": "'Frankfurt",
+    "is_primary": false,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "FKB",
+    "name": "'Karlsruhe/Baden-Baden Airport",
+    "city_name": "'Karlsruhe",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MRV",
+    "name": "'Mineralnye Vody Airport",
+    "city_name": "'Mineralnye Vody",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SCN",
+    "name": "'Saarbrücken Airport",
+    "city_name": "'Saarbrücken",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LYS",
+    "name": "'Lyon-Saint Exupéry Airport",
+    "city_name": "'Lyon",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MRS",
+    "name": "'Marseille Provence Airport",
+    "city_name": "'Marseille",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "NCE",
+    "name": "'Nice Côte d''Azur Airport",
+    "city_name": "'Nice",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "TLS",
+    "name": "'Toulouse-Blagnac Airport",
+    "city_name": "'Toulouse",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BOD",
+    "name": "'Bordeaux-Mérignac Airport",
+    "city_name": "'Bordeaux",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "NTE",
+    "name": "'Nantes Atlantique Airport",
+    "city_name": "'Nantes",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LIL",
+    "name": "'Lille Airport",
+    "city_name": "'Lille",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SXB",
+    "name": "'Strasbourg Airport",
+    "city_name": "'Strasbourg",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "RNS",
+    "name": "'Rennes Airport",
+    "city_name": "'Rennes",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MPL",
+    "name": "'Montpellier Airport",
+    "city_name": "'Montpellier",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BVA",
+    "name": "'Beauvais-Tillé Airport",
+    "city_name": "'Paris",
+    "is_primary": false,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BIQ",
+    "name": "'Biarritz Airport",
+    "city_name": "'Biarritz",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "EGC",
+    "name": "'Bergerac Dordogne Périgord Airport",
+    "city_name": "'Bergerac",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "TLN",
+    "name": "'Toulon-Hyères Airport",
+    "city_name": "'Toulon",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "AJA",
+    "name": "'Ajaccio Napoleon Bonaparte Airport",
+    "city_name": "'Ajaccio",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BIA",
+    "name": "'Bastia Airport",
+    "city_name": "'Bastia",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "FSC",
+    "name": "'Figari Airport",
+    "city_name": "'Figari",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CLY",
+    "name": "'Calvi Airport",
+    "city_name": "'Calvi",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BES",
+    "name": "'Brest Airport",
+    "city_name": "'Brest",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MLH",
+    "name": "'Mulhouse Airport",
+    "city_name": "'Mulhouse",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "PGF",
+    "name": "'Perpignan Airport",
+    "city_name": "'Perpignan",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BZR",
+    "name": "'Béziers Airport",
+    "city_name": "'Béziers",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CFE",
+    "name": "'Clermont-Ferrand Airport",
+    "city_name": "'Clermont-Ferrand",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LIG",
+    "name": "'Limoges Airport",
+    "city_name": "'Limoges",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "PUF",
+    "name": "'Pau Pyrénées Airport",
+    "city_name": "'Pau",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "RDZ",
+    "name": "'Rodez Airport",
+    "city_name": "'Rodez",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "TUF",
+    "name": "'Tours Airport",
+    "city_name": "'Tours",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LRH",
+    "name": "'La Rochelle Airport",
+    "city_name": "'La Rochelle",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "PIS",
+    "name": "'Poitiers Airport",
+    "city_name": "'Poitiers",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "AGF",
+    "name": "'Agen Airport",
+    "city_name": "'Agen",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LDE",
+    "name": "'Tarbes-Lourdes Airport",
+    "city_name": "'Tarbes",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BVE",
+    "name": "'Brive Airport",
+    "city_name": "'Brive",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "AUR",
+    "name": "'Aurillac Airport",
+    "city_name": "'Aurillac",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CMF",
+    "name": "'Chambéry Airport",
+    "city_name": "'Chambéry",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CVF",
+    "name": "'Courchevel Airport",
+    "city_name": "'Courchevel",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "GAT",
+    "name": "'Gatlinburg-Pigeon Forge Airport",
+    "city_name": "'Gatlinburg",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "GNB",
+    "name": "'Grenoble Airport",
+    "city_name": "'Grenoble",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "NCY",
+    "name": "'Annecy Airport",
+    "city_name": "'Annecy",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "VAF",
+    "name": "'Valence Airport",
+    "city_name": "'Valence",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "XMF",
+    "name": "'Montbéliard Airport",
+    "city_name": "'Montbéliard",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "DOL",
+    "name": "'Dole Airport",
+    "city_name": "'Dole",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "DLE",
+    "name": "'Dole–Jura Airport",
+    "city_name": "'Dole",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "DIJ",
+    "name": "'Dijon Airport",
+    "city_name": "'Dijon",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "QNJ",
+    "name": "'Annemasse Airport",
+    "city_name": "'Annemasse",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "VHY",
+    "name": "'Vichy Airport",
+    "city_name": "'Vichy",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "XVS",
+    "name": "'Valenciennes Airport",
+    "city_name": "'Valenciennes",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CMR",
+    "name": "'Colmar Airport",
+    "city_name": "'Colmar",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ETZ",
+    "name": "'Metz Nancy Airport",
+    "city_name": "'Metz",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "EBU",
+    "name": "'Bourg Airport",
+    "city_name": "'Bourg",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LPY",
+    "name": "'Le Puy Airport",
+    "city_name": "'Le Puy",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "RHE",
+    "name": "'Reims Airport",
+    "city_name": "'Reims",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "XCR",
+    "name": "'Châlons Vatry Airport",
+    "city_name": "'Châlons",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LAI",
+    "name": "'Lannion Airport",
+    "city_name": "'Lannion",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LDV",
+    "name": "'Landivisiau Airport",
+    "city_name": "'Landivisiau",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LRT",
+    "name": "'Lorient Airport",
+    "city_name": "'Lorient",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MEN",
+    "name": "'Mende Airport",
+    "city_name": "'Mende",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LTQ",
+    "name": "'Le Touquet Airport",
+    "city_name": "'Le Touquet",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "VNE",
+    "name": "'Vannes Airport",
+    "city_name": "'Vannes",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "IDY",
+    "name": "'Île d''Yeu Airport",
+    "city_name": "'Île d''Yeu",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "DNR",
+    "name": "'Dinard Airport",
+    "city_name": "'Dinard",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SBK",
+    "name": "'Saint-Brieuc Airport",
+    "city_name": "'Saint-Brieuc",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MFX",
+    "name": "'Méribel Airport",
+    "city_name": "'Méribel",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "OBS",
+    "name": "'Aubenas Airport",
+    "city_name": "'Aubenas",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CCF",
+    "name": "'Carcassonne Airport",
+    "city_name": "'Carcassonne",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "DCM",
+    "name": "'Castres Airport",
+    "city_name": "'Castres",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MCU",
+    "name": "'Montluçon Airport",
+    "city_name": "'Montluçon",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LBI",
+    "name": "'Albi Airport",
+    "city_name": "'Albi",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ZAO",
+    "name": "'Cahors Airport",
+    "city_name": "'Cahors",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "PGX",
+    "name": "'Périgueux Airport",
+    "city_name": "'Périgueux",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "EGU",
+    "name": "'Bergerac Airport",
+    "city_name": "'Bergerac",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CNG",
+    "name": "'Cognac Airport",
+    "city_name": "'Cognac",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "NIT",
+    "name": "'Niort Airport",
+    "city_name": "'Niort",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "NVS",
+    "name": "'Nevers Airport",
+    "city_name": "'Nevers",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "AUF",
+    "name": "'Auxerre Airport",
+    "city_name": "'Auxerre",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "QTJ",
+    "name": "'Chartres Airport",
+    "city_name": "'Chartres",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BYF",
+    "name": "'Albert Airport",
+    "city_name": "'Albert",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "QAM",
+    "name": "'Amiens Airport",
+    "city_name": "'Amiens",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CSF",
+    "name": "'Creil Airport",
+    "city_name": "'Creil",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "AGN",
+    "name": "'Angoulême Airport",
+    "city_name": "'Angoulême",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CHR",
+    "name": "'Châteauroux Airport",
+    "city_name": "'Châteauroux",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LVA",
+    "name": "'Laval Airport",
+    "city_name": "'Laval",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "AVN",
+    "name": "'Avignon Airport",
+    "city_name": "'Avignon",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CTT",
+    "name": "'Le Castellet Airport",
+    "city_name": "'Le Castellet",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MZM",
+    "name": "'Metz Airport",
+    "city_name": "'Metz",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ANE",
+    "name": "'Angers Airport",
+    "city_name": "'Angers",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CEQ",
+    "name": "'Cannes Airport",
+    "city_name": "'Cannes",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "FNI",
+    "name": "'Nîmes Airport",
+    "city_name": "'Nîmes",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LTT",
+    "name": "'La Môle Airport",
+    "city_name": "'Saint-Tropez",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BZH",
+    "name": "'Béziers Airport",
+    "city_name": "'Béziers",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "OLB",
+    "name": "'Olbia Costa Smeralda Airport",
+    "city_name": "'Olbia",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ALC",
+    "name": "'Alicante-Elche Airport",
+    "city_name": "'Alicante",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "VLC",
+    "name": "'Valencia Airport",
+    "city_name": "'Valencia",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "AGP",
+    "name": "'Málaga Airport",
+    "city_name": "'Málaga",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "PMI",
+    "name": "'Palma de Mallorca Airport",
+    "city_name": "'Palma",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SVQ",
+    "name": "'Seville Airport",
+    "city_name": "'Seville",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BIO",
+    "name": "'Bilbao Airport",
+    "city_name": "'Bilbao",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "IBZ",
+    "name": "'Ibiza Airport",
+    "city_name": "'Ibiza",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "TFS",
+    "name": "'Tenerife South Airport",
+    "city_name": "'Tenerife",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LPA",
+    "name": "'Gran Canaria Airport",
+    "city_name": "'Las Palmas",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ACE",
+    "name": "'Lanzarote Airport",
+    "city_name": "'Lanzarote",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "FUE",
+    "name": "'Fuerteventura Airport",
+    "city_name": "'Fuerteventura",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "TFN",
+    "name": "'Tenerife North Airport",
+    "city_name": "'Tenerife",
+    "is_primary": false,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MAH",
+    "name": "'Menorca Airport",
+    "city_name": "'Menorca",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LEI",
+    "name": "'Almería Airport",
+    "city_name": "'Almería",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "OVD",
+    "name": "'Asturias Airport",
+    "city_name": "'Oviedo",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SCQ",
+    "name": "'Santiago de Compostela Airport",
+    "city_name": "'Santiago de Compostela",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "VGO",
+    "name": "'Vigo Airport",
+    "city_name": "'Vigo",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LCG",
+    "name": "'A Coruña Airport",
+    "city_name": "'A Coruña",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "GRO",
+    "name": "'Girona-Costa Brava Airport",
+    "city_name": "'Girona",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "REU",
+    "name": "'Reus Airport",
+    "city_name": "'Reus",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ZAZ",
+    "name": "'Zaragoza Airport",
+    "city_name": "'Zaragoza",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "VLL",
+    "name": "'Valladolid Airport",
+    "city_name": "'Valladolid",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "RGS",
+    "name": "'Burgos Airport",
+    "city_name": "'Burgos",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "VIT",
+    "name": "'Vitoria Airport",
+    "city_name": "'Vitoria",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "PNA",
+    "name": "'Pamplona Airport",
+    "city_name": "'Pamplona",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SLM",
+    "name": "'Salamanca Airport",
+    "city_name": "'Salamanca",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BJZ",
+    "name": "'Badajoz Airport",
+    "city_name": "'Badajoz",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "JEN",
+    "name": "'Jerez Airport",
+    "city_name": "'Jerez",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "RJL",
+    "name": "'Logroño Airport",
+    "city_name": "'Logroño",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "HSK",
+    "name": "'Huesca Airport",
+    "city_name": "'Huesca",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ABC",
+    "name": "'Albacete Airport",
+    "city_name": "'Albacete",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CDT",
+    "name": "'Castellón Airport",
+    "city_name": "'Castellón",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CJN",
+    "name": "'El Hierro Airport",
+    "city_name": "'El Hierro",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "GMZ",
+    "name": "'La Gomera Airport",
+    "city_name": "'La Gomera",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SPC",
+    "name": "'La Palma Airport",
+    "city_name": "'La Palma",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "VDE",
+    "name": "'Valverde Airport",
+    "city_name": "'El Hierro",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MLN",
+    "name": "'Melilla Airport",
+    "city_name": "'Melilla",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "OZP",
+    "name": "'Córdoba Airport",
+    "city_name": "'Córdoba",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "GRX",
+    "name": "'Granada Airport",
+    "city_name": "'Granada",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "EAS",
+    "name": "'San Sebastián Airport",
+    "city_name": "'San Sebastián",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MJV",
+    "name": "'Murcia-San Javier Airport",
+    "city_name": "'Murcia",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SDR",
+    "name": "'Santander Airport",
+    "city_name": "'Santander",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "TOJ",
+    "name": "'Torrejón Airport",
+    "city_name": "'Madrid",
+    "is_primary": false,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CQM",
+    "name": "'Ciudad Real Airport",
+    "city_name": "'Ciudad Real",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "RMU",
+    "name": "'Murcia Airport",
+    "city_name": "'Murcia",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "RLG",
+    "name": "'Rostock Airport",
+    "city_name": "'Rostock",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "HHN",
+    "name": "'Frankfurt-Hahn Airport",
+    "city_name": "'Frankfurt",
+    "is_primary": false,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SCN",
+    "name": "'Saarbrücken Airport",
+    "city_name": "'Saarbrücken",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CSO",
+    "name": "'Cochstedt Airport",
+    "city_name": "'Magdeburg",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ERF",
+    "name": "'Erfurt-Weimar Airport",
+    "city_name": "'Erfurt",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "HDF",
+    "name": "'Heringsdorf Airport",
+    "city_name": "'Heringsdorf",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BBH",
+    "name": "'Barth Airport",
+    "city_name": "'Barth",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CBU",
+    "name": "'Cottbus Airport",
+    "city_name": "'Cottbus",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "HOQ",
+    "name": "'Hof Airport",
+    "city_name": "'Hof",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "KSF",
+    "name": "'Kassel Airport",
+    "city_name": "'Kassel",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LBC",
+    "name": "'Lübeck Airport",
+    "city_name": "'Lübeck",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ZQW",
+    "name": "'Zweibrücken Airport",
+    "city_name": "'Zweibrücken",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "FDH",
+    "name": "'Friedrichshafen Airport",
+    "city_name": "'Friedrichshafen",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MHG",
+    "name": "'Mannheim Airport",
+    "city_name": "'Mannheim",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "GWT",
+    "name": "'Sylt Airport",
+    "city_name": "'Sylt",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "QDU",
+    "name": "'Düsseldorf Mönchengladbach Airport",
+    "city_name": "'Düsseldorf",
+    "is_primary": false,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BYU",
+    "name": "'Bayreuth Airport",
+    "city_name": "'Bayreuth",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "AOC",
+    "name": "'Altenburg Airport",
+    "city_name": "'Altenburg",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BMK",
+    "name": "'Borkum Airport",
+    "city_name": "'Borkum",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BMR",
+    "name": "'Baltrum Airport",
+    "city_name": "'Baltrum",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "JUI",
+    "name": "'Juist Airport",
+    "city_name": "'Juist",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "LGO",
+    "name": "'Langeoog Airport",
+    "city_name": "'Langeoog",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "NOD",
+    "name": "'Norden Airport",
+    "city_name": "'Norden",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "NRD",
+    "name": "'Norderney Airport",
+    "city_name": "'Norderney",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "VAC",
+    "name": "'Varrelbusch Airport",
+    "city_name": "'Cloppenburg",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "WVN",
+    "name": "'Wilhelmshaven Airport",
+    "city_name": "'Wilhelmshaven",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "AGE",
+    "name": "'Wangerooge Airport",
+    "city_name": "'Wangerooge",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "WYK",
+    "name": "'Wyk Airport",
+    "city_name": "'Wyk",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "OHR",
+    "name": "'Wyk auf Föhr Airport",
+    "city_name": "'Wyk auf Föhr",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "PSH",
+    "name": "'St. Peter-Ording Airport",
+    "city_name": "'St. Peter-Ording",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "GUT",
+    "name": "'Gütersloh Airport",
+    "city_name": "'Gütersloh",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BWE",
+    "name": "'Braunschweig Airport",
+    "city_name": "'Braunschweig",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "EME",
+    "name": "'Emden Airport",
+    "city_name": "'Emden",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "KID",
+    "name": "'Kiel Airport",
+    "city_name": "'Kiel",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "XLW",
+    "name": "'Lemwerder Airport",
+    "city_name": "'Lemwerder",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "OEL",
+    "name": "'Oberpfaffenhofen Airport",
+    "city_name": "'Oberpfaffenhofen",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SZW",
+    "name": "'Schwerin Airport",
+    "city_name": "'Schwerin",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "GTI",
+    "name": "'Greifswald Airport",
+    "city_name": "'Greifswald",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "HDB",
+    "name": "'Heidelberg Airport",
+    "city_name": "'Heidelberg",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ZNV",
+    "name": "'Koblenz Airport",
+    "city_name": "'Koblenz",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BBJ",
+    "name": "'Bitburg Airport",
+    "city_name": "'Bitburg",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ZPB",
+    "name": "'Parchim Airport",
+    "city_name": "'Parchim",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "NDZ",
+    "name": "'Nordholz Airport",
+    "city_name": "'Cuxhaven",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "WBG",
+    "name": "'Wilberg Airport",
+    "city_name": "'Wilberg",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ESS",
+    "name": "'Essen Airport",
+    "city_name": "'Essen",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "FRZ",
+    "name": "'Fritzlar Airport",
+    "city_name": "'Fritzlar",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SGE",
+    "name": "'Siegen Airport",
+    "city_name": "'Siegen",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BFE",
+    "name": "'Bielefeld Airport",
+    "city_name": "'Bielefeld",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ZCA",
+    "name": "'Celle Airport",
+    "city_name": "'Celle",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "WUP",
+    "name": "'Wuppertal Airport",
+    "city_name": "'Wuppertal",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "FLF",
+    "name": "'Flensburg Airport",
+    "city_name": "'Flensburg",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "OPO",
+    "name": "'Francisco Sá Carneiro Airport",
+    "city_name": "'Porto",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "FAO",
+    "name": "'Faro Airport",
+    "city_name": "'Faro",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "FNC",
+    "name": "'Cristiano Ronaldo Airport",
+    "city_name": "'Madeira",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "PDL",
+    "name": "'João Paulo II Airport",
+    "city_name": "'Ponta Delgada",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "HOR",
+    "name": "'Horta Airport",
+    "city_name": "'Horta",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "PIX",
+    "name": "'Pico Airport",
+    "city_name": "'Pico",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SMA",
+    "name": "'Santa Maria Airport",
+    "city_name": "'Santa Maria",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "TER",
+    "name": "'Lajes Airport",
+    "city_name": "'Terceira",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "FLW",
+    "name": "'Flores Airport",
+    "city_name": "'Flores",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CVU",
+    "name": "'Corvo Airport",
+    "city_name": "'Corvo",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "GRW",
+    "name": "'Graciosa Airport",
+    "city_name": "'Graciosa",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SJZ",
+    "name": "'São Jorge Airport",
+    "city_name": "'São Jorge",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "PRM",
+    "name": "'Portimão Airport",
+    "city_name": "'Portimão",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "VRL",
+    "name": "'Vila Real Airport",
+    "city_name": "'Vila Real",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CHV",
+    "name": "'Chaves Airport",
+    "city_name": "'Chaves",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "BGC",
+    "name": "'Bragança Airport",
+    "city_name": "'Bragança",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "PTS",
+    "name": "'Coimbra Airport",
+    "city_name": "'Coimbra",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "VSE",
+    "name": "'Viseu Airport",
+    "city_name": "'Viseu",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "VIS",
+    "name": "'Viseu Airport",
+    "city_name": "'Viseu",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CBP",
+    "name": "'Covilhã Airport",
+    "city_name": "'Covilhã",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "AVR",
+    "name": "'Aveiro Airport",
+    "city_name": "'Aveiro",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ILS",
+    "name": "'Évora Airport",
+    "city_name": "'Évora",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "SIE",
+    "name": "'Sines Airport",
+    "city_name": "'Sines",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "POM",
+    "name": "'Pombal Airport",
+    "city_name": "'Pombal",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CVL",
+    "name": "'Cascais Airport",
+    "city_name": "'Cascais",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "PLZ",
+    "name": "'Ponte de Lima Airport",
+    "city_name": "'Ponte de Lima",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MTJ",
+    "name": "'Mirandela Airport",
+    "city_name": "'Mirandela",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "MRM",
+    "name": "'Mogadouro Airport",
+    "city_name": "'Mogadouro",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "CDW",
+    "name": "'Caldas da Rainha Airport",
+    "city_name": "'Caldas da Rainha",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "OIA",
+    "name": "'Oeiras Airport",
+    "city_name": "'Oeiras",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "QMM",
+    "name": "'Montemor-o-Velho Airport",
+    "city_name": "'Montemor-o-Velho",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "ZYA",
+    "name": "'Amadora Airport",
+    "city_name": "'Amadora",
+    "is_primary": true,
+    "region": "Unknown"
+  },
+  {
+    "iata_code": "UAL",
+    "name": "'Luanda Airport",
+    "city_name": "'Luanda",
+    "is_primary": true,
+    "region": "Unknown"
+  }
+]

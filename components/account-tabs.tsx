@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { User } from '@supabase/supabase-js'
 import { ProfileForm } from '@/components/profile-form'
 import { MembershipPanel } from '@/components/membership-panel'
-import { InvoicesTable } from '@/components/invoices-table'
 
 interface AccountTabsProps {
   user: User
@@ -19,7 +18,6 @@ export function AccountTabs({ user, profile, subscription, homeCity }: AccountTa
   const tabs = [
     { id: 'profile', label: 'Profile' },
     { id: 'membership', label: 'Membership' },
-    { id: 'invoices', label: 'Billing & Invoices' },
   ]
 
   return (
@@ -48,9 +46,6 @@ export function AccountTabs({ user, profile, subscription, homeCity }: AccountTa
         )}
         {activeTab === 'membership' && (
           <MembershipPanel profile={profile} subscription={subscription} />
-        )}
-        {activeTab === 'invoices' && (
-          <InvoicesTable userId={user.id} />
         )}
       </div>
     </div>

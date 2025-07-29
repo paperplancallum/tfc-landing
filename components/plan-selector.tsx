@@ -82,9 +82,9 @@ export function PlanSelector({ plans }: { plans: Plan[] }) {
               Select Plan
             </Button>
             
-            <p className="text-xs text-gray-500 mt-4">
-              14-day money back guarantee
-            </p>
+            <div className="mt-4 inline-flex items-center gap-1 bg-green-50 text-green-700 px-3 py-1 rounded-full text-xs font-semibold">
+              <span>✓</span> 3-day free trial available
+            </div>
             
             {plan.savings && (
               <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-green-500 text-white px-4 py-1 rounded-full text-xs font-semibold">

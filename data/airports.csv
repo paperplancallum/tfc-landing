@@ -1,0 +1,498 @@
+iata_code,name,city_name,region,is_primary
+LGW,"'London Gatwick Airport","'London",Unknown,false
+STN,"'London Stansted Airport","'London",Unknown,false
+LTN,"'London Luton Airport","'London",Unknown,false
+LCY,"'London City Airport","'London",Unknown,false
+MAN,"'Manchester Airport","'Manchester",Unknown,true
+EDI,"'Edinburgh Airport","'Edinburgh",Unknown,true
+BHX,"'Birmingham Airport","'Birmingham",Unknown,true
+GLA,"'Glasgow Airport","'Glasgow",Unknown,true
+BRS,"'Bristol Airport","'Bristol",Unknown,true
+NCL,"'Newcastle Airport","'Newcastle",Unknown,true
+LPL,"'Liverpool John Lennon Airport","'Liverpool",Unknown,true
+BFS,"'Belfast International Airport","'Belfast",Unknown,true
+LBA,"'Leeds Bradford Airport","'Leeds",Unknown,true
+EMA,"'East Midlands Airport","'Nottingham",Unknown,true
+ABZ,"'Aberdeen International Airport","'Aberdeen",Unknown,true
+SOU,"'Southampton Airport","'Southampton",Unknown,true
+EXT,"'Exeter Airport","'Exeter",Unknown,true
+CWL,"'Cardiff Airport","'Cardiff",Unknown,true
+NWI,"'Norwich Airport","'Norwich",Unknown,true
+DND,"'Dundee Airport","'Dundee",Unknown,true
+SEN,"'London Southend Airport","'London",Unknown,false
+BEB,"'Benbecula Airport","'Benbecula",Unknown,true
+CAL,"'Campbeltown Airport","'Campbeltown",Unknown,true
+ISC,"'St. Mary''s Airport","'Isles of Scilly",Unknown,true
+LEQ,"'Land''s End Airport","'Land''s End",Unknown,true
+PPW,"'Papa Westray Airport","'Papa Westray",Unknown,true
+WIC,"'Wick Airport","'Wick",Unknown,true
+LAX,"'Los Angeles International Airport","'Los Angeles",Unknown,true
+ORD,"'O''Hare International Airport","'Chicago",Unknown,true
+ATL,"'Hartsfield-Jackson Atlanta International Airport","'Atlanta",Unknown,true
+DFW,"'Dallas/Fort Worth International Airport","'Dallas",Unknown,true
+DEN,"'Denver International Airport","'Denver",Unknown,true
+SFO,"'San Francisco International Airport","'San Francisco",Unknown,true
+SEA,"'Seattle-Tacoma International Airport","'Seattle",Unknown,true
+LAS,"'Harry Reid International Airport","'Las Vegas",Unknown,true
+MCO,"'Orlando International Airport","'Orlando",Unknown,true
+MIA,"'Miami International Airport","'Miami",Unknown,true
+CLT,"'Charlotte Douglas International Airport","'Charlotte",Unknown,true
+PHX,"'Phoenix Sky Harbor International Airport","'Phoenix",Unknown,true
+IAH,"'George Bush Intercontinental Airport","'Houston",Unknown,true
+BOS,"'Logan International Airport","'Boston",Unknown,true
+MSP,"'Minneapolis-Saint Paul International Airport","'Minneapolis",Unknown,true
+DTW,"'Detroit Metropolitan Wayne County Airport","'Detroit",Unknown,true
+FLL,"'Fort Lauderdale-Hollywood International Airport","'Fort Lauderdale",Unknown,false
+PHL,"'Philadelphia International Airport","'Philadelphia",Unknown,true
+LGA,"'LaGuardia Airport","'New York",Unknown,false
+EWR,"'Newark Liberty International Airport","'Newark",Unknown,false
+DCA,"'Ronald Reagan Washington National Airport","'Washington",Unknown,true
+IAD,"'Washington Dulles International Airport","'Washington",Unknown,false
+MDW,"'Chicago Midway International Airport","'Chicago",Unknown,false
+DAL,"'Dallas Love Field","'Dallas",Unknown,false
+HOU,"'William P. Hobby Airport","'Houston",Unknown,false
+OAK,"'Oakland International Airport","'Oakland",Unknown,false
+SJC,"'San Jose International Airport","'San Jose",Unknown,true
+BUR,"'Hollywood Burbank Airport","'Burbank",Unknown,false
+AUS,"'Austin-Bergstrom International Airport","'Austin",Unknown,true
+BNA,"'Nashville International Airport","'Nashville",Unknown,true
+MSY,"'Louis Armstrong New Orleans International Airport","'New Orleans",Unknown,true
+RDU,"'Raleigh-Durham International Airport","'Raleigh",Unknown,true
+MCI,"'Kansas City International Airport","'Kansas City",Unknown,true
+SMF,"'Sacramento International Airport","'Sacramento",Unknown,true
+SLC,"'Salt Lake City International Airport","'Salt Lake City",Unknown,true
+STL,"'St. Louis Lambert International Airport","'St. Louis",Unknown,true
+TPA,"'Tampa International Airport","'Tampa",Unknown,true
+PDX,"'Portland International Airport","'Portland",Unknown,true
+CVG,"'Cincinnati/Northern Kentucky International Airport","'Cincinnati",Unknown,true
+PIT,"'Pittsburgh International Airport","'Pittsburgh",Unknown,true
+MKE,"'Milwaukee Mitchell International Airport","'Milwaukee",Unknown,true
+CLE,"'Cleveland Hopkins International Airport","'Cleveland",Unknown,true
+SAT,"'San Antonio International Airport","'San Antonio",Unknown,true
+SNA,"'John Wayne Airport","'Santa Ana",Unknown,false
+IND,"'Indianapolis International Airport","'Indianapolis",Unknown,true
+JAX,"'Jacksonville International Airport","'Jacksonville",Unknown,true
+CMH,"'John Glenn Columbus International Airport","'Columbus",Unknown,true
+ONT,"'Ontario International Airport","'Ontario",Unknown,true
+BDL,"'Bradley International Airport","'Hartford",Unknown,true
+ABQ,"'Albuquerque International Sunport","'Albuquerque",Unknown,true
+BUF,"'Buffalo Niagara International Airport","'Buffalo",Unknown,true
+OMA,"'Eppley Airfield","'Omaha",Unknown,true
+TUL,"'Tulsa International Airport","'Tulsa",Unknown,true
+OKC,"'Will Rogers World Airport","'Oklahoma City",Unknown,true
+PVD,"'T. F. Green Airport","'Providence",Unknown,true
+RIC,"'Richmond International Airport","'Richmond",Unknown,true
+MEM,"'Memphis International Airport","'Memphis",Unknown,true
+GRR,"'Gerald R. Ford International Airport","'Grand Rapids",Unknown,true
+BOI,"'Boise Airport","'Boise",Unknown,true
+TUS,"'Tucson International Airport","'Tucson",Unknown,true
+BHM,"'Birmingham-Shuttlesworth International Airport","'Birmingham",Unknown,true
+DSM,"'Des Moines International Airport","'Des Moines",Unknown,true
+ROC,"'Greater Rochester International Airport","'Rochester",Unknown,true
+LIT,"'Clinton National Airport","'Little Rock",Unknown,true
+GEG,"'Spokane International Airport","'Spokane",Unknown,true
+ORF,"'Norfolk International Airport","'Norfolk",Unknown,true
+DAY,"'Dayton International Airport","'Dayton",Unknown,true
+GSO,"'Piedmont Triad International Airport","'Greensboro",Unknown,true
+MSN,"'Dane County Regional Airport","'Madison",Unknown,true
+CHS,"'Charleston International Airport","'Charleston",Unknown,true
+TYS,"'McGhee Tyson Airport","'Knoxville",Unknown,true
+SYR,"'Syracuse Hancock International Airport","'Syracuse",Unknown,true
+PWM,"'Portland International Jetport","'Portland",Unknown,true
+RNO,"'Reno-Tahoe International Airport","'Reno",Unknown,true
+FAT,"'Fresno Yosemite International Airport","'Fresno",Unknown,true
+BTR,"'Baton Rouge Metropolitan Airport","'Baton Rouge",Unknown,true
+ALB,"'Albany International Airport","'Albany",Unknown,true
+JAN,"'Jackson-Medgar Wiley Evers International Airport","'Jackson",Unknown,true
+SDF,"'Louisville Muhammad Ali International Airport","'Louisville",Unknown,true
+CAE,"'Columbia Metropolitan Airport","'Columbia",Unknown,true
+MDT,"'Harrisburg International Airport","'Harrisburg",Unknown,true
+GSP,"'Greenville-Spartanburg International Airport","'Greenville",Unknown,true
+SBN,"'South Bend International Airport","'South Bend",Unknown,true
+XNA,"'Northwest Arkansas National Airport","'Fayetteville",Unknown,true
+SAV,"'Savannah/Hilton Head International Airport","'Savannah",Unknown,true
+FWA,"'Fort Wayne International Airport","'Fort Wayne",Unknown,true
+TRI,"'Tri-Cities Airport","'Bristol",Unknown,true
+LEX,"'Blue Grass Airport","'Lexington",Unknown,true
+FAR,"'Hector International Airport","'Fargo",Unknown,true
+HSV,"'Huntsville International Airport","'Huntsville",Unknown,true
+LNK,"'Lincoln Airport","'Lincoln",Unknown,true
+PNS,"'Pensacola International Airport","'Pensacola",Unknown,true
+MOB,"'Mobile Regional Airport","'Mobile",Unknown,true
+FSD,"'Joe Foss Field","'Sioux Falls",Unknown,true
+MLI,"'Quad Cities International Airport","'Moline",Unknown,true
+CAK,"'Akron-Canton Airport","'Akron",Unknown,true
+EVV,"'Evansville Regional Airport","'Evansville",Unknown,true
+ATW,"'Appleton International Airport","'Appleton",Unknown,true
+CID,"'Eastern Iowa Airport","'Cedar Rapids",Unknown,true
+SGF,"'Springfield-Branson National Airport","'Springfield",Unknown,true
+MLB,"'Orlando Melbourne International Airport","'Melbourne",Unknown,true
+MOT,"'Minot International Airport","'Minot",Unknown,true
+BIL,"'Billings Logan International Airport","'Billings",Unknown,true
+RAP,"'Rapid City Regional Airport","'Rapid City",Unknown,true
+MBS,"'MBS International Airport","'Saginaw",Unknown,true
+LSE,"'La Crosse Regional Airport","'La Crosse",Unknown,true
+GRB,"'Green Bay Austin Straubel International Airport","'Green Bay",Unknown,true
+BIS,"'Bismarck Municipal Airport","'Bismarck",Unknown,true
+SPI,"'Abraham Lincoln Capital Airport","'Springfield",Unknown,true
+GFK,"'Grand Forks International Airport","'Grand Forks",Unknown,true
+MSO,"'Missoula International Airport","'Missoula",Unknown,true
+GTF,"'Great Falls International Airport","'Great Falls",Unknown,true
+JAC,"'Jackson Hole Airport","'Jackson",Unknown,true
+CYS,"'Cheyenne Regional Airport","'Cheyenne",Unknown,true
+CMI,"'University of Illinois Willard Airport","'Champaign",Unknown,true
+BMI,"'Central Illinois Regional Airport","'Bloomington",Unknown,true
+RST,"'Rochester International Airport","'Rochester",Unknown,true
+EAU,"'Chippewa Valley Regional Airport","'Eau Claire",Unknown,true
+DLH,"'Duluth International Airport","'Duluth",Unknown,true
+LAN,"'Capital Region International Airport","'Lansing",Unknown,true
+CWA,"'Central Wisconsin Airport","'Wausau",Unknown,true
+HIB,"'Range Regional Airport","'Hibbing",Unknown,true
+IMT,"'Ford Airport","'Iron Mountain",Unknown,true
+AZO,"'Kalamazoo/Battle Creek International Airport","'Kalamazoo",Unknown,true
+BJI,"'Bemidji Regional Airport","'Bemidji",Unknown,true
+BRD,"'Brainerd Lakes Regional Airport","'Brainerd",Unknown,true
+INL,"'Falls International Airport","'International Falls",Unknown,true
+GUM,"'Antonio B. Won Pat International Airport","'Guam",Unknown,true
+HNL,"'Daniel K. Inouye International Airport","'Honolulu",Unknown,true
+OGG,"'Kahului Airport","'Maui",Unknown,true
+KOA,"'Ellison Onizuka Kona International Airport","'Kona",Unknown,true
+LIH,"'Lihue Airport","'Kauai",Unknown,true
+ITO,"'Hilo International Airport","'Hilo",Unknown,true
+SJU,"'Luis Muñoz Marín International Airport","'San Juan",Unknown,true
+PSE,"'Mercedita Airport","'Ponce",Unknown,true
+BQN,"'Rafael Hernández Airport","'Aguadilla",Unknown,true
+ANC,"'Ted Stevens Anchorage International Airport","'Anchorage",Unknown,true
+FAI,"'Fairbanks International Airport","'Fairbanks",Unknown,true
+JNU,"'Juneau International Airport","'Juneau",Unknown,true
+SIT,"'Sitka Rocky Gutierrez Airport","'Sitka",Unknown,true
+KTN,"'Ketchikan International Airport","'Ketchikan",Unknown,true
+ADQ,"'Kodiak Airport","'Kodiak",Unknown,true
+BET,"'Bethel Airport","'Bethel",Unknown,true
+OME,"'Nome Airport","'Nome",Unknown,true
+OTZ,"'Ralph Wien Memorial Airport","'Kotzebue",Unknown,true
+BRW,"'Wiley Post-Will Rogers Memorial Airport","'Barrow",Unknown,true
+SCC,"'Deadhorse Airport","'Deadhorse",Unknown,true
+DUT,"'Unalaska Airport","'Unalaska",Unknown,true
+CDV,"'Merle K. Smith Airport","'Cordova",Unknown,true
+YAK,"'Yakutat Airport","'Yakutat",Unknown,true
+WRG,"'Wrangell Airport","'Wrangell",Unknown,true
+PSG,"'Petersburg James A. Johnson Airport","'Petersburg",Unknown,true
+KKA,"'Koyuk Alfred Adams Airport","'Koyuk",Unknown,true
+DLG,"'Dillingham Airport","'Dillingham",Unknown,true
+AKN,"'King Salmon Airport","'King Salmon",Unknown,true
+PVD,"'T. F. Green Airport","'Providence",Unknown,true
+HVN,"'Tweed New Haven Airport","'New Haven",Unknown,true
+SWF,"'New York Stewart International Airport","'Newburgh",Unknown,true
+ALB,"'Albany International Airport","'Albany",Unknown,true
+BGR,"'Bangor International Airport","'Bangor",Unknown,true
+BTV,"'Burlington International Airport","'Burlington",Unknown,true
+PWM,"'Portland International Jetport","'Portland",Unknown,true
+MHT,"'Manchester-Boston Regional Airport","'Manchester",Unknown,true
+ORH,"'Worcester Regional Airport","'Worcester",Unknown,true
+MVY,"'Martha''s Vineyard Airport","'Martha''s Vineyard",Unknown,true
+ACK,"'Nantucket Memorial Airport","'Nantucket",Unknown,true
+HYA,"'Barnstable Municipal Airport","'Hyannis",Unknown,true
+EWB,"'New Bedford Regional Airport","'New Bedford",Unknown,true
+PVD,"'T. F. Green Airport","'Providence",Unknown,true
+BED,"'Laurence G. Hanscom Field","'Bedford",Unknown,true
+PSM,"'Portsmouth International Airport","'Portsmouth",Unknown,true
+LEB,"'Lebanon Municipal Airport","'Lebanon",Unknown,true
+RUT,"'Rutland - Southern Vermont Regional Airport","'Rutland",Unknown,true
+AUG,"'Augusta State Airport","'Augusta",Unknown,true
+PQI,"'Northern Maine Regional Airport","'Presque Isle",Unknown,true
+BGR,"'Bangor International Airport","'Bangor",Unknown,true
+RKD,"'Knox County Regional Airport","'Rockland",Unknown,true
+ORY,"'Orly Airport","'Paris",Unknown,false
+AMS,"'Amsterdam Airport Schiphol","'Amsterdam",Unknown,true
+FRA,"'Frankfurt Airport","'Frankfurt",Unknown,true
+MAD,"'Adolfo Suárez Madrid-Barajas Airport","'Madrid",Unknown,true
+BCN,"'Barcelona-El Prat Airport","'Barcelona",Unknown,true
+FCO,"'Leonardo da Vinci-Fiumicino Airport","'Rome",Unknown,true
+MUC,"'Munich Airport","'Munich",Unknown,true
+ZRH,"'Zurich Airport","'Zurich",Unknown,true
+VIE,"'Vienna International Airport","'Vienna",Unknown,true
+CPH,"'Copenhagen Airport","'Copenhagen",Unknown,true
+OSL,"'Oslo Airport","'Oslo",Unknown,true
+ARN,"'Stockholm Arlanda Airport","'Stockholm",Unknown,true
+HEL,"'Helsinki Airport","'Helsinki",Unknown,true
+DUB,"'Dublin Airport","'Dublin",Unknown,true
+LIS,"'Lisbon Airport","'Lisbon",Unknown,true
+ATH,"'Athens International Airport","'Athens",Unknown,true
+IST,"'Istanbul Airport","'Istanbul",Unknown,true
+BRU,"'Brussels Airport","'Brussels",Unknown,true
+WAW,"'Warsaw Chopin Airport","'Warsaw",Unknown,true
+PRG,"'Václav Havel Airport Prague","'Prague",Unknown,true
+BUD,"'Budapest Ferenc Liszt International Airport","'Budapest",Unknown,true
+OTP,"'Henri Coandă International Airport","'Bucharest",Unknown,true
+BEG,"'Belgrade Nikola Tesla Airport","'Belgrade",Unknown,true
+ZAG,"'Zagreb Airport","'Zagreb",Unknown,true
+SOF,"'Sofia Airport","'Sofia",Unknown,true
+TLL,"'Tallinn Airport","'Tallinn",Unknown,true
+RIX,"'Riga International Airport","'Riga",Unknown,true
+VNO,"'Vilnius Airport","'Vilnius",Unknown,true
+KEF,"'Keflavík International Airport","'Reykjavík",Unknown,true
+BGO,"'Bergen Airport","'Bergen",Unknown,true
+TRD,"'Trondheim Airport","'Trondheim",Unknown,true
+SVG,"'Stavanger Airport","'Stavanger",Unknown,true
+GOT,"'Göteborg Landvetter Airport","'Gothenburg",Unknown,true
+MMX,"'Malmö Airport","'Malmö",Unknown,true
+BLL,"'Billund Airport","'Billund",Unknown,true
+AAR,"'Aarhus Airport","'Aarhus",Unknown,true
+TRF,"'Sandefjord Airport","'Oslo",Unknown,false
+NYO,"'Stockholm Skavsta Airport","'Stockholm",Unknown,false
+CIA,"'Rome Ciampino Airport","'Rome",Unknown,false
+BGY,"'Milan Bergamo Airport","'Milan",Unknown,false
+MXP,"'Milan Malpensa Airport","'Milan",Unknown,true
+LIN,"'Milan Linate Airport","'Milan",Unknown,false
+VCE,"'Venice Marco Polo Airport","'Venice",Unknown,true
+NAP,"'Naples International Airport","'Naples",Unknown,true
+BLQ,"'Bologna Guglielmo Marconi Airport","'Bologna",Unknown,true
+FLR,"'Florence Airport","'Florence",Unknown,true
+TRN,"'Turin Airport","'Turin",Unknown,true
+PSA,"'Pisa International Airport","'Pisa",Unknown,true
+CAG,"'Cagliari Elmas Airport","'Cagliari",Unknown,true
+CTA,"'Catania-Fontanarossa Airport","'Catania",Unknown,true
+PMO,"'Falcone-Borsellino Airport","'Palermo",Unknown,true
+BRI,"'Bari Karol Wojtyła Airport","'Bari",Unknown,true
+GVA,"'Geneva Airport","'Geneva",Unknown,true
+BSL,"'EuroAirport Basel-Mulhouse-Freiburg","'Basel",Unknown,true
+BRN,"'Bern Airport","'Bern",Unknown,true
+LUG,"'Lugano Airport","'Lugano",Unknown,true
+DUS,"'Düsseldorf Airport","'Düsseldorf",Unknown,true
+HAM,"'Hamburg Airport","'Hamburg",Unknown,true
+BER,"'Berlin Brandenburg Airport","'Berlin",Unknown,true
+CGN,"'Cologne Bonn Airport","'Cologne",Unknown,true
+STR,"'Stuttgart Airport","'Stuttgart",Unknown,true
+NUE,"'Nuremberg Airport","'Nuremberg",Unknown,true
+HAJ,"'Hannover Airport","'Hannover",Unknown,true
+LEJ,"'Leipzig/Halle Airport","'Leipzig",Unknown,true
+DRS,"'Dresden Airport","'Dresden",Unknown,true
+BRE,"'Bremen Airport","'Bremen",Unknown,true
+DTM,"'Dortmund Airport","'Dortmund",Unknown,true
+FMO,"'Münster Osnabrück Airport","'Münster",Unknown,true
+PAD,"'Paderborn Lippstadt Airport","'Paderborn",Unknown,true
+NRN,"'Weeze Airport","'Düsseldorf",Unknown,false
+HHN,"'Frankfurt-Hahn Airport","'Frankfurt",Unknown,false
+FKB,"'Karlsruhe/Baden-Baden Airport","'Karlsruhe",Unknown,true
+MRV,"'Mineralnye Vody Airport","'Mineralnye Vody",Unknown,true
+SCN,"'Saarbrücken Airport","'Saarbrücken",Unknown,true
+LYS,"'Lyon-Saint Exupéry Airport","'Lyon",Unknown,true
+MRS,"'Marseille Provence Airport","'Marseille",Unknown,true
+NCE,"'Nice Côte d''Azur Airport","'Nice",Unknown,true
+TLS,"'Toulouse-Blagnac Airport","'Toulouse",Unknown,true
+BOD,"'Bordeaux-Mérignac Airport","'Bordeaux",Unknown,true
+NTE,"'Nantes Atlantique Airport","'Nantes",Unknown,true
+LIL,"'Lille Airport","'Lille",Unknown,true
+SXB,"'Strasbourg Airport","'Strasbourg",Unknown,true
+RNS,"'Rennes Airport","'Rennes",Unknown,true
+MPL,"'Montpellier Airport","'Montpellier",Unknown,true
+BVA,"'Beauvais-Tillé Airport","'Paris",Unknown,false
+BIQ,"'Biarritz Airport","'Biarritz",Unknown,true
+EGC,"'Bergerac Dordogne Périgord Airport","'Bergerac",Unknown,true
+TLN,"'Toulon-Hyères Airport","'Toulon",Unknown,true
+AJA,"'Ajaccio Napoleon Bonaparte Airport","'Ajaccio",Unknown,true
+BIA,"'Bastia Airport","'Bastia",Unknown,true
+FSC,"'Figari Airport","'Figari",Unknown,true
+CLY,"'Calvi Airport","'Calvi",Unknown,true
+BES,"'Brest Airport","'Brest",Unknown,true
+MLH,"'Mulhouse Airport","'Mulhouse",Unknown,true
+PGF,"'Perpignan Airport","'Perpignan",Unknown,true
+BZR,"'Béziers Airport","'Béziers",Unknown,true
+CFE,"'Clermont-Ferrand Airport","'Clermont-Ferrand",Unknown,true
+LIG,"'Limoges Airport","'Limoges",Unknown,true
+PUF,"'Pau Pyrénées Airport","'Pau",Unknown,true
+RDZ,"'Rodez Airport","'Rodez",Unknown,true
+TUF,"'Tours Airport","'Tours",Unknown,true
+LRH,"'La Rochelle Airport","'La Rochelle",Unknown,true
+PIS,"'Poitiers Airport","'Poitiers",Unknown,true
+AGF,"'Agen Airport","'Agen",Unknown,true
+LDE,"'Tarbes-Lourdes Airport","'Tarbes",Unknown,true
+BVE,"'Brive Airport","'Brive",Unknown,true
+AUR,"'Aurillac Airport","'Aurillac",Unknown,true
+CMF,"'Chambéry Airport","'Chambéry",Unknown,true
+CVF,"'Courchevel Airport","'Courchevel",Unknown,true
+GAT,"'Gatlinburg-Pigeon Forge Airport","'Gatlinburg",Unknown,true
+GNB,"'Grenoble Airport","'Grenoble",Unknown,true
+NCY,"'Annecy Airport","'Annecy",Unknown,true
+VAF,"'Valence Airport","'Valence",Unknown,true
+XMF,"'Montbéliard Airport","'Montbéliard",Unknown,true
+DOL,"'Dole Airport","'Dole",Unknown,true
+DLE,"'Dole–Jura Airport","'Dole",Unknown,true
+DIJ,"'Dijon Airport","'Dijon",Unknown,true
+QNJ,"'Annemasse Airport","'Annemasse",Unknown,true
+VHY,"'Vichy Airport","'Vichy",Unknown,true
+XVS,"'Valenciennes Airport","'Valenciennes",Unknown,true
+CMR,"'Colmar Airport","'Colmar",Unknown,true
+ETZ,"'Metz Nancy Airport","'Metz",Unknown,true
+EBU,"'Bourg Airport","'Bourg",Unknown,true
+LPY,"'Le Puy Airport","'Le Puy",Unknown,true
+RHE,"'Reims Airport","'Reims",Unknown,true
+XCR,"'Châlons Vatry Airport","'Châlons",Unknown,true
+LAI,"'Lannion Airport","'Lannion",Unknown,true
+LDV,"'Landivisiau Airport","'Landivisiau",Unknown,true
+LRT,"'Lorient Airport","'Lorient",Unknown,true
+MEN,"'Mende Airport","'Mende",Unknown,true
+LTQ,"'Le Touquet Airport","'Le Touquet",Unknown,true
+VNE,"'Vannes Airport","'Vannes",Unknown,true
+IDY,"'Île d''Yeu Airport","'Île d''Yeu",Unknown,true
+DNR,"'Dinard Airport","'Dinard",Unknown,true
+SBK,"'Saint-Brieuc Airport","'Saint-Brieuc",Unknown,true
+MFX,"'Méribel Airport","'Méribel",Unknown,true
+OBS,"'Aubenas Airport","'Aubenas",Unknown,true
+CCF,"'Carcassonne Airport","'Carcassonne",Unknown,true
+DCM,"'Castres Airport","'Castres",Unknown,true
+MCU,"'Montluçon Airport","'Montluçon",Unknown,true
+LBI,"'Albi Airport","'Albi",Unknown,true
+ZAO,"'Cahors Airport","'Cahors",Unknown,true
+PGX,"'Périgueux Airport","'Périgueux",Unknown,true
+EGU,"'Bergerac Airport","'Bergerac",Unknown,true
+CNG,"'Cognac Airport","'Cognac",Unknown,true
+NIT,"'Niort Airport","'Niort",Unknown,true
+NVS,"'Nevers Airport","'Nevers",Unknown,true
+AUF,"'Auxerre Airport","'Auxerre",Unknown,true
+QTJ,"'Chartres Airport","'Chartres",Unknown,true
+BYF,"'Albert Airport","'Albert",Unknown,true
+QAM,"'Amiens Airport","'Amiens",Unknown,true
+CSF,"'Creil Airport","'Creil",Unknown,true
+AGN,"'Angoulême Airport","'Angoulême",Unknown,true
+CHR,"'Châteauroux Airport","'Châteauroux",Unknown,true
+LVA,"'Laval Airport","'Laval",Unknown,true
+AVN,"'Avignon Airport","'Avignon",Unknown,true
+CTT,"'Le Castellet Airport","'Le Castellet",Unknown,true
+MZM,"'Metz Airport","'Metz",Unknown,true
+ANE,"'Angers Airport","'Angers",Unknown,true
+CEQ,"'Cannes Airport","'Cannes",Unknown,true
+FNI,"'Nîmes Airport","'Nîmes",Unknown,true
+LTT,"'La Môle Airport","'Saint-Tropez",Unknown,true
+BZH,"'Béziers Airport","'Béziers",Unknown,true
+OLB,"'Olbia Costa Smeralda Airport","'Olbia",Unknown,true
+ALC,"'Alicante-Elche Airport","'Alicante",Unknown,true
+VLC,"'Valencia Airport","'Valencia",Unknown,true
+AGP,"'Málaga Airport","'Málaga",Unknown,true
+PMI,"'Palma de Mallorca Airport","'Palma",Unknown,true
+SVQ,"'Seville Airport","'Seville",Unknown,true
+BIO,"'Bilbao Airport","'Bilbao",Unknown,true
+IBZ,"'Ibiza Airport","'Ibiza",Unknown,true
+TFS,"'Tenerife South Airport","'Tenerife",Unknown,true
+LPA,"'Gran Canaria Airport","'Las Palmas",Unknown,true
+ACE,"'Lanzarote Airport","'Lanzarote",Unknown,true
+FUE,"'Fuerteventura Airport","'Fuerteventura",Unknown,true
+TFN,"'Tenerife North Airport","'Tenerife",Unknown,false
+MAH,"'Menorca Airport","'Menorca",Unknown,true
+LEI,"'Almería Airport","'Almería",Unknown,true
+OVD,"'Asturias Airport","'Oviedo",Unknown,true
+SCQ,"'Santiago de Compostela Airport","'Santiago de Compostela",Unknown,true
+VGO,"'Vigo Airport","'Vigo",Unknown,true
+LCG,"'A Coruña Airport","'A Coruña",Unknown,true
+GRO,"'Girona-Costa Brava Airport","'Girona",Unknown,true
+REU,"'Reus Airport","'Reus",Unknown,true
+ZAZ,"'Zaragoza Airport","'Zaragoza",Unknown,true
+VLL,"'Valladolid Airport","'Valladolid",Unknown,true
+RGS,"'Burgos Airport","'Burgos",Unknown,true
+VIT,"'Vitoria Airport","'Vitoria",Unknown,true
+PNA,"'Pamplona Airport","'Pamplona",Unknown,true
+SLM,"'Salamanca Airport","'Salamanca",Unknown,true
+BJZ,"'Badajoz Airport","'Badajoz",Unknown,true
+JEN,"'Jerez Airport","'Jerez",Unknown,true
+RJL,"'Logroño Airport","'Logroño",Unknown,true
+HSK,"'Huesca Airport","'Huesca",Unknown,true
+ABC,"'Albacete Airport","'Albacete",Unknown,true
+CDT,"'Castellón Airport","'Castellón",Unknown,true
+CJN,"'El Hierro Airport","'El Hierro",Unknown,true
+GMZ,"'La Gomera Airport","'La Gomera",Unknown,true
+SPC,"'La Palma Airport","'La Palma",Unknown,true
+VDE,"'Valverde Airport","'El Hierro",Unknown,true
+MLN,"'Melilla Airport","'Melilla",Unknown,true
+OZP,"'Córdoba Airport","'Córdoba",Unknown,true
+GRX,"'Granada Airport","'Granada",Unknown,true
+EAS,"'San Sebastián Airport","'San Sebastián",Unknown,true
+MJV,"'Murcia-San Javier Airport","'Murcia",Unknown,true
+SDR,"'Santander Airport","'Santander",Unknown,true
+TOJ,"'Torrejón Airport","'Madrid",Unknown,false
+CQM,"'Ciudad Real Airport","'Ciudad Real",Unknown,true
+RMU,"'Murcia Airport","'Murcia",Unknown,true
+RLG,"'Rostock Airport","'Rostock",Unknown,true
+HHN,"'Frankfurt-Hahn Airport","'Frankfurt",Unknown,false
+SCN,"'Saarbrücken Airport","'Saarbrücken",Unknown,true
+CSO,"'Cochstedt Airport","'Magdeburg",Unknown,true
+ERF,"'Erfurt-Weimar Airport","'Erfurt",Unknown,true
+HDF,"'Heringsdorf Airport","'Heringsdorf",Unknown,true
+BBH,"'Barth Airport","'Barth",Unknown,true
+CBU,"'Cottbus Airport","'Cottbus",Unknown,true
+HOQ,"'Hof Airport","'Hof",Unknown,true
+KSF,"'Kassel Airport","'Kassel",Unknown,true
+LBC,"'Lübeck Airport","'Lübeck",Unknown,true
+ZQW,"'Zweibrücken Airport","'Zweibrücken",Unknown,true
+FDH,"'Friedrichshafen Airport","'Friedrichshafen",Unknown,true
+MHG,"'Mannheim Airport","'Mannheim",Unknown,true
+GWT,"'Sylt Airport","'Sylt",Unknown,true
+QDU,"'Düsseldorf Mönchengladbach Airport","'Düsseldorf",Unknown,false
+BYU,"'Bayreuth Airport","'Bayreuth",Unknown,true
+AOC,"'Altenburg Airport","'Altenburg",Unknown,true
+BMK,"'Borkum Airport","'Borkum",Unknown,true
+BMR,"'Baltrum Airport","'Baltrum",Unknown,true
+JUI,"'Juist Airport","'Juist",Unknown,true
+LGO,"'Langeoog Airport","'Langeoog",Unknown,true
+NOD,"'Norden Airport","'Norden",Unknown,true
+NRD,"'Norderney Airport","'Norderney",Unknown,true
+VAC,"'Varrelbusch Airport","'Cloppenburg",Unknown,true
+WVN,"'Wilhelmshaven Airport","'Wilhelmshaven",Unknown,true
+AGE,"'Wangerooge Airport","'Wangerooge",Unknown,true
+WYK,"'Wyk Airport","'Wyk",Unknown,true
+OHR,"'Wyk auf Föhr Airport","'Wyk auf Föhr",Unknown,true
+PSH,"'St. Peter-Ording Airport","'St. Peter-Ording",Unknown,true
+GUT,"'Gütersloh Airport","'Gütersloh",Unknown,true
+BWE,"'Braunschweig Airport","'Braunschweig",Unknown,true
+EME,"'Emden Airport","'Emden",Unknown,true
+KID,"'Kiel Airport","'Kiel",Unknown,true
+XLW,"'Lemwerder Airport","'Lemwerder",Unknown,true
+OEL,"'Oberpfaffenhofen Airport","'Oberpfaffenhofen",Unknown,true
+SZW,"'Schwerin Airport","'Schwerin",Unknown,true
+GTI,"'Greifswald Airport","'Greifswald",Unknown,true
+HDB,"'Heidelberg Airport","'Heidelberg",Unknown,true
+ZNV,"'Koblenz Airport","'Koblenz",Unknown,true
+BBJ,"'Bitburg Airport","'Bitburg",Unknown,true
+ZPB,"'Parchim Airport","'Parchim",Unknown,true
+NDZ,"'Nordholz Airport","'Cuxhaven",Unknown,true
+WBG,"'Wilberg Airport","'Wilberg",Unknown,true
+ESS,"'Essen Airport","'Essen",Unknown,true
+FRZ,"'Fritzlar Airport","'Fritzlar",Unknown,true
+SGE,"'Siegen Airport","'Siegen",Unknown,true
+BFE,"'Bielefeld Airport","'Bielefeld",Unknown,true
+ZCA,"'Celle Airport","'Celle",Unknown,true
+WUP,"'Wuppertal Airport","'Wuppertal",Unknown,true
+FLF,"'Flensburg Airport","'Flensburg",Unknown,true
+OPO,"'Francisco Sá Carneiro Airport","'Porto",Unknown,true
+FAO,"'Faro Airport","'Faro",Unknown,true
+FNC,"'Cristiano Ronaldo Airport","'Madeira",Unknown,true
+PDL,"'João Paulo II Airport","'Ponta Delgada",Unknown,true
+HOR,"'Horta Airport","'Horta",Unknown,true
+PIX,"'Pico Airport","'Pico",Unknown,true
+SMA,"'Santa Maria Airport","'Santa Maria",Unknown,true
+TER,"'Lajes Airport","'Terceira",Unknown,true
+FLW,"'Flores Airport","'Flores",Unknown,true
+CVU,"'Corvo Airport","'Corvo",Unknown,true
+GRW,"'Graciosa Airport","'Graciosa",Unknown,true
+SJZ,"'São Jorge Airport","'São Jorge",Unknown,true
+PRM,"'Portimão Airport","'Portimão",Unknown,true
+VRL,"'Vila Real Airport","'Vila Real",Unknown,true
+CHV,"'Chaves Airport","'Chaves",Unknown,true
+BGC,"'Bragança Airport","'Bragança",Unknown,true
+PTS,"'Coimbra Airport","'Coimbra",Unknown,true
+VSE,"'Viseu Airport","'Viseu",Unknown,true
+VIS,"'Viseu Airport","'Viseu",Unknown,true
+CBP,"'Covilhã Airport","'Covilhã",Unknown,true
+AVR,"'Aveiro Airport","'Aveiro",Unknown,true
+ILS,"'Évora Airport","'Évora",Unknown,true
+SIE,"'Sines Airport","'Sines",Unknown,true
+POM,"'Pombal Airport","'Pombal",Unknown,true
+CVL,"'Cascais Airport","'Cascais",Unknown,true
+PLZ,"'Ponte de Lima Airport","'Ponte de Lima",Unknown,true
+MTJ,"'Mirandela Airport","'Mirandela",Unknown,true
+MRM,"'Mogadouro Airport","'Mogadouro",Unknown,true
+CDW,"'Caldas da Rainha Airport","'Caldas da Rainha",Unknown,true
+OIA,"'Oeiras Airport","'Oeiras",Unknown,true
+QMM,"'Montemor-o-Velho Airport","'Montemor-o-Velho",Unknown,true
+ZYA,"'Amadora Airport","'Amadora",Unknown,true
+UAL,"'Luanda Airport","'Luanda",Unknown,true

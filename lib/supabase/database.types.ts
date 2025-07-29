@@ -75,6 +75,7 @@ export interface Database {
           name: string
           city_name: string
           is_primary: boolean
+          city_image_url: string | null
           created_at: string
           updated_at: string
         }
@@ -85,6 +86,7 @@ export interface Database {
           name: string
           city_name?: string
           is_primary?: boolean
+          city_image_url?: string | null
           created_at?: string
           updated_at?: string
         }
@@ -95,6 +97,7 @@ export interface Database {
           name?: string
           city_name?: string
           is_primary?: boolean
+          city_image_url?: string | null
           created_at?: string
           updated_at?: string
         }
@@ -258,6 +261,67 @@ export interface Database {
           event?: string
           metadata?: Json | null
           created_at?: string
+        }
+      }
+      email_preferences: {
+        Row: {
+          id: string
+          user_id: string
+          email_frequency: 'never' | 'daily' | 'three_weekly' | 'twice_weekly' | 'weekly'
+          is_subscribed: boolean
+          last_sent_at: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          email_frequency?: 'never' | 'daily' | 'three_weekly' | 'twice_weekly' | 'weekly'
+          is_subscribed?: boolean
+          last_sent_at?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          email_frequency?: 'never' | 'daily' | 'three_weekly' | 'twice_weekly' | 'weekly'
+          is_subscribed?: boolean
+          last_sent_at?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      email_send_history: {
+        Row: {
+          id: string
+          user_id: string
+          email_type: 'digest_free' | 'digest_premium'
+          sent_at: string
+          deal_count: number
+          status: 'sent' | 'failed' | 'bounced'
+          error_message: string | null
+          resend_id: string | null
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          email_type: 'digest_free' | 'digest_premium'
+          sent_at?: string
+          deal_count: number
+          status: 'sent' | 'failed' | 'bounced'
+          error_message?: string | null
+          resend_id?: string | null
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          email_type?: 'digest_free' | 'digest_premium'
+          sent_at?: string
+          deal_count?: number
+          status?: 'sent' | 'failed' | 'bounced'
+          error_message?: string | null
+          resend_id?: string | null
         }
       }
     }

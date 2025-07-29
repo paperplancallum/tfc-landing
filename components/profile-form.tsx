@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { User } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
-import { User as UserIcon, Mail, Phone, MapPin } from 'lucide-react'
+import { User as UserIcon, Mail, Phone, MapPin, Bell } from 'lucide-react'
 
 interface ProfileFormProps {
   user: User
@@ -20,13 +20,17 @@ export function ProfileForm({ user, profile, homeCity }: ProfileFormProps) {
   const [phone, setPhone] = useState(profile?.phone || '')
   const [selectedCityId, setSelectedCityId] = useState(profile?.home_city_id || '')
   const [cities, setCities] = useState<any[]>([])
+  const [emailFrequency, setEmailFrequency] = useState('daily')
+  const [loadingPreferences, setLoadingPreferences] = useState(false)
+  const [sendingTestEmail, setSendingTestEmail] = useState(false)
   
   const router = useRouter()
   const supabase = createClient()
 
-  // Load cities on mount
+  // Load cities and email preferences on mount
   useEffect(() => {
     loadCities()
+    loadEmailPreferences()
   }, [])
 
   async function loadCities() {
@@ -38,6 +42,66 @@ export function ProfileForm({ user, profile, homeCity }: ProfileFormProps) {
     
     if (citiesData) {
       setCities(citiesData)
+    }
+  }
+
+  async function loadEmailPreferences() {
+    try {
+      const response = await fetch('/api/email/preferences')
+      if (response.ok) {
+        const data = await response.json()
+        setEmailFrequency(data.email_frequency || 'daily')
+      }
+    } catch (error) {
+      console.error('Error loading email preferences:', error)
+    }
+  }
+
+  async function updateEmailPreferences(frequency: string) {
+    setLoadingPreferences(true)
+    try {
+      const response = await fetch('/api/email/preferences', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email_frequency: frequency,
+          is_subscribed: frequency !== 'never'
+        })
+      })
+      
+      if (!response.ok) {
+        throw new Error('Failed to update preferences')
+      }
+      
+      setEmailFrequency(frequency)
+    } catch (error) {
+      console.error('Error updating email preferences:', error)
+      alert('Failed to update email preferences. Please try again.')
+    } finally {
+      setLoadingPreferences(false)
+    }
+  }
+
+  async function sendTestEmail() {
+    setSendingTestEmail(true)
+    try {
+      const response = await fetch('/api/email/test', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      })
+      
+      const data = await response.json()
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send test email')
+      }
+      
+      alert('Test email sent! Check your inbox.')
+    } catch (error) {
+      console.error('Error sending test email:', error)
+      alert(error instanceof Error ? error.message : 'Failed to send test email. Please try again.')
+    } finally {
+      setSendingTestEmail(false)
     }
   }
 
@@ -165,9 +229,41 @@ export function ProfileForm({ user, profile, homeCity }: ProfileFormProps) {
         </div>
       </div>
 
-      <Button type="submit" disabled={loading}>
-        {loading ? 'Saving...' : 'Save Changes'}
-      </Button>
+      <div>
+        <label className="block text-sm font-medium mb-2">Email Notifications</label>
+        <div className="relative">
+          <Bell className="absolute left-3 top-3 text-gray-400" size={20} />
+          <select
+            value={emailFrequency}
+            onChange={(e) => updateEmailPreferences(e.target.value)}
+            disabled={loadingPreferences}
+            className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+          >
+            <option value="never">Never</option>
+            <option value="daily">Daily</option>
+            <option value="three_weekly">Three times a week (Mon/Wed/Fri)</option>
+            <option value="twice_weekly">Twice a week (Tue/Thu)</option>
+            <option value="weekly">Weekly (Mondays)</option>
+          </select>
+        </div>
+        {loadingPreferences && (
+          <p className="text-sm text-gray-500 mt-1">Updating preferences...</p>
+        )}
+      </div>
+
+      <div className="flex gap-3">
+        <Button type="submit" disabled={loading}>
+          {loading ? 'Saving...' : 'Save Changes'}
+        </Button>
+        <Button 
+          type="button" 
+          onClick={sendTestEmail}
+          disabled={sendingTestEmail || emailFrequency === 'never'}
+          variant="outline"
+        >
+          {sendingTestEmail ? 'Sending...' : 'Send Test Email'}
+        </Button>
+      </div>
     </form>
   )
 }

@@ -10,10 +10,10 @@ export function UpgradeBanner() {
           <Sparkles size={32} />
           <div>
             <h3 className="text-xl font-semibold mb-1">
-              Unlock 6 More Deals Daily
+              Get unlimited daily deals
             </h3>
             <p className="opacity-90">
-              Premium members get 9 deals at 7 AM - 3 hours before free users!
+              Premium members get exclusive access to all flight deals
             </p>
           </div>
         </div>

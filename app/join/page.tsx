@@ -41,14 +41,14 @@ const plans = [
 
 const features = {
   premium: [
-    '9 Daily Deals',
+    'Unlimited Daily Deals',
     'Deals sent at 7am',
-    'Deals are more recent and likely to be available still',
+    { text: 'Deals are more recent and likely to be available still', highlight: true },
     'Priority customer support',
     'Cancel anytime',
   ],
   free: [
-    '3 Daily Deals',
+    '1 Daily Deal',
     'Deals sent at 10am',
     'Deals are more likely to be gone by the time you book',
     'Basic support',
@@ -81,11 +81,16 @@ export default async function JoinPage() {
               ? 'You\'re Already a Premium Member!' 
               : 'Join Tom\'s Flight Club Premium'}
           </h1>
-          <p className="text-xl">
+          <p className="text-xl mb-4">
             {userPlan === 'premium'
               ? 'Enjoy your exclusive access to the best flight deals'
               : 'Get exclusive access to the best flight deals before anyone else'}
           </p>
+          {userPlan !== 'premium' && (
+            <p className="text-lg bg-white/20 backdrop-blur px-4 py-2 rounded-full inline-block">
+              🎉 Start with a <strong>3-day free trial</strong> - Cancel anytime
+            </p>
+          )}
         </div>
       </section>
 
@@ -100,14 +105,25 @@ export default async function JoinPage() {
             <div className="grid md:grid-cols-2 gap-8">
               {/* Premium */}
               <div className="bg-white rounded-lg p-8 border-2 border-primary">
-                <h3 className="text-2xl font-bold mb-6 text-primary">
-                  Premium {userPlan === 'premium' && '(Your Plan)'}
-                </h3>
+                <div className="flex items-center gap-3 mb-6">
+                  <h3 className="text-2xl font-bold text-primary">Premium</h3>
+                  {userPlan === 'premium' && (
+                    <span className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-semibold">
+                      Your Plan
+                    </span>
+                  )}
+                </div>
                 <ul className="space-y-4">
                   {features.premium.map((feature, i) => (
                     <li key={i} className="flex items-start gap-3">
                       <Check className="text-green-500 mt-0.5" size={20} />
-                      <span>{feature}</span>
+                      {typeof feature === 'string' ? (
+                        <span>{feature}</span>
+                      ) : (
+                        <span className="bg-yellow-100 px-2 py-1 rounded font-semibold">
+                          {feature.text}
+                        </span>
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -115,9 +131,14 @@ export default async function JoinPage() {
               
               {/* Free */}
               <div className="bg-white rounded-lg p-8 border border-gray-300">
-                <h3 className="text-2xl font-bold mb-6">
-                  Free {userPlan === 'free' && '(Your Plan)'}
-                </h3>
+                <div className="flex items-center gap-3 mb-6">
+                  <h3 className="text-2xl font-bold">Free</h3>
+                  {userPlan === 'free' && (
+                    <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-semibold">
+                      Your Plan
+                    </span>
+                  )}
+                </div>
                 <ul className="space-y-4">
                   {features.free.map((feature, i) => (
                     <li key={i} className="flex items-start gap-3">
@@ -145,9 +166,12 @@ export default async function JoinPage() {
       {userPlan !== 'premium' && (
         <section className="py-16">
           <div className="container">
-            <h2 className="text-3xl font-bold text-center mb-12">
+            <h2 className="text-3xl font-bold text-center mb-4">
               Choose Your Plan
             </h2>
+            <p className="text-center text-gray-600 mb-12">
+              All plans include a <strong>3-day free trial</strong>. No commitment, cancel anytime.
+            </p>
             
             <PlanSelector plans={plans} />
           </div>

@@ -18,6 +18,32 @@ const nextConfig: NextConfig = {
     // your project has type errors.
     ignoreBuildErrors: true,
   },
+  webpack: (config, { isServer }) => {
+    // Fix for ChunkLoadError
+    config.output.chunkLoadTimeout = 120000; // 2 minutes timeout
+    
+    // Ensure proper chunking strategy
+    if (!isServer) {
+      config.optimization = {
+        ...config.optimization,
+        runtimeChunk: 'single',
+        splitChunks: {
+          chunks: 'all',
+          cacheGroups: {
+            default: false,
+            vendors: false,
+            commons: {
+              name: 'commons',
+              chunks: 'all',
+              minChunks: 2,
+            },
+          },
+        },
+      };
+    }
+    
+    return config;
+  },
 };
 
 export default nextConfig;

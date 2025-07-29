@@ -140,6 +140,15 @@ export default async function DealPage({ params }: DealPageProps) {
   // Take the first deal if multiple exist for the same date
   const deal = deals[0]
   
+  // Get the destination city image from airports table
+  const { data: airportData } = await supabase
+    .from('airports')
+    .select('city_image_url')
+    .eq('iata_code', deal.to_airport_code || destinationAirport.toUpperCase())
+    .single()
+  
+  const destinationCityImage = airportData?.city_image_url
+  
   // Check if user has access to premium deals
   const { data: { user } } = await supabase.auth.getUser()
   let canViewPremium = false
@@ -172,34 +181,34 @@ export default async function DealPage({ params }: DealPageProps) {
   
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Hero Image */}
-      <div className="relative h-96 bg-gray-200">
-        {deal.destination_city_image ? (
-          <Image
-            src={deal.destination_city_image}
-            alt={deal.to_airport_city || deal.to_airport_code}
-            fill
-            className="object-cover"
-          />
-        ) : (
-          <div className="flex items-center justify-center h-full text-gray-400">
-            <span>No image available</span>
-          </div>
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-        
-        {/* Back button */}
-        <Link href={`/deals/${(deal.from_airport_city || 'all').toLowerCase().replace(/\s+/g, '-')}`} className="absolute top-4 left-4">
-          <Button variant="secondary" size="sm">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to deals
-          </Button>
-        </Link>
-      </div>
-      
-      {/* Deal Info */}
       <div className="container py-8">
         <div className="max-w-4xl mx-auto">
+          {/* Back button */}
+          <Link href={`/deals/${(deal.from_airport_city || 'all').toLowerCase().replace(/\s+/g, '-')}`} className="inline-flex mb-6">
+            <Button variant="secondary" size="sm">
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Back to deals
+            </Button>
+          </Link>
+          
+          {/* Hero Image */}
+          <div className="relative h-96 bg-gray-200 rounded-lg overflow-hidden mb-8">
+            {destinationCityImage ? (
+              <Image
+                src={destinationCityImage}
+                alt={deal.to_airport_city || deal.to_airport_code}
+                fill
+                className="object-cover"
+              />
+            ) : (
+              <div className="flex items-center justify-center h-full text-gray-400">
+                <span>No image available</span>
+              </div>
+            )}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+          </div>
+          
+          {/* Deal Info */}
           <div className="bg-white rounded-lg shadow-md p-8">
             <div className="mb-6">
               <h1 className="text-3xl font-bold mb-2">{deal.to_airport_city || deal.to_airport_code}</h1>
@@ -220,8 +229,10 @@ export default async function DealPage({ params }: DealPageProps) {
                 <div>
                   <p className="text-sm text-gray-600">Travel Dates</p>
                   <p className="font-semibold">
-                    {deal.departure_date
-                      ? format(new Date(deal.departure_date), 'MMMM yyyy')
+                    {deal.departure_date && deal.return_date
+                      ? canViewPremium 
+                        ? `${format(new Date(deal.departure_date), 'MMM d')} - ${format(new Date(deal.return_date), 'MMM d, yyyy')}`
+                        : format(new Date(deal.departure_date), 'MMMM yyyy')
                       : 'Flexible dates'}
                   </p>
                 </div>

@@ -99,17 +99,33 @@ export default async function DealsPage({ params }: { params: Promise<{ city: st
   // Get all deals for the city (up to 9)
   query = query.limit(9)
   const { data: allDeals } = await query
+  
+  // Get all airports with city images
+  const { data: airports } = await supabase
+    .from('airports')
+    .select('iata_code, city_image_url')
+  
+  // Create a map for quick lookup
+  const airportImageMap = new Map(airports?.map(a => [a.iata_code, a.city_image_url]) || [])
+  
+  // Add destination city images to deals
+  const dealsWithImages = allDeals?.map(deal => ({
+    ...deal,
+    destination_city_image: (deal.to_airport_code || deal.destination_airport) 
+      ? airportImageMap.get(deal.to_airport_code || deal.destination_airport) 
+      : null
+  }))
 
   let freeDeals = []
   let premiumDeals = []
 
-  if (userPlan === 'free' && allDeals) {
+  if (userPlan === 'free' && dealsWithImages) {
     // Free users see only 1 deal, rest are premium
-    freeDeals = allDeals.slice(0, 1)
-    premiumDeals = allDeals.slice(1)
+    freeDeals = dealsWithImages.slice(0, 1)
+    premiumDeals = dealsWithImages.slice(1)
   } else {
     // Premium users see all deals
-    freeDeals = allDeals || []
+    freeDeals = dealsWithImages || []
     premiumDeals = []
   }
 
