@@ -88,27 +88,27 @@ export default async function DealPage({ params }: DealPageProps) {
   const { data: allBarcelonaDeals } = await supabase
     .from('deals')
     .select('*')
-    .eq('departure_airport', 'LHR')
-    .ilike('destination_city', '%Barcelona%')
+    .eq('from_airport_code', 'LHR')
+    .ilike('to_airport_city', '%Barcelona%')
     
   console.log('All Barcelona deals from LHR:', allBarcelonaDeals?.map(d => ({
     id: d.id,
-    departure_airport: d.departure_airport,
-    destination_city: d.destination_city,
-    found_at: d.found_at,
-    formatted_date: new Date(d.found_at).toISOString().split('T')[0]
+    from_airport_code: d.from_airport_code,
+    to_airport_city: d.to_airport_city,
+    deal_found_date: d.deal_found_date,
+    formatted_date: d.deal_found_date
   })))
   
   // Get the deal using the new schema
-  // The deals table now has departure_airport and destination_city columns
+  // The deals table now has from_airport_code and to_airport_city columns
   const { data: deals, error: dealsError } = await supabase
     .from('deals')
     .select('*')
-    .eq('departure_airport', departureAirport.toUpperCase())
-    .ilike('destination_city', `${destinationCity}%`)
-    .gte('found_at', `${searchDate}T00:00:00`)
-    .lte('found_at', `${searchDate}T23:59:59`)
-    .order('found_at', { ascending: true })
+    .eq('from_airport_code', departureAirport.toUpperCase())
+    .ilike('to_airport_city', `${destinationCity}%`)
+    .gte('deal_found_date', searchDate)
+    .lte('deal_found_date', searchDate)
+    .order('created_at', { ascending: true })
     
   console.log('Deal query:', {
     departure_airport: departureAirport.toUpperCase(),
@@ -155,7 +155,8 @@ export default async function DealPage({ params }: DealPageProps) {
   }
   
   // If it's a premium deal and user doesn't have access, redirect to join page
-  if (deal.is_premium && !canViewPremium) {
+  // Note: New structure doesn't have is_premium field, so we'll skip this check for now
+  if (false && !canViewPremium) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
@@ -173,10 +174,10 @@ export default async function DealPage({ params }: DealPageProps) {
     <div className="min-h-screen bg-gray-50">
       {/* Hero Image */}
       <div className="relative h-96 bg-gray-200">
-        {deal.photo_url ? (
+        {deal.destination_city_image ? (
           <Image
-            src={deal.photo_url}
-            alt={deal.destination_city || deal.destination}
+            src={deal.destination_city_image}
+            alt={deal.to_airport_city || deal.to_airport_code}
             fill
             className="object-cover"
           />
@@ -188,7 +189,7 @@ export default async function DealPage({ params }: DealPageProps) {
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
         
         {/* Back button */}
-        <Link href={`/deals/${deal.departure_city.toLowerCase().replace(/\s+/g, '-')}`} className="absolute top-4 left-4">
+        <Link href={`/deals/${(deal.from_airport_city || 'all').toLowerCase().replace(/\s+/g, '-')}`} className="absolute top-4 left-4">
           <Button variant="secondary" size="sm">
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to deals
@@ -202,16 +203,16 @@ export default async function DealPage({ params }: DealPageProps) {
           <div className="bg-white rounded-lg shadow-md p-8">
             <div className="flex items-start justify-between mb-6">
               <div>
-                <h1 className="text-3xl font-bold mb-2">{deal.destination_city || deal.destination}</h1>
+                <h1 className="text-3xl font-bold mb-2">{deal.to_airport_city || deal.to_airport_code}</h1>
                 <p className="text-gray-600 flex items-center gap-2">
                   <MapPin size={20} />
-                  From {deal.departure_city}
+                  From {deal.from_airport_city || deal.from_airport_code}
                 </p>
               </div>
               <div className="text-right">
                 <div className="text-4xl font-bold text-primary">
-                  {deal.currency === 'USD' ? '$' : deal.currency === 'GBP' ? '£' : deal.currency}
-                  {deal.price}
+                  {deal.currency === 'USD' ? '$' : deal.currency === 'GBP' ? '£' : deal.currency === 'EUR' ? '€' : deal.currency}
+                  {deal.price || 'TBD'}
                 </div>
                 <p className="text-gray-600">per person (return)</p>
               </div>
@@ -222,8 +223,12 @@ export default async function DealPage({ params }: DealPageProps) {
               <div className="flex items-center gap-3">
                 <Calendar className="text-gray-400" size={24} />
                 <div>
-                  <p className="text-sm text-gray-600">Travel Month</p>
-                  <p className="font-semibold">{deal.travel_month}</p>
+                  <p className="text-sm text-gray-600">Travel Dates</p>
+                  <p className="font-semibold">
+                    {deal.departure_date && deal.return_date
+                      ? `${format(new Date(deal.departure_date), 'MMM d')} - ${format(new Date(deal.return_date), 'MMM d, yyyy')}`
+                      : 'Flexible dates'}
+                  </p>
                 </div>
               </div>
               
@@ -231,7 +236,7 @@ export default async function DealPage({ params }: DealPageProps) {
                 <Clock className="text-gray-400" size={24} />
                 <div>
                   <p className="text-sm text-gray-600">Trip Length</p>
-                  <p className="font-semibold">{deal.trip_length} days</p>
+                  <p className="font-semibold">{deal.trip_duration || 'Flexible'} {deal.trip_duration === 1 ? 'day' : 'days'}</p>
                 </div>
               </div>
               
@@ -239,41 +244,16 @@ export default async function DealPage({ params }: DealPageProps) {
                 <Users className="text-gray-400" size={24} />
                 <div>
                   <p className="text-sm text-gray-600">Found</p>
-                  <p className="font-semibold">{format(new Date(deal.found_at), 'MMM d, yyyy')}</p>
+                  <p className="font-semibold">{format(new Date(deal.deal_found_date || deal.created_at), 'MMM d, yyyy')}</p>
                 </div>
               </div>
             </div>
             
-            {/* Available Dates */}
-            {(deal.departure_dates || deal.return_dates) && (
-              <div className="mb-8">
-                <h3 className="text-lg font-semibold mb-4">Available Travel Dates</h3>
-                <div className="grid md:grid-cols-2 gap-6">
-                  {deal.departure_dates && deal.departure_dates.length > 0 && (
-                    <div>
-                      <p className="text-sm text-gray-600 mb-2">Departure Dates:</p>
-                      <div className="space-y-1">
-                        {deal.departure_dates.map((date, index) => (
-                          <div key={index} className="text-sm bg-gray-50 px-3 py-2 rounded">
-                            {format(new Date(date), 'EEEE, MMMM d, yyyy')}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                  {deal.return_dates && deal.return_dates.length > 0 && (
-                    <div>
-                      <p className="text-sm text-gray-600 mb-2">Return Dates:</p>
-                      <div className="space-y-1">
-                        {deal.return_dates.map((date, index) => (
-                          <div key={index} className="text-sm bg-gray-50 px-3 py-2 rounded">
-                            {format(new Date(date), 'EEEE, MMMM d, yyyy')}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
+            {/* Airline Info */}
+            {deal.airline && (
+              <div className="mb-8 p-4 bg-gray-50 rounded-lg">
+                <p className="text-sm text-gray-600">Airline</p>
+                <p className="font-semibold text-lg">{deal.airline}</p>
               </div>
             )}
             
@@ -289,12 +269,6 @@ export default async function DealPage({ params }: DealPageProps) {
               </Button>
             </div>
             
-            {/* Premium Badge */}
-            {deal.is_premium && (
-              <div className="mt-6 inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-semibold rounded">
-                Premium Deal
-              </div>
-            )}
           </div>
           
           {/* Additional Info */}
@@ -305,10 +279,7 @@ export default async function DealPage({ params }: DealPageProps) {
               <li>• Prices shown are estimates based on when the deal was found</li>
               <li>• Actual prices may vary depending on dates, availability, and booking site</li>
               <li>• We recommend booking as soon as possible for the best rates</li>
-              <li>• This deal was found on {format(new Date(deal.found_at), 'MMMM d, yyyy')}</li>
-              {deal.expires_at && (
-                <li>• Deal expires on {format(new Date(deal.expires_at), 'MMMM d, yyyy')}</li>
-              )}
+              <li>• This deal was found on {format(new Date(deal.deal_found_date || deal.created_at), 'MMMM d, yyyy')}</li>
             </ul>
           </div>
         </div>

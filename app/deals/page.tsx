@@ -63,12 +63,11 @@ export default async function AllDealsPage() {
   // Get the most recent deal for each city
   const dealsByCity = []
   
-  // First, get all non-premium deals
+  // First, get all deals
   const { data: allDeals, error: dealsError } = await supabase
     .from('deals')
     .select('*')
-    .eq('is_premium', false)
-    .order('found_at', { ascending: false })
+    .order('created_at', { ascending: false })
   
   if (dealsError) {
     console.error('Error fetching deals:', dealsError)
@@ -82,7 +81,7 @@ export default async function AllDealsPage() {
   if (allDeals) {
     console.log('Latest deal created at:', allDeals[0]?.created_at)
     for (const deal of allDeals) {
-      const cityKey = deal.departure_city || 'Unknown'
+      const cityKey = deal.from_airport_city || 'Unknown'
       if (!dealsByCityName.has(cityKey)) {
         dealsByCityName.set(cityKey, deal)
       }
@@ -94,12 +93,28 @@ export default async function AllDealsPage() {
     const city = cities?.find(c => c.name === cityName) || {
       id: deal.id,
       name: cityName,
-      iata_code: deal.departure_airport || 'XXX'
+      iata_code: deal.from_airport_code || 'XXX'
+    }
+    
+    // Transform new deal structure to old structure for DealCard compatibility
+    const transformedDeal = {
+      id: deal.id,
+      destination: `${deal.to_airport_city || deal.to_airport_code}, ${deal.to_airport_country || ''}`.trim(),
+      price: deal.price || 0,
+      currency: deal.currency || 'GBP',
+      trip_length: deal.trip_duration || 0,
+      travel_month: deal.departure_date ? 
+        new Date(deal.departure_date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : 
+        'Flexible dates',
+      photo_url: deal.destination_city_image,
+      is_premium: false, // New structure doesn't have this field
+      found_at: deal.deal_found_date || deal.created_at,
+      departure_city_id: deal.from_airport_code
     }
     
     dealsByCity.push({
       city,
-      deal
+      deal: transformedDeal
     })
   }
   
