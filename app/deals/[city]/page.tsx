@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { DealCard } from '@/components/deal-card'
+import { DealCardNew } from '@/components/deal-card-new'
 import { UpgradeBanner } from '@/components/upgrade-banner'
 import { Button } from '@/components/ui/button'
 import { Globe, MapPin } from 'lucide-react'
@@ -96,47 +96,21 @@ export default async function DealsPage({ params }: { params: Promise<{ city: st
     .eq('from_airport_city', city.name)
     .order('created_at', { ascending: false })
 
-  // Filter based on user's plan
-  if (userPlan === 'free') {
-    // Free users see up to 3 deals
-    query = query.limit(3)
+  // Get all deals for the city (up to 9)
+  query = query.limit(9)
+  const { data: allDeals } = await query
+
+  let freeDeals = []
+  let premiumDeals = []
+
+  if (userPlan === 'free' && allDeals) {
+    // Free users see only 1 deal, rest are premium
+    freeDeals = allDeals.slice(0, 1)
+    premiumDeals = allDeals.slice(1)
   } else {
-    // Premium users see all deals (up to 9)
-    query = query.limit(9)
-  }
-
-  const { data: rawDeals } = await query
-
-  // Transform deals to match the Deal interface
-  const transformDeal = (deal: any): Deal => ({
-    id: deal.id,
-    destination: `${deal.to_airport_city || deal.to_airport_code}, ${deal.to_airport_country || ''}`.trim(),
-    price: deal.price || 0,
-    currency: deal.currency || 'GBP',
-    trip_length: deal.trip_duration || 0,
-    travel_month: deal.departure_date ? 
-      new Date(deal.departure_date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : 
-      'Flexible dates',
-    photo_url: deal.destination_city_image,
-    is_premium: false,
-    found_at: deal.deal_found_date || deal.created_at
-  })
-
-  const deals = rawDeals?.map(transformDeal) || []
-
-  // Get some additional deals to show as locked for free users
-  let lockedDeals: Deal[] = []
-  if (userPlan === 'free' && deals && deals.length >= 3) {
-    const { data: premiumDeals } = await supabase
-      .from('deals')
-      .select('*')
-      .eq('from_airport_city', city.name)
-      .order('created_at', { ascending: false })
-      .range(3, 8) // Get deals 4-9 to show as locked
-    
-    if (premiumDeals) {
-      lockedDeals = premiumDeals.map(transformDeal)
-    }
+    // Premium users see all deals
+    freeDeals = allDeals || []
+    premiumDeals = []
   }
 
   return (
@@ -153,7 +127,7 @@ export default async function DealsPage({ params }: { params: Promise<{ city: st
             <p className="text-gray-600">
               {userPlan === 'premium' 
                 ? 'Showing up to 9 premium deals updated daily at 7 AM'
-                : 'Showing 3 free deals updated daily at 10 AM'}
+                : 'Showing 1 free deal - Unlock 8 more with Premium'}
             </p>
           </div>
           <Link href="/deals">
@@ -167,23 +141,13 @@ export default async function DealsPage({ params }: { params: Promise<{ city: st
         {userPlan === 'free' && <UpgradeBanner />}
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          {deals?.map((deal) => (
-            <DealCard key={deal.id} deal={deal} isLocked={false} departureCity={city.iata_code.toLowerCase()} departureCityName={city.name} />
+          {freeDeals?.map((deal) => (
+            <DealCardNew key={deal.id} deal={deal} isLocked={false} />
+          ))}
+          {premiumDeals?.map((deal) => (
+            <DealCardNew key={deal.id} deal={deal} isLocked={true} />
           ))}
         </div>
-
-        {userPlan === 'free' && lockedDeals.length > 0 && (
-          <>
-            <h2 className="text-2xl font-bold mb-4">
-              Premium Deals - Unlock with Membership
-            </h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {lockedDeals.map((deal) => (
-                <DealCard key={deal.id} deal={deal} isLocked={true} departureCity={city.iata_code.toLowerCase()} departureCityName={city.name} />
-              ))}
-            </div>
-          </>
-        )}
       </div>
     </div>
   )

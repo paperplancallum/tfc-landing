@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { ArrowLeft, Calendar, Clock, MapPin, Users, ExternalLink } from 'lucide-react'
+import { ArrowLeft, Calendar, Clock, MapPin, Users, ExternalLink, Plane } from 'lucide-react'
 import { format } from 'date-fns'
 
 interface DealPageProps {
@@ -201,32 +201,27 @@ export default async function DealPage({ params }: DealPageProps) {
       <div className="container py-8">
         <div className="max-w-4xl mx-auto">
           <div className="bg-white rounded-lg shadow-md p-8">
-            <div className="flex items-start justify-between mb-6">
-              <div>
-                <h1 className="text-3xl font-bold mb-2">{deal.to_airport_city || deal.to_airport_code}</h1>
-                <p className="text-gray-600 flex items-center gap-2">
-                  <MapPin size={20} />
-                  From {deal.from_airport_city || deal.from_airport_code}
-                </p>
-              </div>
-              <div className="text-right">
-                <div className="text-4xl font-bold text-primary">
-                  {deal.currency === 'USD' ? '$' : deal.currency === 'GBP' ? '£' : deal.currency === 'EUR' ? '€' : deal.currency}
-                  {deal.price || 'TBD'}
-                </div>
-                <p className="text-gray-600">per person (return)</p>
+            <div className="mb-6">
+              <h1 className="text-3xl font-bold mb-2">{deal.to_airport_city || deal.to_airport_code}</h1>
+              <p className="text-gray-600 flex items-center gap-2">
+                <MapPin size={20} />
+                From {deal.from_airport_city || deal.from_airport_code}
+              </p>
+              <div className="text-4xl font-bold text-primary mt-4">
+                {deal.currency === 'USD' ? '$' : deal.currency === 'GBP' ? '£' : deal.currency === 'EUR' ? '€' : deal.currency}
+                {deal.price ? (deal.price / 100).toFixed(2) : 'TBD'}
               </div>
             </div>
             
             {/* Deal Details */}
-            <div className="grid md:grid-cols-3 gap-6 mb-8">
+            <div className="grid md:grid-cols-4 gap-6 mb-8">
               <div className="flex items-center gap-3">
                 <Calendar className="text-gray-400" size={24} />
                 <div>
                   <p className="text-sm text-gray-600">Travel Dates</p>
                   <p className="font-semibold">
-                    {deal.departure_date && deal.return_date
-                      ? `${format(new Date(deal.departure_date), 'MMM d')} - ${format(new Date(deal.return_date), 'MMM d, yyyy')}`
+                    {deal.departure_date
+                      ? format(new Date(deal.departure_date), 'MMMM yyyy')
                       : 'Flexible dates'}
                   </p>
                 </div>
@@ -247,15 +242,16 @@ export default async function DealPage({ params }: DealPageProps) {
                   <p className="font-semibold">{format(new Date(deal.deal_found_date || deal.created_at), 'MMM d, yyyy')}</p>
                 </div>
               </div>
+              
+              <div className="flex items-center gap-3">
+                <Plane className="text-gray-400" size={24} />
+                <div>
+                  <p className="text-sm text-gray-600">Trip Type</p>
+                  <p className="font-semibold">Return trip</p>
+                </div>
+              </div>
             </div>
             
-            {/* Airline Info */}
-            {deal.airline && (
-              <div className="mb-8 p-4 bg-gray-50 rounded-lg">
-                <p className="text-sm text-gray-600">Airline</p>
-                <p className="font-semibold text-lg">{deal.airline}</p>
-              </div>
-            )}
             
             {/* CTA */}
             <div className="border-t pt-8">

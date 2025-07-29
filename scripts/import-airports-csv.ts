@@ -24,8 +24,10 @@ interface AirportCSVRow {
 interface AirportInsert {
   iata_code: string
   name: string
-  city_name: string
   is_primary: boolean
+  city_id?: string | null
+  city_name: string
+  country: string
 }
 
 // Function to determine if an airport should be marked as primary
@@ -88,36 +90,40 @@ async function importAirports() {
       airportsByCity[city].push(record)
     })
 
+    // Get all cities to map city names to IDs
+    console.log('Fetching cities from database...')
+    const { data: cities, error: citiesError } = await supabase
+      .from('cities')
+      .select('id, name')
+    
+    if (citiesError) {
+      console.error('Error fetching cities:', citiesError)
+      throw citiesError
+    }
+
+    // Create a map of city names to IDs
+    const cityNameToId: Record<string, string> = {}
+    cities?.forEach(city => {
+      cityNameToId[city.name.toLowerCase()] = city.id
+    })
+
     // Prepare airport data for insertion
     const airportsToInsert: AirportInsert[] = records.map(record => ({
       iata_code: record['Airport Code'],
       name: record['Airport Name'],
-      city_name: record['Airport City'],
       is_primary: isPrimaryAirport(
         record['Airport Code'], 
         record['Airport City'], 
         airportsByCity[record['Airport City']]
-      )
+      ),
+      city_id: cityNameToId[record['Airport City'].toLowerCase()] || null,
+      city_name: record['Airport City'],
+      country: record['Airport Country']
     }))
 
-    console.log('Backing up existing airport-deal relationships...')
-    // Get existing deal-airport relationships
-    const { data: dealAirports, error: dealError } = await supabase
-      .from('deals')
-      .select('id, departure_airport_id, airports!inner(iata_code)')
-      .not('departure_airport_id', 'is', null)
-
-    if (dealError) {
-      console.error('Error backing up deal-airport relationships:', dealError)
-    } else {
-      console.log(`Found ${dealAirports?.length || 0} deal-airport relationships`)
-    }
-
-    // Store the mapping of deal_id to airport IATA code
-    const dealAirportMapping = dealAirports?.map(deal => ({
-      dealId: deal.id,
-      iataCode: (deal.airports as any).iata_code
-    })) || []
+    console.log('Backing up existing deal-airport relationships...')
+    // The new deals table uses from_airport_code directly, so no need to backup relationships
+    console.log('New deals table structure uses airport codes directly, no relationships to backup')
 
     console.log('Clearing existing airport data...')
     // Clear existing airports
@@ -148,46 +154,10 @@ async function importAirports() {
       console.log(`Inserted batch ${i / batchSize + 1} of ${Math.ceil(airportsToInsert.length / batchSize)}`)
     }
 
-    console.log('Updating city_id relationships...')
-    // Update city_id relationships where cities exist
-    const { data: cities } = await supabase
-      .from('cities')
-      .select('id, name')
+    console.log('City relationships already set during insertion')
+    // No need to update city_id relationships as they were set during insertion
 
-    if (cities) {
-      for (const city of cities) {
-        const { error: updateError } = await supabase
-          .from('airports')
-          .update({ city_id: city.id })
-          .eq('city_name', city.name)
-
-        if (updateError) {
-          console.error(`Error updating city_id for ${city.name}:`, updateError)
-        }
-      }
-    }
-
-    console.log('Restoring deal-airport relationships...')
-    // Restore deal-airport relationships
-    for (const mapping of dealAirportMapping) {
-      // Find the new airport ID for the IATA code
-      const { data: airport } = await supabase
-        .from('airports')
-        .select('id')
-        .eq('iata_code', mapping.iataCode)
-        .single()
-
-      if (airport) {
-        const { error: updateError } = await supabase
-          .from('deals')
-          .update({ departure_airport_id: airport.id })
-          .eq('id', mapping.dealId)
-
-        if (updateError) {
-          console.error(`Error restoring deal-airport relationship for deal ${mapping.dealId}:`, updateError)
-        }
-      }
-    }
+    console.log('No deal-airport relationships to restore (new table structure)')
 
     console.log('Import completed successfully!')
     

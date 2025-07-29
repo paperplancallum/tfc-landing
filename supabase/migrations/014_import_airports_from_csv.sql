@@ -519,7 +519,7 @@ INSERT INTO airports (iata_code, name, city_name, is_primary) VALUES
 ('OIA', 'Oeiras Airport', 'Oeiras', true),
 ('QMM', 'Montemor-o-Velho Airport', 'Montemor-o-Velho', true),
 ('ZYA', 'Amadora Airport', 'Amadora', true),
-('UAL', 'Luanda Airport', 'Luanda', true),
+('UAL', 'Luanda Airport', 'Luanda', true);
 
 -- Add more airports as needed
 -- Country column is omitted to save space, but can be added if needed

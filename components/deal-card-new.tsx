@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Lock, Calendar, Clock, ArrowRight, Plane } from 'lucide-react'
+import { Lock, Calendar, Clock, ArrowRight, Plane, Crown } from 'lucide-react'
 import { formatDistanceToNow, format } from 'date-fns'
 import { Button } from '@/components/ui/button'
 
@@ -47,17 +47,6 @@ export function DealCardNew({ deal, isLocked = false }: DealCardNewProps) {
 
   return (
     <div className="card overflow-hidden relative flex flex-col">
-      {isLocked && (
-        <div className="absolute inset-0 bg-black/60 z-10 flex flex-col items-center justify-center text-white">
-          <Lock size={48} className="mb-4" />
-          <p className="font-semibold mb-2">Premium Deal</p>
-          <Link href="/join">
-            <Button size="sm" variant="secondary">
-              Become a Member
-            </Button>
-          </Link>
-        </div>
-      )}
       
       <div className="relative h-48 bg-gray-200">
         {deal.destination_city_image ? (
@@ -72,52 +61,54 @@ export function DealCardNew({ deal, isLocked = false }: DealCardNewProps) {
             <Plane size={48} />
           </div>
         )}
+        {isLocked && (
+          <div className="absolute top-3 right-3 bg-gradient-to-r from-slate-600 to-slate-700 text-white px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-md">
+            <Crown size={16} />
+            <span className="text-sm font-semibold">Premium</span>
+          </div>
+        )}
       </div>
       
       <div className="p-4">
-        <div className="flex items-center justify-between mb-2">
+        <div className="flex items-start justify-between mb-2">
           <p className="text-sm text-gray-600">
             {deal.from_airport_city || deal.from_airport_code} → {deal.to_airport_city || deal.to_airport_code}
           </p>
-          {deal.airline && (
-            <span className="text-xs text-gray-500">{deal.airline}</span>
-          )}
+          <span className="text-lg font-bold text-primary">
+            {deal.currency === 'USD' ? '$' : deal.currency === 'GBP' ? '£' : deal.currency === 'EUR' ? '€' : deal.currency}
+            {deal.price ? (deal.price / 100).toFixed(2) : 'TBD'}
+          </span>
         </div>
         
-        <h3 className="font-semibold text-lg mb-2">
+        <h3 className="font-semibold text-lg mb-3">
           {deal.to_airport_city || deal.to_airport_code}
         </h3>
         
-        <div className="flex items-center justify-between mb-3">
-          <span className="text-2xl font-bold text-primary">
-            {deal.currency === 'USD' ? '$' : deal.currency === 'GBP' ? '£' : deal.currency === 'EUR' ? '€' : deal.currency}
-            {deal.price || 'TBD'}
-          </span>
-          {deal.trip_duration && (
-            <span className="text-sm text-gray-600">
-              {deal.trip_duration} {deal.trip_duration === 1 ? 'day' : 'days'}
-            </span>
-          )}
-        </div>
-        
-        <div className="flex items-center gap-4 text-sm text-gray-600">
-          <div className="flex items-center gap-1">
-            <Calendar size={16} />
+        <div className="space-y-2">
+          <div className="flex items-center gap-1 text-sm text-gray-600">
+            <Plane size={16} />
             <span>{getTravelMonth()}</span>
           </div>
-          <div className="flex items-center gap-1">
+          {deal.trip_duration && (
+            <div className="flex items-center gap-1 text-sm text-gray-600">
+              <Calendar size={16} />
+              <span>Trip duration: {deal.trip_duration} {deal.trip_duration === 1 ? 'day' : 'days'}</span>
+            </div>
+          )}
+          <div className="flex items-center gap-1 text-sm text-gray-600">
             <Clock size={16} />
-            <span>{formatDistanceToNow(new Date(deal.created_at))} ago</span>
+            <span>Deal found {formatDistanceToNow(new Date(deal.created_at))} ago</span>
           </div>
         </div>
         
-        {deal.departure_date && deal.return_date && (
-          <div className="mt-2 text-xs text-gray-500">
-            {format(new Date(deal.departure_date), 'MMM d')} - {format(new Date(deal.return_date), 'MMM d, yyyy')}
-          </div>
-        )}
-        
-        {!isLocked && (
+        {isLocked ? (
+          <Link href="/join" className="mt-4 block">
+            <Button className="w-full bg-gradient-to-r from-slate-600 to-slate-700 hover:from-slate-700 hover:to-slate-800" variant="default">
+              <Lock className="mr-2 h-4 w-4" />
+              Unlock Premium Deals
+            </Button>
+          </Link>
+        ) : (
           <Link href={dealUrl} className="mt-4 block">
             <Button className="w-full" variant="outline">
               View Deal

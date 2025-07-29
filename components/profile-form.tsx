@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { User } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/client'
@@ -25,77 +25,69 @@ export function ProfileForm({ user, profile, homeCity }: ProfileFormProps) {
   const supabase = createClient()
 
   // Load cities on mount
-  useState(() => {
+  useEffect(() => {
     loadCities()
-  })
+  }, [])
 
   async function loadCities() {
-    // Get cities from cities table
+    // Only get cities from cities table - these are the curated home cities
     const { data: citiesData } = await supabase
       .from('cities')
       .select('*')
       .order('name')
     
-    // Get unique departure cities from deals
-    const { data: dealsData } = await supabase
-      .from('deals')
-      .select('departure_city, departure_airport')
-      .not('departure_city', 'is', null)
-    
-    // Create a map to avoid duplicates
-    const cityMap = new Map()
-    
-    // Add cities from cities table
     if (citiesData) {
-      citiesData.forEach(city => {
-        cityMap.set(city.name.toLowerCase(), {
-          id: city.id,
-          name: city.name,
-          iata_code: city.iata_code
-        })
-      })
+      setCities(citiesData)
     }
-    
-    // Add departure cities from deals (if not already in map)
-    if (dealsData) {
-      const uniqueDepartureCities = [...new Set(dealsData.map(d => d.departure_city))]
-      uniqueDepartureCities.forEach(cityName => {
-        if (cityName && !cityMap.has(cityName.toLowerCase())) {
-          // Create a pseudo-ID for cities not in the cities table
-          // This allows them to be selected and saved as home_city_id
-          const pseudoId = `city-${cityName.toLowerCase().replace(/\s+/g, '-')}`
-          cityMap.set(cityName.toLowerCase(), {
-            id: pseudoId,
-            name: cityName,
-            iata_code: dealsData.find(d => d.departure_city === cityName)?.departure_airport || ''
-          })
-        }
-      })
-    }
-    
-    // Convert map to array and sort
-    const allCities = Array.from(cityMap.values()).sort((a, b) => a.name.localeCompare(b.name))
-    setCities(allCities)
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
 
-    const { error } = await supabase
-      .from('users')
-      .update({
+    try {
+      // Now that migration is applied, we can save pseudo-IDs directly
+      const updateData = {
         first_name: firstName,
         last_name: lastName,
         phone: phone,
         home_city_id: selectedCityId || null,
-      })
-      .eq('id', user.id)
+      }
 
-    if (!error) {
-      router.refresh()
+      console.log('Updating profile with:', updateData)
+
+      const { data, error } = await supabase
+        .from('users')
+        .update(updateData)
+        .eq('id', user.id)
+        .select()
+
+      console.log('Update response:', { data, error })
+
+      if (error) throw error
+
+      // Profile updated successfully
+      console.log('Profile updated successfully')
+      
+      // Find the selected city to get its name for navigation
+      const selectedCity = cities.find(c => c.id === selectedCityId)
+      console.log('Found city:', selectedCity)
+      
+      if (selectedCity && selectedCityId) {
+        // Navigate to the city-specific deals page
+        const citySlug = selectedCity.name.toLowerCase().replace(/\s+/g, '-')
+        console.log('Navigating to:', `/deals/${citySlug}`)
+        window.location.href = `/deals/${citySlug}`
+      } else {
+        // Just refresh if no city selected
+        window.location.reload()
+      }
+    } catch (error) {
+      console.error('Error updating profile:', error)
+      alert('Failed to update profile. Please try again.')
+    } finally {
+      setLoading(false)
     }
-    setLoading(false)
   }
 
   return (

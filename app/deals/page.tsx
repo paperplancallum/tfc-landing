@@ -1,6 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
-import { DealCard } from '@/components/deal-card'
+import { DealCardNew } from '@/components/deal-card-new'
 import { Button } from '@/components/ui/button'
 import { MapPin, Sparkles, Globe } from 'lucide-react'
 
@@ -22,34 +22,12 @@ export default async function AllDealsPage() {
       userPlan = userData.plan
       
       if (userData.home_city_id) {
-        // Check if it's a real UUID or a pseudo-ID
-        if (userData.home_city_id.startsWith('city-')) {
-          // It's a pseudo-ID, extract the city name
-          const cityName = userData.home_city_id.replace('city-', '').replace(/-/g, ' ')
-          // Find the city from deals
-          const { data: dealCity } = await supabase
-            .from('deals')
-            .select('departure_city, departure_airport')
-            .ilike('departure_city', cityName)
-            .limit(1)
-            .single()
-          
-          if (dealCity) {
-            userHomeCity = {
-              id: userData.home_city_id,
-              name: dealCity.departure_city,
-              iata_code: dealCity.departure_airport
-            }
-          }
-        } else {
-          // It's a real UUID from the cities table
-          const { data: city } = await supabase
-            .from('cities')
-            .select('*')
-            .eq('id', userData.home_city_id)
-            .single()
-          userHomeCity = city
-        }
+        const { data: city } = await supabase
+          .from('cities')
+          .select('*')
+          .eq('id', userData.home_city_id)
+          .single()
+        userHomeCity = city
       }
     }
   }
@@ -62,12 +40,13 @@ export default async function AllDealsPage() {
 
   // Get the most recent deal for each city
   const dealsByCity = []
+  const seenCities = new Set<string>()
   
-  // First, get all deals
+  // First, get all deals ordered by most recent
   const { data: allDeals, error: dealsError } = await supabase
     .from('deals')
     .select('*')
-    .order('created_at', { ascending: false })
+    .order('deal_found_date', { ascending: false }) // Order by when deal was found, not created
   
   if (dealsError) {
     console.error('Error fetching deals:', dealsError)
@@ -75,37 +54,27 @@ export default async function AllDealsPage() {
   
   console.log('All deals fetched:', allDeals?.length, 'deals')
   
-  // Transform all deals for display
+  // Get only the most recent deal per departure city
   if (allDeals) {
-    console.log('Latest deal created at:', allDeals[0]?.created_at)
-    console.log('First deal structure:', JSON.stringify(allDeals[0], null, 2))
-    
     for (const deal of allDeals) {
+      const cityKey = deal.from_airport_city || deal.from_airport_code
+      
+      // Skip if we've already seen a deal from this city
+      if (seenCities.has(cityKey)) {
+        continue
+      }
+      
+      seenCities.add(cityKey)
+      
       const city = cities?.find(c => c.name === deal.from_airport_city) || {
-        id: deal.id,
+        id: `city-${cityKey}`,
         name: deal.from_airport_city || 'Unknown',
         iata_code: deal.from_airport_code || 'XXX'
       }
       
-      // Transform new deal structure to old structure for DealCard compatibility
-      const transformedDeal = {
-        id: deal.id,
-        destination: `${deal.to_airport_city || deal.to_airport_code}, ${deal.to_airport_country || ''}`.trim(),
-        price: deal.price || 0,
-        currency: deal.currency || 'GBP',
-        trip_length: deal.trip_duration || 0,
-        travel_month: deal.departure_date ? 
-          new Date(deal.departure_date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : 
-          'Flexible dates',
-        photo_url: deal.destination_city_image,
-        is_premium: false, // New structure doesn't have this field
-        found_at: deal.deal_found_date || deal.created_at,
-        departure_city_id: deal.from_airport_code
-      }
-      
       dealsByCity.push({
         city,
-        deal: transformedDeal
+        deal
       })
     }
   }
@@ -114,11 +83,7 @@ export default async function AllDealsPage() {
   dealsByCity.sort((a, b) => a.city.name.localeCompare(b.city.name))
   
   console.log('Final dealsByCity array length:', dealsByCity.length)
-  console.log('Final deals:', dealsByCity.map(d => ({
-    cityName: d.city.name,
-    destination: d.deal.destination,
-    price: d.deal.price
-  })))
+  console.log('Unique cities with deals:', dealsByCity.map(d => d.city.name).join(', '))
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -182,12 +147,10 @@ export default async function AllDealsPage() {
         {/* Deals Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {dealsByCity.map(({ city, deal }) => (
-            <DealCard 
-              key={city.id}
+            <DealCardNew 
+              key={deal.id}
               deal={deal} 
               isLocked={false} 
-              departureCity={city.iata_code.toLowerCase()}
-              departureCityName={city.name}
             />
           ))}
         </div>
