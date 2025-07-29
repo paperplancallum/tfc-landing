@@ -97,7 +97,7 @@ export default async function JoinPage() {
       {/* Comparison */}
       <section className="py-16 bg-gray-50">
         <div className="container">
-          <h2 className="text-3xl font-bold text-center mb-12">
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">
             Premium vs Free Membership
           </h2>
           
@@ -132,7 +132,7 @@ export default async function JoinPage() {
               {/* Free */}
               <div className="bg-white rounded-lg p-8 border border-gray-300">
                 <div className="flex items-center gap-3 mb-6">
-                  <h3 className="text-2xl font-bold">Free</h3>
+                  <h3 className="text-2xl font-bold text-gray-900">Free</h3>
                   {userPlan === 'free' && (
                     <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-semibold">
                       Your Plan
@@ -166,7 +166,7 @@ export default async function JoinPage() {
       {userPlan !== 'premium' && (
         <section className="py-16">
           <div className="container">
-            <h2 className="text-3xl font-bold text-center mb-4">
+            <h2 className="text-3xl font-bold text-center mb-4 text-gray-900">
               Choose Your Plan
             </h2>
             <p className="text-center text-gray-600 mb-12">
@@ -181,7 +181,7 @@ export default async function JoinPage() {
       {/* Testimonials */}
       <section className="py-16 bg-gray-50">
         <div className="container">
-          <h2 className="text-3xl font-bold text-center mb-12">
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">
             What Our Members Say
           </h2>
           <TestimonialCarousel />
@@ -191,7 +191,7 @@ export default async function JoinPage() {
       {/* FAQ */}
       <section className="py-16">
         <div className="container max-w-4xl">
-          <h2 className="text-3xl font-bold text-center mb-12">
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">
             Frequently Asked Questions
           </h2>
           <FAQAccordion />

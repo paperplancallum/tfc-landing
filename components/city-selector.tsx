@@ -63,7 +63,7 @@ export function CitySelector() {
       <select
         value={selectedCity}
         onChange={handleCityChange}
-        className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+        className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-white text-gray-900"
       >
         <option value="">Select a city</option>
         {cities.map((city) => (

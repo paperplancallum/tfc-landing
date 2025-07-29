@@ -64,10 +64,10 @@ export function PlanSelector({ plans }: { plans: Plan[] }) {
               </div>
             )}
             
-            <h3 className="text-xl font-bold mb-4">{plan.name}</h3>
+            <h3 className="text-xl font-bold mb-4 text-gray-900">{plan.name}</h3>
             
             <div className="mb-2">
-              <span className="text-4xl font-bold">{plan.price}</span>
+              <span className="text-4xl font-bold text-gray-900">{plan.price}</span>
               <span className="text-gray-600">{plan.period}</span>
             </div>
             

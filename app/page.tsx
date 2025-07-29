@@ -33,7 +33,7 @@ export default function HomePage() {
       {/* City Selector */}
       <section className="py-12 bg-gray-50">
         <div className="container text-center">
-          <h2 className="text-2xl font-bold mb-6">Select Your Departure City</h2>
+          <h2 className="text-2xl font-bold mb-6 text-gray-900">Select Your Departure City</h2>
           <CitySelector />
         </div>
       </section>
@@ -41,7 +41,7 @@ export default function HomePage() {
       {/* Features */}
       <section className="py-20">
         <div className="container">
-          <h2 className="text-3xl font-bold text-center mb-12">
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">
             Why Tom's Flight Club?
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -49,7 +49,7 @@ export default function HomePage() {
               <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Plane className="text-primary" size={32} />
               </div>
-              <h3 className="font-semibold mb-2">Curated Deals</h3>
+              <h3 className="font-semibold mb-2 text-gray-900">Curated Deals</h3>
               <p className="text-gray-600">
                 Hand-picked flight deals up to 75% off regular prices
               </p>
@@ -58,7 +58,7 @@ export default function HomePage() {
               <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Clock className="text-primary" size={32} />
               </div>
-              <h3 className="font-semibold mb-2">Early Access</h3>
+              <h3 className="font-semibold mb-2 text-gray-900">Early Access</h3>
               <p className="text-gray-600">
                 Premium members get deals 3 hours before free users
               </p>
@@ -67,7 +67,7 @@ export default function HomePage() {
               <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Mail className="text-primary" size={32} />
               </div>
-              <h3 className="font-semibold mb-2">Daily Alerts</h3>
+              <h3 className="font-semibold mb-2 text-gray-900">Daily Alerts</h3>
               <p className="text-gray-600">
                 Personalized email digests based on your home city
               </p>
@@ -76,7 +76,7 @@ export default function HomePage() {
               <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <CreditCard className="text-primary" size={32} />
               </div>
-              <h3 className="font-semibold mb-2">Flexible Plans</h3>
+              <h3 className="font-semibold mb-2 text-gray-900">Flexible Plans</h3>
               <p className="text-gray-600">
                 Choose from 3-month, 6-month, or yearly subscriptions
               </p>
@@ -88,7 +88,7 @@ export default function HomePage() {
       {/* CTA Section */}
       <section className="py-20 bg-gray-50">
         <div className="container text-center">
-          <h2 className="text-3xl font-bold mb-4">
+          <h2 className="text-3xl font-bold mb-4 text-gray-900">
             Ready to Start Saving on Flights?
           </h2>
           <p className="text-xl text-gray-600 mb-8">
