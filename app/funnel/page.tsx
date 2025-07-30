@@ -16,7 +16,7 @@ export default function FunnelStep1() {
           Our members save £488+/ticket on average
         </p>
         
-        <Link href="/funnel/step-2">
+        <Link href="/funnel/step-2" prefetch={true}>
           <Button size="lg" className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold text-lg px-8 py-6 rounded-full shadow-lg transform hover:scale-105 transition-all">
             HOW IT WORKS?
           </Button>

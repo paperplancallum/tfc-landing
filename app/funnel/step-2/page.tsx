@@ -17,7 +17,7 @@ export default function FunnelStep2() {
           great deal appears, we'll send it directly to your inbox.
         </p>
         
-        <Link href="/funnel/step-3">
+        <Link href="/funnel/step-3" prefetch={true}>
           <Button size="lg" className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold text-lg px-12 py-6 rounded-full shadow-lg transform hover:scale-105 transition-all">
             NEXT
           </Button>

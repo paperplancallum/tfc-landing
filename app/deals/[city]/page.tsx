@@ -5,6 +5,9 @@ import { DealCardNew } from '@/components/deal-card-new'
 import { UpgradeBanner } from '@/components/upgrade-banner'
 import { Button } from '@/components/ui/button'
 import { Globe, MapPin } from 'lucide-react'
+import { Suspense } from 'react'
+import { DealsList } from '@/components/deals-list'
+import { Skeleton } from '@/components/ui/skeleton'
 
 interface Deal {
   id: string
@@ -89,46 +92,6 @@ export default async function DealsPage({ params }: { params: Promise<{ city: st
     }
   }
 
-  // Get deals for this city using the new structure
-  let query = supabase
-    .from('deals')
-    .select('*')
-    .eq('from_airport_city', city.name)
-    .order('created_at', { ascending: false })
-
-  // Get all deals for the city (up to 9)
-  query = query.limit(9)
-  const { data: allDeals } = await query
-  
-  // Get all airports with city images
-  const { data: airports } = await supabase
-    .from('airports')
-    .select('iata_code, city_image_url')
-  
-  // Create a map for quick lookup
-  const airportImageMap = new Map(airports?.map(a => [a.iata_code, a.city_image_url]) || [])
-  
-  // Add destination city images to deals
-  const dealsWithImages = allDeals?.map(deal => ({
-    ...deal,
-    destination_city_image: (deal.to_airport_code || deal.destination_airport) 
-      ? airportImageMap.get(deal.to_airport_code || deal.destination_airport) 
-      : null
-  }))
-
-  let freeDeals = []
-  let premiumDeals = []
-
-  if (userPlan === 'free' && dealsWithImages) {
-    // Free users see only 1 deal, rest are premium
-    freeDeals = dealsWithImages.slice(0, 1)
-    premiumDeals = dealsWithImages.slice(1)
-  } else {
-    // Premium users see all deals
-    freeDeals = dealsWithImages || []
-    premiumDeals = []
-  }
-
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container py-8">
@@ -156,14 +119,29 @@ export default async function DealsPage({ params }: { params: Promise<{ city: st
 
         {userPlan === 'free' && <UpgradeBanner />}
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          {freeDeals?.map((deal) => (
-            <DealCardNew key={deal.id} deal={deal} isLocked={false} />
-          ))}
-          {premiumDeals?.map((deal) => (
-            <DealCardNew key={deal.id} deal={deal} isLocked={true} />
-          ))}
-        </div>
+        <Suspense 
+          fallback={
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+              {[...Array(9)].map((_, i) => (
+                <div key={i} className="card overflow-hidden">
+                  <Skeleton className="h-48 w-full" />
+                  <div className="p-4">
+                    <Skeleton className="h-4 w-3/4 mb-2" />
+                    <Skeleton className="h-6 w-1/2 mb-3" />
+                    <div className="space-y-2">
+                      <Skeleton className="h-4 w-full" />
+                      <Skeleton className="h-4 w-full" />
+                      <Skeleton className="h-4 w-3/4" />
+                    </div>
+                    <Skeleton className="h-10 w-full mt-4" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          }
+        >
+          <DealsList city={city} userPlan={userPlan} />
+        </Suspense>
       </div>
     </div>
   )

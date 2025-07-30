@@ -108,14 +108,14 @@ export function DealCardNew({ deal, isLocked = false }: DealCardNewProps) {
         </div>
         
         {isLocked ? (
-          <Link href="/join" className="mt-4 block">
+          <Link href="/join" className="mt-4 block" prefetch={true}>
             <Button className="w-full bg-gradient-to-r from-slate-600 to-slate-700 hover:from-slate-700 hover:to-slate-800" variant="default">
               <Lock className="mr-2 h-4 w-4" />
               Unlock Premium Deals
             </Button>
           </Link>
         ) : (
-          <Link href={dealUrl} className="mt-4 block">
+          <Link href={dealUrl} className="mt-4 block" prefetch={true}>
             <Button className="w-full" variant="outline">
               View Deal
               <ArrowRight className="ml-2 h-4 w-4" />
