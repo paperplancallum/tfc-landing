@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 interface DealCardProps {
   deal: {
     id: string
+    deal_number?: number
     destination: string
     price: number
     currency: string
@@ -76,7 +77,9 @@ export function DealCard({ deal, isLocked, departureCity = 'lon', departureCityN
   }
   
   const dateString = formatDateForUrl(deal.found_at)
-  const dealUrl = `/deal/${actualDepartureCode}-${destinationCode}-${dateString}-${deal.id}`
+  // Use deal_number if available, otherwise fall back to id
+  const dealIdentifier = deal.deal_number || deal.id
+  const dealUrl = `/deal/${actualDepartureCode}-${destinationCode}-${dateString}-${dealIdentifier}`
 
   return (
     <div className="card overflow-hidden relative flex flex-col">

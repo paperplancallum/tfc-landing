@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/navbar";
 import { createClient } from "@/lib/supabase/server";
 import { AuthHandler } from "@/components/auth-handler";
+import { ConditionalNavbar } from "@/components/conditional-navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,7 +31,7 @@ export default async function RootLayout({
     <html lang="en">
       <body className={inter.className} suppressHydrationWarning>
         <AuthHandler />
-        <Navbar user={user} />
+        <ConditionalNavbar user={user} />
         <main className="min-h-screen">
           {children}
         </main>

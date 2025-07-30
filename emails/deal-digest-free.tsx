@@ -17,6 +17,7 @@ import * as React from 'react';
 
 interface Deal {
   id: string;
+  deal_number?: number;
   from_airport_city: string;
   to_airport_city: string;
   price: string;
@@ -96,7 +97,7 @@ export const DealDigestFreeEmail = ({
                         {Math.floor(parseFloat(deal.price) / 100)}
                       </Text>
                       <Button
-                        href={`${baseUrl}/deal/${deal.from_airport_code.toLowerCase()}-${deal.to_airport_code.toLowerCase()}-${new Date(deal.deal_found_date).toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' }).replace(/\//g, '')}-${deal.id}`}
+                        href={`${baseUrl}/deal/${deal.from_airport_code.toLowerCase()}-${deal.to_airport_code.toLowerCase()}-${new Date(deal.deal_found_date).toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' }).replace(/\//g, '')}-${deal.deal_number || deal.id}`}
                         style={getDealButton}
                       >
                         Get Deal

@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 interface DealCardNewProps {
   deal: {
     id: string
+    deal_number?: number
     from_airport_code: string
     from_airport_city?: string
     to_airport_code: string
@@ -36,7 +37,9 @@ export function DealCardNew({ deal, isLocked = false }: DealCardNewProps) {
   
   // Use deal_found_date for the URL
   const dateString = formatDateForUrl(deal.deal_found_date)
-  const dealUrl = `/deal/${deal.from_airport_code.toLowerCase()}-${deal.to_airport_code.toLowerCase()}-${dateString}-${deal.id}`
+  // Use deal_number if available, otherwise fall back to id
+  const dealIdentifier = deal.deal_number || deal.id
+  const dealUrl = `/deal/${deal.from_airport_code.toLowerCase()}-${deal.to_airport_code.toLowerCase()}-${dateString}-${dealIdentifier}`
 
   // Format travel month from departure date
   const getTravelMonth = () => {

@@ -28,7 +28,7 @@ export default async function DealPage({ params }: DealPageProps) {
   
   console.log('Deal page - slug:', slug)
   
-  // Parse the slug: lhr-bcn-28072025 or lhr-bcn-28072025-dealId
+  // Parse the slug: lhr-bcn-28072025 or lhr-bcn-28072025-dealId (where dealId might be a UUID)
   const parts = slug.split('-')
   if (parts.length < 3) {
     console.log('Invalid slug format - parts:', parts)
@@ -43,9 +43,13 @@ export default async function DealPage({ params }: DealPageProps) {
   if (parts.length === 3) {
     // Old format: lhr-bcn-28072025
     [departureAirport, destinationAirport, dateStr] = parts
-  } else if (parts.length === 4) {
-    // New format: lhr-bcn-28072025-dealId
-    [departureAirport, destinationAirport, dateStr, dealId] = parts
+  } else if (parts.length >= 4) {
+    // New format: lhr-bcn-28072025-dealId (dealId might be a UUID with hyphens)
+    departureAirport = parts[0]
+    destinationAirport = parts[1]
+    dateStr = parts[2]
+    // Join remaining parts as the deal ID (handles UUIDs with hyphens)
+    dealId = parts.slice(3).join('-')
   } else {
     console.log('Invalid slug format - parts:', parts)
     notFound()
@@ -91,26 +95,70 @@ export default async function DealPage({ params }: DealPageProps) {
     
   console.log('Debug - All deals for this route:', debugDeals?.map(d => ({
     id: d.id,
+    deal_number: d.deal_number,
     from: `${d.from_airport_code} (${d.from_airport_city})`,
     to: `${d.to_airport_code} (${d.to_airport_city})`,
     price: d.price,
     date: d.deal_found_date
   })))
   
+  // Log first deal to see all available fields
+  if (debugDeals && debugDeals.length > 0) {
+    console.log('First deal full structure:', debugDeals[0])
+  }
+  
   // Get the deal - if we have a dealId, use that for exact match
   let deals: any[] | null = null
   let dealsError: any = null
   
   if (dealId) {
-    // New format with deal ID - get exact deal
-    const { data, error } = await supabase
-      .from('deals')
-      .select('*')
-      .eq('id', dealId)
-      .single()
+    // New format with deal ID - check format
+    const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(dealId)
+    const isDealNumber = dealId.startsWith('DEAL-') || /^\d+$/.test(dealId)
     
-    deals = data ? [data] : null
-    dealsError = error
+    if (isDealNumber) {
+      // Query by deal_number - handle both "DEAL-123" and numeric formats
+      const { data, error } = await supabase
+        .from('deals')
+        .select('*')
+        .eq('deal_number', dealId)
+        .single()
+      
+      deals = data ? [data] : null
+      dealsError = error
+    } else if (isUUID) {
+      // Query by UUID
+      const { data, error } = await supabase
+        .from('deals')
+        .select('*')
+        .eq('id', dealId)
+        .single()
+      
+      deals = data ? [data] : null
+      dealsError = error
+    } else {
+      // Unknown format - try deal_number first, then id
+      const { data: dealNumberData, error: dealNumberError } = await supabase
+        .from('deals')
+        .select('*')
+        .eq('deal_number', dealId)
+        .single()
+      
+      if (dealNumberData) {
+        deals = [dealNumberData]
+        dealsError = null
+      } else {
+        // Fallback to id search
+        const { data, error } = await supabase
+          .from('deals')
+          .select('*')
+          .eq('id', dealId)
+          .single()
+        
+        deals = data ? [data] : null
+        dealsError = error || dealNumberError
+      }
+    }
   } else {
     // Old format - fallback to searching by route and date
     const { data, error } = await supabase
