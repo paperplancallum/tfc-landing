@@ -203,7 +203,7 @@ export default async function DealPage({ params }: DealPageProps) {
                 {deal.currency === 'USD' ? '$' : deal.currency === 'GBP' ? '£' : deal.currency === 'EUR' ? '€' : deal.currency}
                 {deal.price ? (
                   // EUR prices are stored in cents, GBP prices are stored as whole numbers
-                  deal.currency === 'EUR' ? (deal.price / 100).toFixed(2) : deal.price.toFixed(2)
+                  deal.currency === 'EUR' ? Math.floor(deal.price / 100) : Math.floor(deal.price)
                 ) : 'TBD'}
               </div>
             </div>
