@@ -117,8 +117,8 @@ export function DealCard({ deal, isLocked, departureCity = 'lon', departureCityN
         
         <div className="flex items-center justify-between mb-3">
           <span className="text-2xl font-bold text-primary">
-            {deal.currency === 'USD' ? '$' : deal.currency === 'GBP' ? '£' : deal.currency}
-            {deal.price}
+            {deal.currency === 'USD' ? '$' : deal.currency === 'GBP' ? '£' : deal.currency === 'EUR' ? '€' : deal.currency}
+            {Math.floor(deal.price / 100)}
           </span>
           <span className="text-sm text-gray-600">
             {deal.trip_length} days

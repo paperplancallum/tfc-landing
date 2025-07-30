@@ -89,11 +89,8 @@ export const DealDigestPremiumEmail = ({
                     </Text>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '60px', marginTop: '8px' }}>
                       <Text style={dealPrice}>
-                        {deal.currency === 'GBP' ? '£' : '€'}
-                        {deal.currency === 'EUR' 
-                          ? Math.floor(parseFloat(deal.price) / 100)
-                          : Math.floor(parseFloat(deal.price))
-                        }
+                        {deal.currency === 'USD' ? '$' : deal.currency === 'GBP' ? '£' : '€'}
+                        {Math.floor(parseFloat(deal.price) / 100)}
                       </Text>
                       <Button
                         href={`${baseUrl}/deal/${deal.from_airport_code.toLowerCase()}-${deal.to_airport_code.toLowerCase()}-${new Date(deal.deal_found_date).toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' }).replace(/\//g, '')}`}
