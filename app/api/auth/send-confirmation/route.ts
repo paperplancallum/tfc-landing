@@ -41,21 +41,35 @@ export async function POST(request: NextRequest) {
     expires.setHours(expires.getHours() + 24) // 24 hour expiry
     
     // Store the token in the database
-    const { error: tokenError } = await supabase
+    console.log('Attempting to store token for userId:', userId)
+    
+    const { data: updateData, error: tokenError } = await supabase
       .from('users')
       .update({
         email_confirmation_token: token,
         email_confirmation_expires: expires.toISOString(),
       })
       .eq('id', userId)
+      .select()
     
     if (tokenError) {
       console.error('Error storing confirmation token:', tokenError)
+      // Try to check if user exists
+      const { data: checkUser } = await supabase
+        .from('users')
+        .select('id, email')
+        .eq('id', userId)
+        .single()
+      
+      console.error('User exists check:', checkUser)
+      
       return NextResponse.json(
         { error: 'Failed to generate confirmation token' },
         { status: 500 }
       )
     }
+    
+    console.log('Token stored successfully:', updateData ? 'User updated' : 'No user found')
     
     // Create confirmation URL
     const confirmationUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/auth/confirm-email?token=${token}&email=${encodeURIComponent(email)}`

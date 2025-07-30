@@ -10,9 +10,10 @@ interface AccountTabsProps {
   profile: any
   subscription: any
   homeCity: any
+  isAdmin?: boolean
 }
 
-export function AccountTabs({ user, profile, subscription, homeCity }: AccountTabsProps) {
+export function AccountTabs({ user, profile, subscription, homeCity, isAdmin = false }: AccountTabsProps) {
   const [activeTab, setActiveTab] = useState('profile')
 
   const tabs = [
@@ -42,7 +43,7 @@ export function AccountTabs({ user, profile, subscription, homeCity }: AccountTa
 
       <div className="mt-8">
         {activeTab === 'profile' && (
-          <ProfileForm user={user} profile={profile} homeCity={homeCity} />
+          <ProfileForm user={user} profile={profile} homeCity={homeCity} isAdmin={isAdmin} />
         )}
         {activeTab === 'membership' && (
           <MembershipPanel profile={profile} subscription={subscription} />

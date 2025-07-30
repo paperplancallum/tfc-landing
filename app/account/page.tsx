@@ -36,6 +36,9 @@ export default async function AccountPage() {
     .eq('status', 'active')
     .single()
 
+  // Check if user is admin
+  const isAdmin = user.email === 'callum@paperplan.co'
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container py-8">
@@ -46,6 +49,7 @@ export default async function AccountPage() {
           profile={profile} 
           subscription={subscription}
           homeCity={homeCity}
+          isAdmin={isAdmin}
         />
       </div>
     </div>

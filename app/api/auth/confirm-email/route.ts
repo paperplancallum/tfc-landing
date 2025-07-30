@@ -26,6 +26,21 @@ export async function POST(request: NextRequest) {
       )
     }
     
+    // Log the incoming request for debugging
+    console.log('Confirmation request:', { email, token: token.substring(0, 10) + '...' })
+    
+    // First check if user exists with this email
+    const { data: userByEmail } = await supabase
+      .from('users')
+      .select('id, email_confirmation_token, email_confirmation_expires')
+      .eq('email', email)
+      .single()
+    
+    if (userByEmail) {
+      console.log('User found by email, token match:', userByEmail.email_confirmation_token === token)
+      console.log('Token in DB:', userByEmail.email_confirmation_token?.substring(0, 10) + '...')
+    }
+    
     // Find user with matching token and email
     const { data: user, error: userError } = await supabase
       .from('users')
@@ -36,6 +51,7 @@ export async function POST(request: NextRequest) {
     
     if (userError || !user) {
       console.error('User lookup error:', userError)
+      console.error('Failed to find user with email:', email, 'and token:', token.substring(0, 10) + '...')
       return NextResponse.json(
         { error: 'Invalid or expired confirmation link' },
         { status: 400 }

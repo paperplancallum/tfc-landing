@@ -11,9 +11,10 @@ interface ProfileFormProps {
   user: User
   profile: any
   homeCity: any
+  isAdmin?: boolean
 }
 
-export function ProfileForm({ user, profile, homeCity }: ProfileFormProps) {
+export function ProfileForm({ user, profile, homeCity, isAdmin = false }: ProfileFormProps) {
   const [loading, setLoading] = useState(false)
   const [firstName, setFirstName] = useState(profile?.first_name || '')
   const [lastName, setLastName] = useState(profile?.last_name || '')
@@ -259,14 +260,16 @@ export function ProfileForm({ user, profile, homeCity }: ProfileFormProps) {
         <Button type="submit" disabled={loading}>
           {loading ? 'Saving...' : 'Save Changes'}
         </Button>
-        <Button 
-          type="button" 
-          onClick={sendTestEmail}
-          disabled={sendingTestEmail || emailFrequency === 'never'}
-          variant="outline"
-        >
-          {sendingTestEmail ? 'Sending...' : 'Send Test Email'}
-        </Button>
+        {isAdmin && (
+          <Button 
+            type="button" 
+            onClick={sendTestEmail}
+            disabled={sendingTestEmail || emailFrequency === 'never'}
+            variant="outline"
+          >
+            {sendingTestEmail ? 'Sending...' : 'Send Test Email'}
+          </Button>
+        )}
       </div>
     </form>
   )
