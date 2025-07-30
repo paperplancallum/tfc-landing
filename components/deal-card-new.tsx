@@ -36,7 +36,7 @@ export function DealCardNew({ deal, isLocked = false }: DealCardNewProps) {
   
   // Use deal_found_date for the URL
   const dateString = formatDateForUrl(deal.deal_found_date)
-  const dealUrl = `/deal/${deal.from_airport_code.toLowerCase()}-${deal.to_airport_code.toLowerCase()}-${dateString}`
+  const dealUrl = `/deal/${deal.from_airport_code.toLowerCase()}-${deal.to_airport_code.toLowerCase()}-${dateString}-${deal.id}`
 
   // Format travel month from departure date
   const getTravelMonth = () => {

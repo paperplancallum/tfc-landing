@@ -28,14 +28,28 @@ export default async function DealPage({ params }: DealPageProps) {
   
   console.log('Deal page - slug:', slug)
   
-  // Parse the slug: lhr-bcn-28072025
+  // Parse the slug: lhr-bcn-28072025 or lhr-bcn-28072025-dealId
   const parts = slug.split('-')
-  if (parts.length !== 3) {
+  if (parts.length < 3) {
     console.log('Invalid slug format - parts:', parts)
     notFound()
   }
   
-  const [departureAirport, destinationAirport, dateStr] = parts
+  let departureAirport: string
+  let destinationAirport: string
+  let dateStr: string
+  let dealId: string | undefined
+  
+  if (parts.length === 3) {
+    // Old format: lhr-bcn-28072025
+    [departureAirport, destinationAirport, dateStr] = parts
+  } else if (parts.length === 4) {
+    // New format: lhr-bcn-28072025-dealId
+    [departureAirport, destinationAirport, dateStr, dealId] = parts
+  } else {
+    console.log('Invalid slug format - parts:', parts)
+    notFound()
+  }
   
   // Parse date from DDMMYYYY format
   const day = dateStr.substring(0, 2)
@@ -47,7 +61,8 @@ export default async function DealPage({ params }: DealPageProps) {
     departureAirport,
     destinationAirport,
     dateStr,
-    searchDate
+    searchDate,
+    dealId
   })
   
   // Get destination city name from airports table
@@ -82,17 +97,37 @@ export default async function DealPage({ params }: DealPageProps) {
     date: d.deal_found_date
   })))
   
-  // Get the deal using airport codes which are more reliable than city names
-  const { data: deals, error: dealsError } = await supabase
-    .from('deals')
-    .select('*')
-    .eq('from_airport_code', departureAirport.toUpperCase())
-    .eq('to_airport_code', destinationAirport.toUpperCase())
-    .gte('deal_found_date', searchDate)
-    .lte('deal_found_date', searchDate)
-    .order('created_at', { ascending: true })
+  // Get the deal - if we have a dealId, use that for exact match
+  let deals: any[] | null = null
+  let dealsError: any = null
+  
+  if (dealId) {
+    // New format with deal ID - get exact deal
+    const { data, error } = await supabase
+      .from('deals')
+      .select('*')
+      .eq('id', dealId)
+      .single()
+    
+    deals = data ? [data] : null
+    dealsError = error
+  } else {
+    // Old format - fallback to searching by route and date
+    const { data, error } = await supabase
+      .from('deals')
+      .select('*')
+      .eq('from_airport_code', departureAirport.toUpperCase())
+      .eq('to_airport_code', destinationAirport.toUpperCase())
+      .gte('deal_found_date', searchDate)
+      .lte('deal_found_date', searchDate)
+      .order('created_at', { ascending: true })
+    
+    deals = data
+    dealsError = error
+  }
     
   console.log('Deal query:', {
+    dealId,
     from_airport_code: departureAirport.toUpperCase(),
     to_airport_code: destinationAirport.toUpperCase(),
     searchDate,
