@@ -1,9 +1,9 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, Suspense } from 'react'
 import { usePathname, useSearchParams } from 'next/navigation'
 
-export function NavigationProgress() {
+function NavigationProgressInner() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
@@ -35,5 +35,13 @@ export function NavigationProgress() {
       className="fixed top-0 left-0 h-1 bg-primary z-[9999] transition-all duration-300 ease-out"
       style={{ width: '0%', display: 'none' }}
     />
+  )
+}
+
+export function NavigationProgress() {
+  return (
+    <Suspense fallback={null}>
+      <NavigationProgressInner />
+    </Suspense>
   )
 }

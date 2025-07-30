@@ -13,6 +13,9 @@ export const metadata: Metadata = {
   description: "Find ultra-cheap flight deals, receive personalized email alerts, and unlock premium deals",
 };
 
+// Force dynamic rendering since we use cookies for auth
+export const dynamic = 'force-dynamic';
+
 export default async function RootLayout({
   children,
 }: Readonly<{

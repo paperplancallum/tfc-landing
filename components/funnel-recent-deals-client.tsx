@@ -50,7 +50,7 @@ export function FunnelRecentDealsClient() {
         .eq('from_airport_city', selectedCity)
         .order('deal_found_date', { ascending: false })
         .limit(3)
-
+      
       // If no deals from that city, get most recent overall
       if (!deals || deals.length === 0) {
         const { data: recentDeals } = await supabase
@@ -111,7 +111,10 @@ export function FunnelRecentDealsClient() {
   return (
     <div className="mb-6">
       <h3 className="font-bold mb-4">
-        Latest Flight Deals Members From {cityName || 'Your City'} Received
+        {deals && deals.length > 0 && deals[0].from_airport_city === cityName 
+          ? `Latest Flight Deals Members From ${cityName} Received`
+          : `Latest Flight Deals Available`
+        }
       </h3>
       <div className="space-y-3">
         {deals.map((deal) => (
