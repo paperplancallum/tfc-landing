@@ -108,8 +108,10 @@ export default function CheckoutClient() {
         sessionStorage.setItem('checkoutEmail', email)
         sessionStorage.setItem('checkoutAirport', selectedAirport)
       }
-      // Redirect to Stripe payment link
-      window.location.href = plan.link
+      // Redirect to Stripe payment link with prefilled email
+      const url = new URL(plan.link)
+      url.searchParams.set('prefilled_email', email)
+      window.location.href = url.toString()
     }
   }
 
