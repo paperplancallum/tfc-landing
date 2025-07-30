@@ -26,6 +26,8 @@ function SignupForm() {
     setError('')
     setLoading(true)
 
+    alert('Starting signup process...')
+
     // Sign up the user with email confirmation disabled
     const { data: authData, error: authError } = await supabase.auth.signUp({
       email,
@@ -39,6 +41,13 @@ function SignupForm() {
       },
     })
 
+    alert(`Signup response: ${JSON.stringify({ 
+      hasUser: !!authData?.user, 
+      userId: authData?.user?.id,
+      hasError: !!authError,
+      error: authError?.message 
+    })}`)
+
     if (authError) {
       setError(authError.message)
       setLoading(false)
@@ -47,6 +56,7 @@ function SignupForm() {
 
     // Create user profile in database
     if (authData.user) {
+      alert('User data exists, proceeding with profile creation...')
       const { error: profileError } = await supabase
         .from('users')
         .upsert({
@@ -60,6 +70,7 @@ function SignupForm() {
       // Profile creation errors are handled silently since users are created successfully
 
       // Send custom confirmation email
+      alert('About to send confirmation email...')
       try {
         const response = await fetch('/api/auth/send-confirmation', {
           method: 'POST',
@@ -71,12 +82,26 @@ function SignupForm() {
           }),
         })
 
+        alert(`Email API response: ${response.status} ${response.statusText}`)
+
         if (!response.ok) {
-          console.error('Failed to send confirmation email')
+          console.error('Failed to send confirmation email:', response.status, response.statusText)
+          const errorData = await response.json().catch(() => ({}))
+          console.error('Error details:', errorData)
+          alert(`Email sending failed: ${JSON.stringify(errorData)}`)
+        } else {
+          console.log('Confirmation email sent successfully')
+          alert('Email sent successfully!')
         }
       } catch (error) {
         console.error('Error sending confirmation email:', error)
+        alert(`Email sending error: ${error}`)
       }
+      
+      // Wait a moment to ensure the request completes
+      await new Promise(resolve => setTimeout(resolve, 500))
+    } else {
+      alert('No user data returned from signup!')
     }
 
     setLoading(false)

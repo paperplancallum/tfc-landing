@@ -15,17 +15,11 @@ export function AuthHandler() {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === 'SIGNED_IN' && session) {
-        // Refresh to update UI
-        router.refresh()
-        
-        // Redirect from home to deals after login
-        if (pathname === '/' || pathname === '/auth/verify') {
-          router.push('/deals')
-        }
-      }
+      // Only handle specific navigation cases
+      // Let login/callback pages handle their own redirects
       
       if (event === 'SIGNED_OUT') {
+        // Refresh the page to update UI after sign out
         router.refresh()
       }
     })

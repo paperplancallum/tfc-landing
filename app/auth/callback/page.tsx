@@ -31,8 +31,7 @@ function AuthCallbackContent() {
           
           setMessage('Login successful! Redirecting...')
           setTimeout(() => {
-            router.push('/deals')
-            router.refresh()
+            window.location.href = '/deals'
           }, 500)
           return
         }
@@ -74,10 +73,9 @@ function AuthCallbackContent() {
           setMessage('Login successful! Redirecting...')
           // Clear the hash from the URL
           window.history.replaceState(null, '', window.location.pathname)
-          // Redirect to deals page
+          // Redirect to deals page with hard reload to update server components
           setTimeout(() => {
-            router.push('/deals')
-            router.refresh()
+            window.location.href = '/deals'
           }, 500)
         }
       } catch (error) {

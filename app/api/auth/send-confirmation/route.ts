@@ -3,17 +3,20 @@ import { Resend } from 'resend'
 import { render } from '@react-email/render'
 import ConfirmEmail from '@/emails/confirm-email'
 import { createClient } from '@/lib/supabase/server'
-import crypto from 'crypto'
 
 const resend = process.env.RESEND_API_KEY 
   ? new Resend(process.env.RESEND_API_KEY) 
   : null
 
 export async function POST(request: NextRequest) {
+  console.log('Send confirmation endpoint called')
+  
   try {
     const { email, userId, userName } = await request.json()
+    console.log('Request data:', { email, userId, userName })
     
     if (!email || !userId) {
+      console.error('Missing required fields:', { email, userId })
       return NextResponse.json(
         { error: 'Email and userId are required' },
         { status: 400 }
@@ -21,7 +24,7 @@ export async function POST(request: NextRequest) {
     }
     
     if (!resend) {
-      console.error('Resend API key not configured')
+      console.error('Resend API key not configured - check RESEND_API_KEY env var')
       return NextResponse.json(
         { error: 'Email service not configured' },
         { status: 500 }
@@ -30,8 +33,10 @@ export async function POST(request: NextRequest) {
     
     const supabase = await createClient()
     
-    // Generate a secure confirmation token
-    const token = crypto.randomBytes(32).toString('hex')
+    // Generate a secure confirmation token using Web Crypto API
+    const randomValues = new Uint8Array(32)
+    crypto.getRandomValues(randomValues)
+    const token = Array.from(randomValues, byte => byte.toString(16).padStart(2, '0')).join('')
     const expires = new Date()
     expires.setHours(expires.getHours() + 24) // 24 hour expiry
     
@@ -74,6 +79,7 @@ export async function POST(request: NextRequest) {
       )
     }
     
+    console.log('Email sent successfully:', data?.id)
     return NextResponse.json({
       success: true,
       message: 'Confirmation email sent',
@@ -82,7 +88,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Error in send-confirmation:', error)
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: 'Internal server error', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     )
   }

@@ -35,7 +35,8 @@ function LoginForm() {
       setError(error.message)
       setLoading(false)
     } else {
-      router.push(redirectTo)
+      // Use hard reload to ensure server components update
+      window.location.href = redirectTo
     }
   }
 
