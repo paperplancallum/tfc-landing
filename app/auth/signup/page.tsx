@@ -26,7 +26,7 @@ function SignupForm() {
     setError('')
     setLoading(true)
 
-    // Sign up the user
+    // Sign up the user with email confirmation disabled
     const { data: authData, error: authError } = await supabase.auth.signUp({
       email,
       password,
@@ -43,6 +43,40 @@ function SignupForm() {
       setError(authError.message)
       setLoading(false)
       return
+    }
+
+    // Create user profile in database
+    if (authData.user) {
+      const { error: profileError } = await supabase
+        .from('users')
+        .upsert({
+          id: authData.user.id,
+          email: authData.user.email,
+          first_name: firstName,
+          last_name: lastName,
+          name: `${firstName} ${lastName}`.trim(),
+        })
+
+      // Profile creation errors are handled silently since users are created successfully
+
+      // Send custom confirmation email
+      try {
+        const response = await fetch('/api/auth/send-confirmation', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: authData.user.email,
+            userId: authData.user.id,
+            userName: firstName,
+          }),
+        })
+
+        if (!response.ok) {
+          console.error('Failed to send confirmation email')
+        }
+      } catch (error) {
+        console.error('Error sending confirmation email:', error)
+      }
     }
 
     setLoading(false)

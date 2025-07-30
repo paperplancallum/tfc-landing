@@ -128,7 +128,10 @@ export function ProfileForm({ user, profile, homeCity }: ProfileFormProps) {
 
       console.log('Update response:', { data, error })
 
-      if (error) throw error
+      if (error) {
+        console.error('Supabase update error:', error)
+        throw error
+      }
 
       // Profile updated successfully
       console.log('Profile updated successfully')
@@ -146,9 +149,10 @@ export function ProfileForm({ user, profile, homeCity }: ProfileFormProps) {
         // Just refresh if no city selected
         window.location.reload()
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error updating profile:', error)
-      alert('Failed to update profile. Please try again.')
+      const errorMessage = error?.message || error?.details || 'Failed to update profile. Please try again.'
+      alert(errorMessage)
     } finally {
       setLoading(false)
     }

@@ -8,15 +8,17 @@ import { Button } from '@/components/ui/button'
 import { Mail, Lock, AlertCircle } from 'lucide-react'
 
 function LoginForm() {
-  const [email, setEmail] = useState('')
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const redirectTo = searchParams.get('redirectedFrom') || '/deals'
+  const prefilledEmail = searchParams.get('email') || ''
+  
+  const [email, setEmail] = useState(prefilledEmail)
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [magicLinkSent, setMagicLinkSent] = useState(false)
   
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const redirectTo = searchParams.get('redirectedFrom') || '/deals/lon'
   const supabase = createClient()
 
   const handleEmailLogin = async (e: React.FormEvent) => {
