@@ -34,8 +34,8 @@ export async function POST(request: NextRequest) {
 
     const { email, plan, successUrl, cancelUrl } = await request.json()
 
-    if (!email || !plan) {
-      return NextResponse.json({ error: 'Email and plan are required' }, { status: 400 })
+    if (!plan) {
+      return NextResponse.json({ error: 'Plan is required' }, { status: 400 })
     }
 
     // Check if this is test mode
@@ -51,31 +51,33 @@ export async function POST(request: NextRequest) {
     const supabase = await createClient()
     const { data: { user } } = await supabase.auth.getUser()
 
-    // Search for existing customer by email
+    // Search for existing customer by email (only if email provided)
     let stripeCustomerId: string | undefined
-    const existingCustomers = await stripe.customers.list({
-      email,
-      limit: 10
-    })
+    if (email) {
+      const existingCustomers = await stripe.customers.list({
+        email,
+        limit: 10
+      })
 
-    if (existingCustomers.data.length > 0) {
-      // Prefer customer with active subscriptions
-      let customerWithSub = null
-      for (const customer of existingCustomers.data) {
-        const subs = await stripe.subscriptions.list({
-          customer: customer.id,
-          status: 'active',
-          limit: 1
-        })
-        if (subs.data.length > 0) {
-          customerWithSub = customer
-          break
+      if (existingCustomers.data.length > 0) {
+        // Prefer customer with active subscriptions
+        let customerWithSub = null
+        for (const customer of existingCustomers.data) {
+          const subs = await stripe.subscriptions.list({
+            customer: customer.id,
+            status: 'active',
+            limit: 1
+          })
+          if (subs.data.length > 0) {
+            customerWithSub = customer
+            break
+          }
         }
+        
+        // Use customer with subscription, or the most recent one
+        stripeCustomerId = customerWithSub?.id || existingCustomers.data[0].id
+        console.log('Using existing customer:', stripeCustomerId)
       }
-      
-      // Use customer with subscription, or the most recent one
-      stripeCustomerId = customerWithSub?.id || existingCustomers.data[0].id
-      console.log('Using existing customer:', stripeCustomerId)
     }
 
     // Create checkout session
@@ -115,10 +117,11 @@ export async function POST(request: NextRequest) {
           last_checkout: new Date().toISOString()
         }
       })
-    } else {
-      // Otherwise, let Stripe create a new customer
+    } else if (email) {
+      // If we have an email but no existing customer, pre-fill it
       sessionParams.customer_email = email
     }
+    // If no email provided, Stripe checkout will collect it
 
     // If user is logged in, save the Stripe customer ID
     if (user && stripeCustomerId) {
