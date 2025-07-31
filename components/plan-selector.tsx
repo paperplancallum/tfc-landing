@@ -1,6 +1,7 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import { getPlanConfigs } from './plan-configs'
 import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
@@ -19,7 +20,9 @@ interface Plan {
 
 export function PlanSelector() {
   const { plans } = getPlanConfigs()
-  const [userEmail, setUserEmail] = useState<string | null>(null)
+  const [userEmail, setUserEmail] = useState<string>('')
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [emailError, setEmailError] = useState('')
   const supabase = createClient()
 
   useEffect(() => {
@@ -28,6 +31,7 @@ export function PlanSelector() {
       const { data: { user } } = await supabase.auth.getUser()
       if (user?.email) {
         setUserEmail(user.email)
+        setIsLoggedIn(true)
       }
     }
     getUser()
@@ -36,6 +40,22 @@ export function PlanSelector() {
   const [loading, setLoading] = useState<string | null>(null)
   
   const handleSelectPlan = async (plan: Plan) => {
+    // Validate email if not logged in
+    if (!isLoggedIn && !userEmail) {
+      setEmailError('Please enter your email address')
+      return
+    }
+
+    if (!isLoggedIn && userEmail) {
+      // Basic email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (!emailRegex.test(userEmail)) {
+        setEmailError('Please enter a valid email address')
+        return
+      }
+    }
+
+    setEmailError('')
     setLoading(plan.id)
     
     try {
@@ -46,7 +66,7 @@ export function PlanSelector() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          email: userEmail || '',
+          email: userEmail,
           plan: plan.id,
           successUrl: `${window.location.origin}/payment-success`,
           cancelUrl: window.location.href
@@ -72,6 +92,29 @@ export function PlanSelector() {
 
   return (
     <div className="max-w-5xl mx-auto">
+      {/* Email input for non-logged in users */}
+      {!isLoggedIn && (
+        <div className="mb-8 max-w-md mx-auto">
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+            Enter your email to continue
+          </label>
+          <Input
+            id="email"
+            type="email"
+            placeholder="your@email.com"
+            value={userEmail}
+            onChange={(e) => {
+              setUserEmail(e.target.value)
+              setEmailError('')
+            }}
+            className={emailError ? 'border-red-500' : ''}
+          />
+          {emailError && (
+            <p className="text-red-500 text-sm mt-1">{emailError}</p>
+          )}
+        </div>
+      )}
+
       <div className="grid md:grid-cols-3 gap-8">
         {plans.map((plan) => (
           <div
