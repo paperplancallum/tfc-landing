@@ -37,10 +37,15 @@ interface User {
 }
 
 export class EmailService {
+  private supabaseClient: any;
 
-  async sendDigestEmail(userId: string): Promise<{ success: boolean; error?: string }> {
+  constructor(supabaseClient?: any) {
+    this.supabaseClient = supabaseClient;
+  }
+
+  async sendDigestEmail(userId: string): Promise<{ success: boolean; error?: string; resendId?: string }> {
     try {
-      const supabase = await createClient();
+      const supabase = this.supabaseClient || await createClient();
       
       // Get user details
       const { data: user, error: userError } = await supabase
@@ -283,7 +288,7 @@ export class EmailService {
     errorMessage?: string,
     supabase?: any
   ) {
-    const client = supabase || await createClient();
+    const client = supabase || this.supabaseClient || await createClient();
     await client.from('email_send_history').insert({
       user_id: userId,
       email_type: emailType,
@@ -298,7 +303,7 @@ export class EmailService {
     const results = { sent: 0, failed: 0 };
 
     try {
-      const supabase = await createClient();
+      const supabase = this.supabaseClient || await createClient();
       
       // Get all users subscribed to this frequency
       const { data: subscribers, error } = await supabase
@@ -347,7 +352,7 @@ export class EmailService {
     isSubscribed: boolean
   ): Promise<{ success: boolean; error?: string }> {
     try {
-      const supabase = await createClient();
+      const supabase = this.supabaseClient || await createClient();
       const { error } = await supabase
         .from('email_preferences')
         .upsert({

@@ -25,8 +25,8 @@ export async function GET(request: NextRequest) {
     const originalHomeCityId = user.home_city_id;
     user.home_city_id = null;
     
-    // Get deals using the email service method
-    const emailService = new EmailService();
+    // Get deals using the email service method with service client
+    const emailService = new EmailService(supabase);
     const getDealsForUser = (emailService as any).getDealsForUser.bind(emailService);
     const deals = await getDealsForUser(user, supabase);
     

@@ -37,8 +37,8 @@ export async function GET(request: NextRequest) {
 
     console.log('Sending test email to:', user.email);
 
-    // Send email using the service
-    const emailService = new EmailService();
+    // Send email using the service with the service client
+    const emailService = new EmailService(supabase);
     const result = await emailService.sendDigestEmail(userId);
 
     if (result.success) {

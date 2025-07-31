@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { EmailService, EmailFrequency } from '@/lib/email/service';
+import { createServiceClient } from '@/lib/supabase/service';
 
 // Helper function to verify CRON authorization
 function isAuthorizedCronRequest(request: NextRequest): boolean {
@@ -44,7 +45,9 @@ export async function GET(request: NextRequest) {
 
     console.log(`Running email bulk send for frequency: ${frequency}`);
 
-    const emailService = new EmailService();
+    // Use service client for bulk operations
+    const supabase = createServiceClient();
+    const emailService = new EmailService(supabase);
     const results = await emailService.bulkSendDigests(frequency);
 
     console.log(`Email bulk send completed: ${results.sent} sent, ${results.failed} failed`);
@@ -84,7 +87,9 @@ export async function POST(request: NextRequest) {
 
     console.log(`Running manual email bulk send for frequency: ${frequency}`);
 
-    const emailService = new EmailService();
+    // Use service client for bulk operations
+    const supabase = createServiceClient();
+    const emailService = new EmailService(supabase);
     const results = await emailService.bulkSendDigests(frequency);
 
     return NextResponse.json({
