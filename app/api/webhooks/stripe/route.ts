@@ -87,7 +87,7 @@ export async function POST(request: NextRequest) {
             const tempPassword = tempPasswordResult || `TempPass${Math.random().toString(36).slice(-8)}`
             
             // Create user profile with temporary password
-            const { data: newUser } = await supabase.from('users').insert({
+            const { data: newUser, error: userError } = await supabase.from('users').insert({
               email: session.customer_email,
               stripe_customer_id: session.customer as string,
               stripe_email: session.customer_email,
@@ -96,6 +96,16 @@ export async function POST(request: NextRequest) {
               password_reset_expires: new Date(Date.now() + 48 * 60 * 60 * 1000).toISOString(), // 48 hours
               account_created_via: 'stripe',
             }).select().single()
+            
+            // Ensure email preferences are created (in case trigger fails)
+            if (newUser && !userError) {
+              await supabase.from('email_preferences').insert({
+                user_id: newUser.id,
+                email_frequency: 'daily',
+                is_subscribed: true
+              }).select().single()
+              console.log('Created email preferences for new user:', newUser.email)
+            }
             
             // Send welcome email with temporary password
             if (resend && newUser) {
