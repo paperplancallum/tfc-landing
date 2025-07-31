@@ -63,7 +63,7 @@ export default function CheckoutClient() {
     "Daily support and guidance"
   ]
 
-  // Use test links when explicitly set in environment
+  // Use test mode when explicitly set in environment
   const useTestMode = process.env.NEXT_PUBLIC_USE_TEST_STRIPE === 'true'
 
   const plans = [
@@ -74,9 +74,9 @@ export default function CheckoutClient() {
       period: '/month',
       total: '£23.97',
       savings: null,
-      link: useTestMode
-        ? process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK_3_MONTHS_TEST
-        : process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK_3_MONTHS
+      priceId: useTestMode
+        ? process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_3MO_TEST
+        : process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_3MO_LIVE
     },
     {
       id: 'yearly',
@@ -86,9 +86,9 @@ export default function CheckoutClient() {
       total: '£59.99',
       savings: 'Save 37%',
       recommended: true,
-      link: useTestMode
-        ? process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK_YEARLY_TEST
-        : process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK_YEARLY
+      priceId: useTestMode
+        ? process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_YEAR_TEST
+        : process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_YEAR_LIVE
     },
     {
       id: '6months',
@@ -97,29 +97,52 @@ export default function CheckoutClient() {
       period: '/month',
       total: '£35.94',
       savings: 'Save 25%',
-      link: useTestMode
-        ? process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK_6_MONTHS_TEST
-        : process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK_6_MONTHS
+      priceId: useTestMode
+        ? process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_6MO_TEST
+        : process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_6MO_LIVE
     }
   ]
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     const plan = plans.find(p => p.id === selectedPlan)
-    if (plan && plan.link) {
-      // Store email and airport in session for Stripe webhook
+    if (!plan || !plan.priceId) {
+      console.error('No price ID found for selected plan')
+      return
+    }
+
+    try {
+      // Store email and airport in session for later use
       if (typeof window !== 'undefined') {
         sessionStorage.setItem('checkoutEmail', email)
         sessionStorage.setItem('checkoutAirport', selectedAirport)
       }
-      // Redirect to Stripe payment link with prefilled email and success URL
-      const url = new URL(plan.link)
-      url.searchParams.set('prefilled_email', email)
-      
-      // Add success URL that Stripe will redirect to after payment
-      const successUrl = `${window.location.origin}/payment-success?session_id={CHECKOUT_SESSION_ID}`
-      url.searchParams.set('success_url', successUrl)
-      
-      window.location.href = url.toString()
+
+      // Create checkout session using the new API endpoint
+      const response = await fetch('/api/stripe/create-checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          priceId: plan.priceId,
+          email: email,
+          successUrl: `${window.location.origin}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
+          cancelUrl: window.location.href,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (data.url) {
+        // Redirect to Stripe Checkout
+        window.location.href = data.url
+      } else {
+        console.error('Failed to create checkout session:', data.error)
+        alert('Failed to create checkout session. Please try again.')
+      }
+    } catch (error) {
+      console.error('Error creating checkout session:', error)
+      alert('An error occurred. Please try again.')
     }
   }
 
