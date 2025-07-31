@@ -110,11 +110,26 @@ export default function CheckoutClient() {
       return
     }
 
+    // Debug logging
+    console.log('Checkout attempt with:', { email, selectedAirport, plan: plan.id })
+
+    if (!email) {
+      alert('Please enter your email address')
+      return
+    }
+
     try {
       // Store email and airport in session for later use
       if (typeof window !== 'undefined') {
         sessionStorage.setItem('checkoutEmail', email)
         sessionStorage.setItem('checkoutAirport', selectedAirport)
+      }
+
+      // Map plan IDs to the format expected by the API
+      const planMap: { [key: string]: string } = {
+        '3months': 'premium_3mo',
+        '6months': 'premium_6mo',
+        'yearly': 'premium_year'
       }
 
       // Create checkout session using the new API endpoint
@@ -124,7 +139,7 @@ export default function CheckoutClient() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          priceId: plan.priceId,
+          plan: planMap[plan.id],
           email: email,
           successUrl: `${window.location.origin}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
           cancelUrl: window.location.href,
