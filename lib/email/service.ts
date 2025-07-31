@@ -101,14 +101,9 @@ export class EmailService {
   }
 
   private async getDealsForUser(user: User, supabase: any): Promise<Deal[]> {
-    // Get deals from the user's home city
-    const query = supabase
-      .from('deals')
-      .select('*')
-      .order('created_at', { ascending: false })
-      .limit(10); // Fetch more deals to have enough for free + premium sections
+    let deals: Deal[] = [];
 
-    // If user has a home city, filter by it
+    // If user has a home city, get deals from that city
     if (user.home_city_id) {
       // Get the city name from the city ID
       const { data: city } = await supabase
@@ -118,15 +113,52 @@ export class EmailService {
         .single();
       
       if (city) {
-        query.eq('from_airport_city', city.name);
+        const { data: cityDeals, error } = await supabase
+          .from('deals')
+          .select('*')
+          .eq('from_airport_city', city.name)
+          .order('deal_found_date', { ascending: false })
+          .limit(10); // Fetch more deals to have enough for free + premium sections
+
+        if (!error && cityDeals) {
+          deals = cityDeals;
+        }
       }
-    }
+    } else {
+      // User has no home city - get most recent deal from each city (like /deals page)
+      const { data: allDeals, error } = await supabase
+        .from('deals')
+        .select('*')
+        .order('deal_found_date', { ascending: false }); // Order by when deal was found, not created
+      
+      if (error || !allDeals) {
+        console.error('Error fetching deals:', error);
+        return [];
+      }
 
-    const { data: deals, error } = await query;
-
-    if (error || !deals) {
-      console.error('Error fetching deals:', error);
-      return [];
+      // Get only the most recent deal per departure city
+      const seenCities = new Set<string>();
+      const dealsByCity: Deal[] = [];
+      
+      for (const deal of allDeals) {
+        const cityKey = deal.from_airport_city || deal.from_airport_code;
+        
+        // Skip if we've already seen a deal from this city
+        if (seenCities.has(cityKey)) {
+          continue;
+        }
+        
+        seenCities.add(cityKey);
+        dealsByCity.push(deal);
+        
+        // Limit to 9 deals total for email
+        if (dealsByCity.length >= 9) {
+          break;
+        }
+      }
+      
+      deals = dealsByCity;
+      console.log(`Found ${deals.length} deals from different cities for user without home city`);
     }
 
     // Get all airports with city images
@@ -176,15 +208,20 @@ export class EmailService {
       
       // Get the city name from the deals or user's home city
       let cityName = 'your city';
-      if (deals.length > 0) {
+      if (user.home_city_id && deals.length > 0) {
+        // User has a home city - use that city name
         cityName = deals[0].from_airport_city;
       } else if (user.home_city_id) {
+        // User has home city but no deals - get city name
         const { data: city } = await supabase
           .from('cities')
           .select('name')
           .eq('id', user.home_city_id)
           .single();
         if (city) cityName = city.name;
+      } else {
+        // User has no home city - use generic text for multi-city deals
+        cityName = 'multiple cities';
       }
 
       let emailHtml: string;
