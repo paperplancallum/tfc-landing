@@ -25,7 +25,7 @@ export function AirportSelector({ airports }: AirportSelectorProps) {
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   // Find popular airports from the provided airports list
-  const popularCities = ['London', 'New York', 'Tokyo', 'Istanbul', 'Frankfurt', 'Madrid']
+  const popularCities = ['London', 'Madrid', 'Paris', 'Lisbon', 'Dublin', 'Amsterdam', 'New York', 'Frankfurt']
   const popularAirports = popularCities
     .map(cityName => {
       const airport = airports.find(a => 
@@ -105,7 +105,7 @@ export function AirportSelector({ airports }: AirportSelectorProps) {
       {/* Popular airports */}
       <div className="mb-6 text-center">
         <p className="text-sm text-gray-600 mb-4">Most popular:</p>
-        <div className="grid grid-cols-3 gap-2 max-w-md mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2 max-w-2xl mx-auto">
           {popularAirports.map((airport) => (
             <button
               key={airport.code}

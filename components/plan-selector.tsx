@@ -1,6 +1,9 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
+import { getPlanConfigs } from './plan-configs'
+import { useEffect, useState } from 'react'
+import { createClient } from '@/lib/supabase/client'
 
 interface Plan {
   id: string
@@ -14,35 +17,56 @@ interface Plan {
   stripeLink?: string
 }
 
-export function PlanSelector({ plans }: { plans: Plan[] }) {
+export function PlanSelector() {
+  const { plans } = getPlanConfigs()
+  const [userEmail, setUserEmail] = useState<string | null>(null)
+  const supabase = createClient()
+
+  useEffect(() => {
+    // Get the current user's email
+    const getUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (user?.email) {
+        setUserEmail(user.email)
+      }
+    }
+    getUser()
+  }, [])
+
+  const [loading, setLoading] = useState<string | null>(null)
+  
   const handleSelectPlan = async (plan: Plan) => {
+    setLoading(plan.id)
+    
     try {
-      // Use our API to create a checkout session with proper redirects
-      const response = await fetch('/api/create-checkout', {
+      // Use our API to create a checkout session
+      const response = await fetch('/api/stripe/create-checkout', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ planId: plan.id }),
+        body: JSON.stringify({
+          email: userEmail || '',
+          plan: plan.id,
+          successUrl: `${window.location.origin}/payment-success`,
+          cancelUrl: window.location.href
+        }),
       })
-      
+
       const data = await response.json()
-      
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to create checkout session')
+      }
+
+      // Redirect to Stripe Checkout
       if (data.url) {
         window.location.href = data.url
-      } else if (data.error) {
-        console.error('Checkout session error:', data.error)
-        // Fallback to payment link if available
-        if (plan.stripeLink) {
-          window.location.href = plan.stripeLink
-        }
       }
     } catch (error) {
-      console.error('Error:', error)
-      // Fallback to payment link if available
-      if (plan.stripeLink) {
-        window.location.href = plan.stripeLink
-      }
+      console.error('Error creating checkout:', error)
+      alert('Failed to start checkout. Please try again.')
+      setLoading(null)
     }
   }
 
@@ -78,8 +102,9 @@ export function PlanSelector({ plans }: { plans: Plan[] }) {
               variant={plan.featured ? 'default' : 'outline'}
               className="w-full"
               size="lg"
+              disabled={loading !== null}
             >
-              Select Plan
+              {loading === plan.id ? 'Processing...' : 'Select Plan'}
             </Button>
             
             <div className="mt-4 inline-flex items-center gap-1 bg-green-50 text-green-700 px-3 py-1 rounded-full text-xs font-semibold">

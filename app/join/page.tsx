@@ -6,39 +6,6 @@ import { TestimonialCarousel } from '@/components/testimonial-carousel'
 import { createClient } from '@/lib/supabase/server'
 import { PlanSelector } from '@/components/plan-selector'
 
-// Always use live links for now since test products aren't set up
-const plans = [
-  {
-    id: 'premium_3mo',
-    name: '3 Months',
-    price: '$7.99',
-    period: '/month',
-    total: '$23.97 billed quarterly',
-    featured: false,
-    stripeLink: process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK_3_MONTHS,
-  },
-  {
-    id: 'premium_year',
-    name: 'Yearly',
-    price: '$4.99',
-    period: '/month',
-    total: '$59.99 billed annually',
-    featured: true,
-    badge: 'MOST POPULAR',
-    savings: 'BEST VALUE',
-    stripeLink: process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK_YEARLY,
-  },
-  {
-    id: 'premium_6mo',
-    name: '6 Months',
-    price: '$5.99',
-    period: '/month',
-    total: '$35.94 billed every 6 months',
-    featured: false,
-    stripeLink: process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK_6_MONTHS,
-  },
-]
-
 const features = {
   premium: [
     'Unlimited Daily Deals',
@@ -173,7 +140,7 @@ export default async function JoinPage() {
               All plans include a <strong>3-day free trial</strong>. No commitment, cancel anytime.
             </p>
             
-            <PlanSelector plans={plans} />
+            <PlanSelector />
           </div>
         </section>
       )}

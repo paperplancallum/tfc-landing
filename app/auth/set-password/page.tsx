@@ -23,7 +23,16 @@ function SetPasswordForm() {
     const emailParam = searchParams.get('email')
     const tokenParam = searchParams.get('token')
     
-    if (emailParam) setEmail(decodeURIComponent(emailParam))
+    if (emailParam) {
+      setEmail(decodeURIComponent(emailParam))
+    } else {
+      // Check session storage for email from checkout
+      const storedEmail = sessionStorage.getItem('checkoutEmail')
+      if (storedEmail) {
+        setEmail(storedEmail)
+      }
+    }
+    
     if (tokenParam) setTempPassword(tokenParam)
   }, [searchParams])
   

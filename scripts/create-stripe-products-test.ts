@@ -1,10 +1,10 @@
 import Stripe from 'stripe';
 
-// IMPORTANT: This uses your LIVE Stripe key - be careful!
+// IMPORTANT: This script uses TEST mode
 const stripeKey = process.env.STRIPE_SECRET_KEY;
-if (!stripeKey || !stripeKey.startsWith('sk_live_')) {
-  console.error('❌ Please provide a LIVE secret key via STRIPE_SECRET_KEY environment variable');
-  console.error('   Run: STRIPE_SECRET_KEY="sk_live_..." npx tsx scripts/create-stripe-products-live.ts');
+if (!stripeKey || !stripeKey.startsWith('sk_test_')) {
+  console.error('❌ Please provide a TEST secret key via STRIPE_SECRET_KEY environment variable');
+  console.error('   Run: STRIPE_SECRET_KEY="sk_test_..." npx tsx scripts/create-stripe-products-test.ts');
   process.exit(1);
 }
 
@@ -12,9 +12,9 @@ const stripe = new Stripe(stripeKey, {
   apiVersion: '2024-12-18.acacia',
 });
 
-async function createStripeProductsLive() {
+async function createStripeProductsTest() {
   try {
-    console.log('⚠️  Creating products in LIVE MODE...');
+    console.log('🧪 Creating products in TEST MODE...');
     
     // Create the main product
     const product = await stripe.products.create({
@@ -27,7 +27,7 @@ async function createStripeProductsLive() {
 
     console.log('✅ Created product:', product.id);
 
-    // Create prices for each billing interval
+    // Create prices for each billing interval in GBP
     
     // 3 Months Plan
     const price3Months = await stripe.prices.create({
@@ -75,9 +75,9 @@ async function createStripeProductsLive() {
       metadata: {
         display_price: '£4.99/month',
         billing_description: '£59.99 billed annually',
-        savings: 'Save 37%',
         popular: 'true',
         best_value: 'true',
+        savings: 'Save 37%',
       },
     });
 
@@ -86,8 +86,8 @@ async function createStripeProductsLive() {
     console.log('6 Months:', price6Months.id);
     console.log('Yearly:', priceYearly.id);
 
-    // Create payment links
-    console.log('\n📋 Creating payment links...');
+    // Create payment links with redirect configuration
+    console.log('\n📋 Creating payment links with redirect...');
 
     const paymentLink3Months = await stripe.paymentLinks.create({
       line_items: [{
@@ -146,12 +146,11 @@ async function createStripeProductsLive() {
       },
     });
 
-    console.log('\n✅ Payment links created!');
+    console.log('\n✅ Payment links created with redirect!');
     console.log('\n📝 Add these to your .env.local file:');
-    console.log(`NEXT_PUBLIC_STRIPE_PAYMENT_LINK_3_MONTHS=${paymentLink3Months.url}`);
-    console.log(`NEXT_PUBLIC_STRIPE_PAYMENT_LINK_6_MONTHS=${paymentLink6Months.url}`);
-    console.log(`NEXT_PUBLIC_STRIPE_PAYMENT_LINK_YEARLY=${paymentLinkYearly.url}`);
-    console.log(`NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_live_51RppX1BgJmV3euWOezFieam7w4parcwvLT7O6c4OX5L6caRfFPp2l48g5U9WOxQy7a3yy91LLWLZXRVFPs5ghXIB00VB7RAgPp`);
+    console.log(`NEXT_PUBLIC_STRIPE_PAYMENT_LINK_3_MONTHS_TEST=${paymentLink3Months.url}`);
+    console.log(`NEXT_PUBLIC_STRIPE_PAYMENT_LINK_6_MONTHS_TEST=${paymentLink6Months.url}`);
+    console.log(`NEXT_PUBLIC_STRIPE_PAYMENT_LINK_YEARLY_TEST=${paymentLinkYearly.url}`);
     
     console.log('\n🔐 Don\'t forget to:');
     console.log('1. Set up webhook endpoint in Stripe Dashboard');
@@ -164,4 +163,4 @@ async function createStripeProductsLive() {
 }
 
 // Run the script
-createStripeProductsLive();
+createStripeProductsTest();
