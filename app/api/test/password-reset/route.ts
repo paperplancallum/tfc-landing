@@ -11,10 +11,8 @@ export async function POST(request: NextRequest) {
     
     const supabase = await createClient()
     
-    // Get the base URL from environment or request
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 
-                    process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 
-                    'http://localhost:3000'
+    // Always use production URL for password reset
+    const baseUrl = 'https://www.tomsflightclub.com'
     
     console.log('Testing password reset for:', email)
     console.log('Base URL:', baseUrl)

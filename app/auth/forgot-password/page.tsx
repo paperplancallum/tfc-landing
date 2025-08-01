@@ -21,11 +21,14 @@ export default function ForgotPasswordPage() {
 
     console.log('Sending password reset email to:', email)
     
-    // Use the correct production URL
-    const redirectUrl = window.location.hostname === 'localhost' 
-      ? `${window.location.origin}/auth/callback?type=recovery`
-      : `https://www.tomsflightclub.com/auth/callback?type=recovery`
+    // Always use production URL for password reset unless on localhost
+    const baseUrl = window.location.hostname === 'localhost' 
+      ? window.location.origin 
+      : 'https://www.tomsflightclub.com'
     
+    const redirectUrl = `${baseUrl}/auth/callback?type=recovery`
+    
+    console.log('Current hostname:', window.location.hostname)
     console.log('Redirect URL:', redirectUrl)
 
     const { error, data } = await supabase.auth.resetPasswordForEmail(email, {

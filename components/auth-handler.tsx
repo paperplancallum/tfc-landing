@@ -14,13 +14,14 @@ export function AuthHandler() {
     const code = searchParams.get('code')
     const type = searchParams.get('type')
     
-    if (code && pathname === '/') {
+    if (code && (pathname === '/' || pathname === '')) {
       // Redirect to auth callback with the code
       let callbackUrl = `/auth/callback?code=${code}`
       if (type) {
         callbackUrl += `&type=${type}`
       }
-      router.push(callbackUrl)
+      // Use replace to avoid back button issues
+      router.replace(callbackUrl)
       return
     }
   }, [searchParams, router, pathname])
