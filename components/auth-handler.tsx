@@ -11,7 +11,17 @@ export function AuthHandler() {
 
   useEffect(() => {
     const handleAuthCode = async () => {
-      // Check for error parameters first
+      // Check for password reset token first (custom flow)
+      const resetToken = searchParams.get('token')
+      const resetEmail = searchParams.get('email')
+      
+      if (resetToken && resetEmail && pathname === '/') {
+        // This is a password reset link, redirect directly to reset password page
+        router.replace(`/auth/reset-password?token=${resetToken}&email=${encodeURIComponent(resetEmail)}`)
+        return
+      }
+      
+      // Check for error parameters
       const error = searchParams.get('error')
       const errorCode = searchParams.get('error_code')
       const errorDescription = searchParams.get('error_description')

@@ -38,14 +38,17 @@ function ForgotPasswordForm() {
     console.log('Current hostname:', window.location.hostname)
     console.log('Redirect URL:', redirectUrl)
 
-    const { error, data } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: redirectUrl,
-    })
+    // Use a simpler approach - generate our own token
+    const { error, data } = await fetch('/api/auth/password-reset', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    }).then(res => res.json())
 
-    console.log('Reset password response:', { error, data })
+    console.log('Reset password response:', error || 'Success')
 
     if (error) {
-      setError(error.message)
+      setError(error)
       setLoading(false)
     } else {
       setSuccess(true)
