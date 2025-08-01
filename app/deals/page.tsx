@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { DealCardNew } from '@/components/deal-card-new'
 import { Button } from '@/components/ui/button'
 import { MapPin, Sparkles, Globe } from 'lucide-react'
-import { Pagination } from '@/components/ui/pagination'
+import { AllDealsWithPagination } from '@/components/all-deals-with-pagination'
 
 interface PageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
@@ -138,40 +138,36 @@ export default async function AllDealsPage({ searchParams }: PageProps) {
 
         <h2 className="text-2xl font-bold mb-8">All Flight Deals</h2>
         
-        {/* Deals Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {dealsWithImages.map((deal, index) => {
-            // For free users, only the very first deal (on page 1) is unlocked
-            const isLocked = userPlan === 'free' && (page > 1 || index > 0)
-            return (
-              <DealCardNew 
-                key={deal.id}
-                deal={deal} 
-                isLocked={isLocked}
-                priority={page === 1 && index < 3} 
-              />
-            )
-          })}
-        </div>
+        <AllDealsWithPagination
+          currentPage={page}
+          totalPages={totalPages}
+          totalDeals={totalDeals || 0}
+          dealsContent={
+            <>
+              {/* Deals Grid */}
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {dealsWithImages.map((deal, index) => {
+                  // For free users, only the very first deal (on page 1) is unlocked
+                  const isLocked = userPlan === 'free' && (page > 1 || index > 0)
+                  return (
+                    <DealCardNew 
+                      key={deal.id}
+                      deal={deal} 
+                      isLocked={isLocked}
+                      priority={page === 1 && index < 3} 
+                    />
+                  )
+                })}
+              </div>
 
-        {dealsWithImages.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">No deals available at the moment. Check back soon!</p>
-          </div>
-        )}
-        
-        {/* Pagination */}
-        {totalPages > 1 && (
-          <div className="mt-12">
-            <Pagination 
-              currentPage={page}
-              totalPages={totalPages}
-              onPageChange={(newPage) => {
-                window.location.href = `/deals?page=${newPage}`
-              }}
-            />
-          </div>
-        )}
+              {dealsWithImages.length === 0 && (
+                <div className="text-center py-12">
+                  <p className="text-gray-500 text-lg">No deals available at the moment. Check back soon!</p>
+                </div>
+              )}
+            </>
+          }
+        />
       </div>
     </div>
   )
