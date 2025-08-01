@@ -13,18 +13,7 @@ export async function POST(request: NextRequest) {
       )
     }
     
-    const supabase = await createClient()
-    
-    let serviceClient
-    try {
-      serviceClient = createServiceClient()
-    } catch (error) {
-      console.error('Failed to create service client:', error)
-      return NextResponse.json(
-        { error: 'Configuration error - please contact support' },
-        { status: 500 }
-      )
-    }
+    const supabase = createServiceClient()
     
     // Log the incoming request for debugging
     console.log('Confirmation request:', { email, token: token.substring(0, 10) + '...' })
