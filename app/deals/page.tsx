@@ -112,7 +112,10 @@ export default async function AllDealsPage() {
             </h1>
           </div>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Browse the latest deals from major cities worldwide. Set your home city to see personalized deals.
+            {userPlan === 'premium' && !userHomeCity
+              ? 'Welcome! Select your home city to see personalized premium deals delivered daily.'
+              : 'Browse the latest deals from major cities worldwide. Set your home city to see personalized deals.'
+            }
           </p>
           
           {userHomeCity ? (
@@ -125,7 +128,7 @@ export default async function AllDealsPage() {
           ) : (
             <Link href="/account">
               <Button size="lg" variant="secondary">
-                Set Your Home City
+                {userPlan === 'premium' ? 'Select Your Home City' : 'Set Your Home City'}
               </Button>
             </Link>
           )}
@@ -136,9 +139,9 @@ export default async function AllDealsPage() {
         {/* Premium Upgrade Banner */}
         {userPlan === 'free' && (
           <div className="bg-gradient-to-r from-primary to-primary/80 text-white rounded-lg p-6 mb-12">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <Sparkles size={32} />
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+              <div className="flex flex-col md:flex-row items-center md:items-start gap-4 text-center md:text-left">
+                <Sparkles size={32} className="flex-shrink-0" />
                 <div>
                   <h3 className="text-xl font-semibold mb-1">
                     Want More Deals?
@@ -148,8 +151,8 @@ export default async function AllDealsPage() {
                   </p>
                 </div>
               </div>
-              <Link href="/join">
-                <Button variant="secondary" size="lg">
+              <Link href="/join" className="w-full md:w-auto">
+                <Button variant="secondary" size="lg" className="w-full md:w-auto">
                   Upgrade to Premium
                 </Button>
               </Link>

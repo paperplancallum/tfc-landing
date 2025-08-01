@@ -24,6 +24,7 @@ export function ProfileForm({ user, profile, homeCity, isAdmin = false }: Profil
   const [emailFrequency, setEmailFrequency] = useState('daily')
   const [loadingPreferences, setLoadingPreferences] = useState(false)
   const [sendingTestEmail, setSendingTestEmail] = useState(false)
+  const [successMessage, setSuccessMessage] = useState('')
   
   const router = useRouter()
   const supabase = createClient()
@@ -137,18 +138,25 @@ export function ProfileForm({ user, profile, homeCity, isAdmin = false }: Profil
       // Profile updated successfully
       console.log('Profile updated successfully')
       
+      // Show success message
+      setSuccessMessage('Profile saved successfully!')
+      
       // Find the selected city to get its name for navigation
       const selectedCity = cities.find(c => c.id === selectedCityId)
       console.log('Found city:', selectedCity)
       
       if (selectedCity && selectedCityId) {
-        // Navigate to the city-specific deals page
+        // Navigate to the city-specific deals page after a short delay
         const citySlug = selectedCity.name.toLowerCase().replace(/\s+/g, '-')
         console.log('Navigating to:', `/deals/${citySlug}`)
-        window.location.href = `/deals/${citySlug}`
+        setTimeout(() => {
+          window.location.href = `/deals/${citySlug}`
+        }, 1500)
       } else {
-        // Just refresh if no city selected
-        window.location.reload()
+        // Clear success message after 3 seconds
+        setTimeout(() => {
+          setSuccessMessage('')
+        }, 3000)
       }
     } catch (error: any) {
       console.error('Error updating profile:', error)
@@ -161,11 +169,16 @@ export function ProfileForm({ user, profile, homeCity, isAdmin = false }: Profil
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl">
-      <div className="grid grid-cols-2 gap-4">
+      {successMessage && (
+        <div className="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg">
+          {successMessage}
+        </div>
+      )}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium mb-2">First Name</label>
           <div className="relative">
-            <UserIcon className="absolute left-3 top-3 text-gray-400" size={20} />
+            <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
             <input
               type="text"
               value={firstName}
@@ -178,7 +191,7 @@ export function ProfileForm({ user, profile, homeCity, isAdmin = false }: Profil
         <div>
           <label className="block text-sm font-medium mb-2">Last Name</label>
           <div className="relative">
-            <UserIcon className="absolute left-3 top-3 text-gray-400" size={20} />
+            <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
             <input
               type="text"
               value={lastName}
@@ -192,7 +205,7 @@ export function ProfileForm({ user, profile, homeCity, isAdmin = false }: Profil
       <div>
         <label className="block text-sm font-medium mb-2">Email</label>
         <div className="relative">
-          <Mail className="absolute left-3 top-3 text-gray-400" size={20} />
+          <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
           <input
             type="email"
             value={user.email}
@@ -205,7 +218,7 @@ export function ProfileForm({ user, profile, homeCity, isAdmin = false }: Profil
       <div>
         <label className="block text-sm font-medium mb-2">Phone</label>
         <div className="relative">
-          <Phone className="absolute left-3 top-3 text-gray-400" size={20} />
+          <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
           <input
             type="tel"
             value={phone}
@@ -216,15 +229,17 @@ export function ProfileForm({ user, profile, homeCity, isAdmin = false }: Profil
       </div>
 
       <div>
-        <label className="block text-sm font-medium mb-2">Home City</label>
+        <label className="block text-sm font-medium mb-2">
+          Home City <span className="text-gray-500 font-normal">(Optional)</span>
+        </label>
         <div className="relative">
-          <MapPin className="absolute left-3 top-3 text-gray-400" size={20} />
+          <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
           <select
             value={selectedCityId}
             onChange={(e) => setSelectedCityId(e.target.value)}
             className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
           >
-            <option value="">Select your home city</option>
+            <option value="">Choose a city for personalized deals</option>
             {cities.map((city) => (
               <option key={city.id} value={city.id}>
                 {city.name}
@@ -232,12 +247,15 @@ export function ProfileForm({ user, profile, homeCity, isAdmin = false }: Profil
             ))}
           </select>
         </div>
+        <p className="text-sm text-gray-500 mt-1">
+          Get daily deals from your preferred departure city
+        </p>
       </div>
 
       <div>
         <label className="block text-sm font-medium mb-2">Email Notifications</label>
         <div className="relative">
-          <Bell className="absolute left-3 top-3 text-gray-400" size={20} />
+          <Bell className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
           <select
             value={emailFrequency}
             onChange={(e) => updateEmailPreferences(e.target.value)}

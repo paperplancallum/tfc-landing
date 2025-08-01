@@ -311,7 +311,11 @@ export default async function DealPage({ params }: DealPageProps) {
                 <Clock className="text-gray-400" size={24} />
                 <div>
                   <p className="text-sm text-gray-600">Trip Length</p>
-                  <p className="font-semibold">{deal.trip_duration || 'Flexible'} {deal.trip_duration === 1 ? 'day' : 'days'}</p>
+                  <p className="font-semibold">
+                    {deal.trip_duration && deal.trip_duration > 0 
+                      ? `${deal.trip_duration} ${deal.trip_duration === 1 ? 'day' : 'days'}`
+                      : 'Flexible'}
+                  </p>
                 </div>
               </div>
               

@@ -10,9 +10,9 @@ import { createClient } from '@/lib/supabase/client'
 
 export function Navbar({ user }: { user: any }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [userCity, setUserCity] = useState<string>('london')
-  const [userCityName, setUserCityName] = useState<string>('london')
-  const [userCityDisplayName, setUserCityDisplayName] = useState<string>('London')
+  const [userCity, setUserCity] = useState<string | null>(null)
+  const [userCityName, setUserCityName] = useState<string | null>(null)
+  const [userCityDisplayName, setUserCityDisplayName] = useState<string | null>(null)
   const router = useRouter()
   const pathname = usePathname()
   const supabase = createClient()
@@ -69,13 +69,23 @@ export function Navbar({ user }: { user: any }) {
               <Globe size={18} />
               All Deals
             </Link>
-            <Link 
-              href={`/deals/${userCityName}`} 
-              className={`flex items-center gap-1 text-white hover:text-white/80 ${pathname.startsWith(`/deals/${userCityName}`) ? 'font-semibold' : ''}`}
-            >
-              <MapPin size={18} />
-              {userCityDisplayName} Deals
-            </Link>
+            {user && userCityName ? (
+              <Link 
+                href={`/deals/${userCityName}`} 
+                className={`flex items-center gap-1 text-white hover:text-white/80 ${pathname.startsWith(`/deals/${userCityName}`) ? 'font-semibold' : ''}`}
+              >
+                <MapPin size={18} />
+                {userCityDisplayName} Deals
+              </Link>
+            ) : (
+              <Link 
+                href="/join" 
+                className="flex items-center gap-1 text-white hover:text-white/80"
+              >
+                <MapPin size={18} />
+                Set Your City
+              </Link>
+            )}
             
             {user ? (
               <div className="flex items-center space-x-4">
@@ -92,7 +102,7 @@ export function Navbar({ user }: { user: any }) {
                   <Button variant="ghost" className="text-white hover:text-white/80 hover:bg-white/10">Log In</Button>
                 </Link>
                 <Link href="/join">
-                  <Button className="bg-white text-primary hover:bg-white/90">Become a Member</Button>
+                  <Button className="bg-white text-primary hover:bg-white/90">Join For Free</Button>
                 </Link>
               </div>
             )}
@@ -118,13 +128,23 @@ export function Navbar({ user }: { user: any }) {
                 <Globe size={18} />
                 All Deals
               </Link>
-              <Link
-                href={`/deals/${userCityName}`}
-                className={`flex items-center gap-2 px-3 py-2 rounded-md text-base font-medium text-white hover:text-white/80 hover:bg-white/10 ${pathname.startsWith(`/deals/${userCityName}`) ? 'bg-white/10' : ''}`}
-              >
-                <MapPin size={18} />
-                {userCityDisplayName} Deals
-              </Link>
+              {user && userCityName ? (
+                <Link
+                  href={`/deals/${userCityName}`}
+                  className={`flex items-center gap-2 px-3 py-2 rounded-md text-base font-medium text-white hover:text-white/80 hover:bg-white/10 ${pathname.startsWith(`/deals/${userCityName}`) ? 'bg-white/10' : ''}`}
+                >
+                  <MapPin size={18} />
+                  {userCityDisplayName} Deals
+                </Link>
+              ) : (
+                <Link
+                  href="/join"
+                  className="flex items-center gap-2 px-3 py-2 rounded-md text-base font-medium text-white hover:text-white/80 hover:bg-white/10"
+                >
+                  <MapPin size={18} />
+                  Set Your City
+                </Link>
+              )}
               
               {user ? (
                 <>
@@ -153,7 +173,7 @@ export function Navbar({ user }: { user: any }) {
                     href="/join"
                     className="block px-3 py-2 rounded-md text-base font-medium bg-white text-primary hover:bg-white/90"
                   >
-                    Become a Member
+                    Join For Free
                   </Link>
                 </>
               )}

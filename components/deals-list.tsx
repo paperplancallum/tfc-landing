@@ -8,10 +8,19 @@ interface DealsListProps {
     iata_code: string
   }
   userPlan: string
+  page?: number
 }
 
-export async function DealsList({ city, userPlan }: DealsListProps) {
+export async function DealsList({ city, userPlan, page = 1 }: DealsListProps) {
   const supabase = await createClient()
+  const itemsPerPage = 9
+  const offset = (page - 1) * itemsPerPage
+  
+  // Get total count of deals for this city
+  const { count: totalDeals } = await supabase
+    .from('deals')
+    .select('*', { count: 'exact', head: true })
+    .eq('from_airport_city', city.name)
   
   // Fetch deals and airports in parallel
   const [dealsResult, airportsResult] = await Promise.all([
@@ -20,7 +29,7 @@ export async function DealsList({ city, userPlan }: DealsListProps) {
       .select('*')
       .eq('from_airport_city', city.name)
       .order('created_at', { ascending: false })
-      .limit(9),
+      .range(offset, offset + itemsPerPage - 1),
     supabase
       .from('airports')
       .select('iata_code, city_image_url')
@@ -53,14 +62,21 @@ export async function DealsList({ city, userPlan }: DealsListProps) {
     premiumDeals = []
   }
 
-  return (
-    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {freeDeals?.map((deal) => (
-        <DealCardNew key={deal.id} deal={deal} isLocked={false} />
-      ))}
-      {premiumDeals?.map((deal) => (
-        <DealCardNew key={deal.id} deal={deal} isLocked={true} />
-      ))}
-    </div>
-  )
+  const totalPages = Math.ceil((totalDeals || 0) / itemsPerPage)
+  
+  return {
+    deals: (
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {freeDeals?.map((deal) => (
+          <DealCardNew key={deal.id} deal={deal} isLocked={false} />
+        ))}
+        {premiumDeals?.map((deal) => (
+          <DealCardNew key={deal.id} deal={deal} isLocked={true} />
+        ))}
+      </div>
+    ),
+    totalDeals: totalDeals || 0,
+    totalPages,
+    currentPage: page
+  }
 }

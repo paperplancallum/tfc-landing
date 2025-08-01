@@ -6,7 +6,7 @@ import { UpgradeBanner } from '@/components/upgrade-banner'
 import { Button } from '@/components/ui/button'
 import { Globe, MapPin } from 'lucide-react'
 import { Suspense } from 'react'
-import { DealsList } from '@/components/deals-list'
+import { DealsContent } from '@/components/deals-content'
 import { Skeleton } from '@/components/ui/skeleton'
 
 interface Deal {
@@ -27,8 +27,16 @@ interface City {
   iata_code: string
 }
 
-export default async function DealsPage({ params }: { params: Promise<{ city: string }> }) {
+export default async function DealsPage({ 
+  params,
+  searchParams 
+}: { 
+  params: Promise<{ city: string }>
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
   const { city: cityParam } = await params
+  const searchParamsAwaited = await searchParams
+  const page = Number(searchParamsAwaited.page) || 1
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   
@@ -95,7 +103,7 @@ export default async function DealsPage({ params }: { params: Promise<{ city: st
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container py-8">
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
           <div>
             <div className="flex items-center gap-3 mb-2">
               <MapPin className="h-8 w-8 text-primary" />
@@ -140,7 +148,7 @@ export default async function DealsPage({ params }: { params: Promise<{ city: st
             </div>
           }
         >
-          <DealsList city={city} userPlan={userPlan} />
+          <DealsContent city={city} userPlan={userPlan} page={page} />
         </Suspense>
       </div>
     </div>

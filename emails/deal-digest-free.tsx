@@ -145,7 +145,7 @@ export const DealDigestFreeEmail = ({
                         href={`${baseUrl}/join`}
                         style={becomeMemberButton}
                       >
-                        Become a Member
+                        Upgrade to Premium
                       </Button>
                     </div>
                   </td>

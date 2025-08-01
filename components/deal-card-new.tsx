@@ -95,7 +95,7 @@ export function DealCardNew({ deal, isLocked = false }: DealCardNewProps) {
             <Plane size={16} />
             <span>{getTravelMonth()}</span>
           </div>
-          {deal.trip_duration && (
+          {deal.trip_duration && deal.trip_duration > 0 && (
             <div className="flex items-center gap-1 text-sm text-gray-600">
               <Calendar size={16} />
               <span>Trip duration: {deal.trip_duration} {deal.trip_duration === 1 ? 'day' : 'days'}</span>
