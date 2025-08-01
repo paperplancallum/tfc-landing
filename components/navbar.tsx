@@ -79,7 +79,7 @@ export function Navbar({ user }: { user: any }) {
               </Link>
             ) : (
               <Link 
-                href="/join" 
+                href="/auth/signup" 
                 className="flex items-center gap-1 text-white hover:text-white/80"
               >
                 <MapPin size={18} />
@@ -142,8 +142,9 @@ export function Navbar({ user }: { user: any }) {
                 </Link>
               ) : (
                 <Link
-                  href="/join"
+                  href="/auth/signup"
                   className="flex items-center gap-2 px-3 py-2 rounded-md text-base font-medium text-white hover:text-white/80 hover:bg-white/10"
+                  onClick={() => setMobileMenuOpen(false)}
                 >
                   <MapPin size={18} />
                   Set Your City
