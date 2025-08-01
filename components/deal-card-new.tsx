@@ -23,9 +23,10 @@ interface DealCardNewProps {
     created_at: string
   }
   isLocked?: boolean
+  priority?: boolean
 }
 
-export function DealCardNew({ deal, isLocked = false }: DealCardNewProps) {
+export function DealCardNew({ deal, isLocked = false, priority = false }: DealCardNewProps) {
   // Format date for URL as DDMMYYYY
   const formatDateForUrl = (dateString: string) => {
     const date = new Date(dateString)
@@ -57,7 +58,9 @@ export function DealCardNew({ deal, isLocked = false }: DealCardNewProps) {
             src={deal.destination_city_image}
             alt={deal.to_airport_city || deal.to_airport_code}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover"
+            loading={priority ? "eager" : "lazy"}
           />
         ) : (
           <div className="flex items-center justify-center h-full text-gray-400">

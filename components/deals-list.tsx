@@ -22,31 +22,28 @@ export async function DealsList({ city, userPlan, page = 1 }: DealsListProps) {
     .select('*', { count: 'exact', head: true })
     .eq('from_airport_city', city.name)
   
-  // Fetch deals and airports in parallel
-  const [dealsResult, airportsResult] = await Promise.all([
-    supabase
-      .from('deals')
-      .select('*')
-      .eq('from_airport_city', city.name)
-      .order('created_at', { ascending: false })
-      .range(offset, offset + itemsPerPage - 1),
-    supabase
-      .from('airports')
-      .select('iata_code, city_image_url')
-  ])
+  // Fetch deals with destination airport images in a single query
+  const { data: allDeals, error } = await supabase
+    .from('deals')
+    .select(`
+      *,
+      destination_airport:airports!deals_to_airport_code_fkey (
+        city_image_url
+      )
+    `)
+    .eq('from_airport_city', city.name)
+    .order('created_at', { ascending: false })
+    .range(offset, offset + itemsPerPage - 1)
   
-  const allDeals = dealsResult.data || []
-  const airports = airportsResult.data || []
+  if (error) {
+    console.error('Error fetching deals:', error)
+  }
   
-  // Create a map for quick lookup
-  const airportImageMap = new Map(airports.map(a => [a.iata_code, a.city_image_url]))
-  
-  // Add destination city images to deals
-  const dealsWithImages = allDeals.map(deal => ({
+  // Transform deals to include destination city image
+  const dealsWithImages = (allDeals || []).map(deal => ({
     ...deal,
-    destination_city_image: (deal.to_airport_code || deal.destination_airport) 
-      ? airportImageMap.get(deal.to_airport_code || deal.destination_airport) 
-      : null
+    destination_city_image: deal.destination_airport?.city_image_url || null,
+    destination_airport: undefined // Remove the joined object
   }))
 
   let freeDeals = []

@@ -1,9 +1,37 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { CitySelector } from '@/components/city-selector'
-import { Plane, Clock, Mail, CreditCard } from 'lucide-react'
+import { Plane, Clock, Mail, CreditCard, MapPin } from 'lucide-react'
+import { createClient } from '@/lib/supabase/server'
 
-export default function HomePage() {
+export default async function HomePage() {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  
+  let userHomeCity = null
+  let userHomeCitySlug = ''
+  
+  if (user) {
+    const { data: userData } = await supabase
+      .from('users')
+      .select('home_city_id')
+      .eq('id', user.id)
+      .single()
+    
+    if (userData?.home_city_id) {
+      const { data: city } = await supabase
+        .from('cities')
+        .select('*')
+        .eq('id', userData.home_city_id)
+        .single()
+      
+      if (city) {
+        userHomeCity = city
+        userHomeCitySlug = city.name.toLowerCase().replace(/\s+/g, '-')
+      }
+    }
+  }
+  
   return (
     <>
       {/* Hero Section */}
@@ -33,8 +61,29 @@ export default function HomePage() {
       {/* City Selector */}
       <section className="py-12 bg-gray-50">
         <div className="container text-center">
-          <h2 className="text-2xl font-bold mb-6 text-gray-900">Select Your Departure City</h2>
-          <CitySelector />
+          {userHomeCity ? (
+            <>
+              <h2 className="text-2xl font-bold mb-6 text-gray-900">Your Personalized Deals</h2>
+              <div className="space-y-4">
+                <Link href={`/deals/${userHomeCitySlug}`}>
+                  <Button size="lg" className="inline-flex items-center gap-2">
+                    <MapPin className="h-5 w-5" />
+                    View Deals from {userHomeCity.name}
+                  </Button>
+                </Link>
+                <div>
+                  <Link href="/account" className="text-sm text-gray-600 hover:text-gray-800 underline">
+                    Change departure city
+                  </Link>
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <h2 className="text-2xl font-bold mb-6 text-gray-900">Select Your Departure City</h2>
+              <CitySelector />
+            </>
+          )}
         </div>
       </section>
 

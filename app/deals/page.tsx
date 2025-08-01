@@ -38,29 +38,24 @@ export default async function AllDealsPage() {
     .select('*')
     .order('name')
 
-  // Get the most recent deal for each city
+  // Get the most recent deal for each city with optimized query
   const dealsByCity = []
   const seenCities = new Set<string>()
   
-  // First, get all deals ordered by most recent
+  // Fetch all deals with a single optimized query
   const { data: allDeals, error: dealsError } = await supabase
     .from('deals')
-    .select('*')
-    .order('deal_found_date', { ascending: false }) // Order by when deal was found, not created
-  
-  // Get all airports with city images
-  const { data: airports } = await supabase
-    .from('airports')
-    .select('iata_code, city_image_url')
-  
-  // Create a map for quick lookup
-  const airportImageMap = new Map(airports?.map(a => [a.iata_code, a.city_image_url]) || [])
+    .select(`
+      *,
+      destination_airport:airports!deals_to_airport_code_fkey (
+        city_image_url
+      )
+    `)
+    .order('deal_found_date', { ascending: false })
   
   if (dealsError) {
     console.error('Error fetching deals:', dealsError)
   }
-  
-  console.log('All deals fetched:', allDeals?.length, 'deals')
   
   // Get only the most recent deal per departure city
   if (allDeals) {
@@ -80,11 +75,11 @@ export default async function AllDealsPage() {
         iata_code: deal.from_airport_code || 'XXX'
       }
       
-      // Add destination city image from airports table
-      const destinationAirport = deal.to_airport_code || deal.destination_airport
+      // Extract destination city image from the joined data
       const dealWithImage = {
         ...deal,
-        destination_city_image: destinationAirport ? airportImageMap.get(destinationAirport) : null
+        destination_city_image: deal.destination_airport?.city_image_url || null,
+        destination_airport: undefined // Remove the joined object from the deal
       }
       
       dealsByCity.push({
@@ -96,9 +91,6 @@ export default async function AllDealsPage() {
   
   // Sort by city name
   dealsByCity.sort((a, b) => a.city.name.localeCompare(b.city.name))
-  
-  console.log('Final dealsByCity array length:', dealsByCity.length)
-  console.log('Unique cities with deals:', dealsByCity.map(d => d.city.name).join(', '))
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -164,11 +156,12 @@ export default async function AllDealsPage() {
         
         {/* Deals Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {dealsByCity.map(({ city, deal }) => (
+          {dealsByCity.map(({ city, deal }, index) => (
             <DealCardNew 
               key={deal.id}
               deal={deal} 
-              isLocked={false} 
+              isLocked={false}
+              priority={index < 3} 
             />
           ))}
         </div>
