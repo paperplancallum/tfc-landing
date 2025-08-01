@@ -99,6 +99,12 @@ function LoginForm() {
             </Button>
           </form>
 
+          <div className="mt-4 text-center">
+            <Link href="/auth/forgot-password" className="text-sm text-primary hover:underline">
+              Forgot your password?
+            </Link>
+          </div>
+
           <p className="text-center mt-6 text-sm text-gray-600">
             Don't have an account?{' '}
             <Link href="/auth/signup" className="text-primary hover:underline">

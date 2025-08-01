@@ -18,11 +18,36 @@ export default async function AccountPage() {
   }
 
   // Get user profile
-  const { data: profile } = await supabase
+  const { data: profile, error: profileError } = await supabase
     .from('users')
     .select('*')
     .eq('id', user.id)
     .single()
+  
+  // If user doesn't have a profile, create one
+  if (profileError || !profile) {
+    console.log('No profile found for user:', user.id, 'Creating one...')
+    const { data: newProfile, error: createError } = await supabase
+      .from('users')
+      .insert({
+        id: user.id,
+        email: user.email,
+        plan: 'free',
+        created_at: new Date().toISOString()
+      })
+      .select()
+      .single()
+    
+    if (createError) {
+      console.error('Error creating profile:', createError)
+      // Redirect to login to restart the flow
+      redirect('/auth/login')
+    }
+    
+    // Use the newly created profile
+    const finalProfile = newProfile || { id: user.id, email: user.email, plan: 'free' }
+    return <AccountTabs user={user} profile={finalProfile} homeCity={null} subscription={null} />
+  }
 
   // Get user's home city
   let homeCity = null
