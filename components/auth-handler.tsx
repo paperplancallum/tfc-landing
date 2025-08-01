@@ -2,11 +2,28 @@
 
 import { useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import { useRouter, usePathname } from 'next/navigation'
+import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 
 export function AuthHandler() {
   const router = useRouter()
   const pathname = usePathname()
+  const searchParams = useSearchParams()
+
+  useEffect(() => {
+    // Check if we have an auth code in the URL (for password reset)
+    const code = searchParams.get('code')
+    const type = searchParams.get('type')
+    
+    if (code && pathname === '/') {
+      // Redirect to auth callback with the code
+      let callbackUrl = `/auth/callback?code=${code}`
+      if (type) {
+        callbackUrl += `&type=${type}`
+      }
+      router.push(callbackUrl)
+      return
+    }
+  }, [searchParams, router, pathname])
 
   useEffect(() => {
     const supabase = createClient()

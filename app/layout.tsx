@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { AuthHandler } from "@/components/auth-handler";
 import { ConditionalNavbar } from "@/components/conditional-navbar";
 import { NavigationProgress } from "@/components/navigation-progress";
+import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,7 +36,9 @@ export default async function RootLayout({
     <html lang="en">
       <body className={inter.className} suppressHydrationWarning>
         <NavigationProgress />
-        <AuthHandler />
+        <Suspense fallback={null}>
+          <AuthHandler />
+        </Suspense>
         <ConditionalNavbar user={user} />
         <main className="min-h-screen">
           {children}

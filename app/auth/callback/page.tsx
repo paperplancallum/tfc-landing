@@ -17,6 +17,7 @@ function AuthCallbackContent() {
         
         // Check for code in search params (OAuth flow)
         const code = searchParams.get('code')
+        const type = searchParams.get('type')
         
         if (code) {
           // Handle OAuth code exchange
@@ -26,6 +27,15 @@ function AuthCallbackContent() {
             console.error('Error exchanging code:', error)
             setMessage('Authentication failed')
             setTimeout(() => router.push('/auth/login'), 2000)
+            return
+          }
+          
+          // Check if this is a password reset flow
+          if (type === 'recovery') {
+            setMessage('Password reset verified! Redirecting...')
+            setTimeout(() => {
+              window.location.href = '/auth/reset-password'
+            }, 500)
             return
           }
           
