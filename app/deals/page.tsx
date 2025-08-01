@@ -3,8 +3,15 @@ import Link from 'next/link'
 import { DealCardNew } from '@/components/deal-card-new'
 import { Button } from '@/components/ui/button'
 import { MapPin, Sparkles, Globe } from 'lucide-react'
+import { Pagination } from '@/components/ui/pagination'
 
-export default async function AllDealsPage() {
+interface PageProps {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
+
+export default async function AllDealsPage({ searchParams }: PageProps) {
+  const searchParamsAwaited = await searchParams
+  const page = Number(searchParamsAwaited.page) || 1
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   
@@ -32,21 +39,20 @@ export default async function AllDealsPage() {
     }
   }
 
-  // Get all cities
-  const { data: cities } = await supabase
-    .from('cities')
-    .select('*')
-    .order('name')
-
-  // Get the most recent deal for each city with optimized query
-  const dealsByCity = []
-  const seenCities = new Set<string>()
+  const itemsPerPage = 9
+  const offset = (page - 1) * itemsPerPage
   
-  // First, get all deals ordered by most recent
+  // Get total count of all deals
+  const { count: totalDeals } = await supabase
+    .from('deals')
+    .select('*', { count: 'exact', head: true })
+  
+  // Get all deals with pagination
   const { data: allDeals, error: dealsError } = await supabase
     .from('deals')
     .select('*')
     .order('deal_found_date', { ascending: false })
+    .range(offset, offset + itemsPerPage - 1)
   
   // Get all airports with city images
   const { data: airports } = await supabase
@@ -60,40 +66,15 @@ export default async function AllDealsPage() {
     console.error('Error fetching deals:', dealsError)
   }
   
-  // Get only the most recent deal per departure city
-  if (allDeals) {
-    for (const deal of allDeals) {
-      const cityKey = deal.from_airport_city || deal.from_airport_code
-      
-      // Skip if we've already seen a deal from this city
-      if (seenCities.has(cityKey)) {
-        continue
-      }
-      
-      seenCities.add(cityKey)
-      
-      const city = cities?.find(c => c.name === deal.from_airport_city) || {
-        id: `city-${cityKey}`,
-        name: deal.from_airport_city || 'Unknown',
-        iata_code: deal.from_airport_code || 'XXX'
-      }
-      
-      // Add destination city image from airports table
-      const destinationAirport = deal.to_airport_code || deal.destination_airport
-      const dealWithImage = {
-        ...deal,
-        destination_city_image: destinationAirport ? airportImageMap.get(destinationAirport) : null
-      }
-      
-      dealsByCity.push({
-        city,
-        deal: dealWithImage
-      })
-    }
-  }
+  // Add destination city images to deals
+  const dealsWithImages = allDeals?.map(deal => ({
+    ...deal,
+    destination_city_image: (deal.to_airport_code || deal.destination_airport)
+      ? airportImageMap.get(deal.to_airport_code || deal.destination_airport)
+      : null
+  })) || []
   
-  // Sort by city name
-  dealsByCity.sort((a, b) => a.city.name.localeCompare(b.city.name))
+  const totalPages = Math.ceil((totalDeals || 0) / itemsPerPage)
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -155,23 +136,40 @@ export default async function AllDealsPage() {
           </div>
         )}
 
-        <h2 className="text-2xl font-bold mb-8">Latest Deals from All Cities</h2>
+        <h2 className="text-2xl font-bold mb-8">All Flight Deals</h2>
         
         {/* Deals Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {dealsByCity.map(({ city, deal }, index) => (
-            <DealCardNew 
-              key={deal.id}
-              deal={deal} 
-              isLocked={false}
-              priority={index < 3} 
-            />
-          ))}
+          {dealsWithImages.map((deal, index) => {
+            // For free users, only the very first deal (on page 1) is unlocked
+            const isLocked = userPlan === 'free' && (page > 1 || index > 0)
+            return (
+              <DealCardNew 
+                key={deal.id}
+                deal={deal} 
+                isLocked={isLocked}
+                priority={page === 1 && index < 3} 
+              />
+            )
+          })}
         </div>
 
-        {dealsByCity.length === 0 && (
+        {dealsWithImages.length === 0 && (
           <div className="text-center py-12">
             <p className="text-gray-500 text-lg">No deals available at the moment. Check back soon!</p>
+          </div>
+        )}
+        
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className="mt-12">
+            <Pagination 
+              currentPage={page}
+              totalPages={totalPages}
+              onPageChange={(newPage) => {
+                window.location.href = `/deals?page=${newPage}`
+              }}
+            />
           </div>
         )}
       </div>
