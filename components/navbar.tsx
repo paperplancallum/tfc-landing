@@ -98,12 +98,16 @@ export function Navbar({ user }: { user: any }) {
               </div>
             ) : (
               <div className="flex items-center space-x-4">
-                <Button variant="ghost" className="text-white hover:text-white/80 hover:bg-white/10" asChild>
-                  <Link href="/auth/login">Log In</Link>
-                </Button>
-                <Button className="bg-white text-primary hover:bg-white/90" asChild>
-                  <Link href="/join">Join For Free</Link>
-                </Button>
+                <Link href="/auth/login">
+                  <Button variant="ghost" className="text-white hover:text-white/80 hover:bg-white/10">
+                    Log In
+                  </Button>
+                </Link>
+                <Link href="/join">
+                  <Button className="bg-white text-primary hover:bg-white/90">
+                    Join For Free
+                  </Button>
+                </Link>
               </div>
             )}
           </div>
