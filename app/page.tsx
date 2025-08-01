@@ -35,7 +35,7 @@ export default async function HomePage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary to-primary/80 text-white">
+      <section className="bg-primary text-white">
         <div className="container py-20 text-center">
           <h1 className="text-5xl font-bold mb-6">
             Find Ultra-Cheap Flight Deals
@@ -47,11 +47,6 @@ export default async function HomePage() {
             <Link href="/deals">
               <Button size="lg" variant="secondary">
                 Browse Deals
-              </Button>
-            </Link>
-            <Link href="/join">
-              <Button size="lg" className="bg-accent hover:bg-accent/90">
-                Go Premium
               </Button>
             </Link>
           </div>

@@ -98,7 +98,7 @@ export default async function AllDealsPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary to-primary/80 text-white py-16">
+      <section className="bg-primary text-white py-16">
         <div className="container text-center">
           <div className="flex items-center justify-center gap-3 mb-4">
             <Globe className="h-10 w-10" />

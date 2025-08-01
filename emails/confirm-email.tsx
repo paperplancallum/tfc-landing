@@ -144,7 +144,7 @@ const container = {
 }
 
 const header = {
-  backgroundColor: '#1e40af',
+  backgroundColor: '#415BE7',
   padding: '20px 40px',
   textAlign: 'center' as const,
 }
@@ -190,7 +190,7 @@ const buttonContainer = {
 }
 
 const button = {
-  backgroundColor: '#3b82f6',
+  backgroundColor: '#415BE7',
   borderRadius: '6px',
   color: '#fff',
   fontSize: '16px',
@@ -209,7 +209,7 @@ const smallText = {
 }
 
 const link = {
-  color: '#3b82f6',
+  color: '#415BE7',
   fontSize: '14px',
   textDecoration: 'underline',
   wordBreak: 'break-all' as const,
@@ -255,7 +255,7 @@ const footerLinks = {
 }
 
 const footerLink = {
-  color: '#3b82f6',
+  color: '#415BE7',
   fontSize: '14px',
   textDecoration: 'none',
 }

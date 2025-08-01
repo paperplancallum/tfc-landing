@@ -5,7 +5,7 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-primary to-primary/80 text-white py-16">
+      <section className="bg-primary text-white py-16">
         <div className="container text-center">
           <h1 className="text-4xl font-bold mb-4">
             About Tom&apos;s Flight Club
