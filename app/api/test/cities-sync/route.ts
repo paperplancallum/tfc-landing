@@ -8,15 +8,15 @@ export async function GET(request: NextRequest) {
     // Get unique departure cities from deals
     const { data: uniqueDepartureCities, error: departureCitiesError } = await supabase
       .from('deals')
-      .select('departure_city')
-      .not('departure_city', 'is', null)
-      .not('departure_city', 'eq', '')
+      .select('from_airport_city')
+      .not('from_airport_city', 'is', null)
+      .not('from_airport_city', 'eq', '')
     
     if (departureCitiesError) {
       throw departureCitiesError
     }
 
-    const uniqueCities = [...new Set(uniqueDepartureCities?.map(d => d.departure_city) || [])]
+    const uniqueCities = [...new Set(uniqueDepartureCities?.map(d => d.from_airport_city) || [])]
     
     // Get existing cities
     const { data: existingCities } = await supabase

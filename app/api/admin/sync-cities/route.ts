@@ -28,15 +28,15 @@ export async function POST(request: NextRequest) {
     // Get all unique departure cities from deals
     const { data: deals, error: dealsError } = await serviceSupabase
       .from('deals')
-      .select('departure_city')
-      .not('departure_city', 'is', null)
-      .not('departure_city', 'eq', '')
+      .select('from_airport_city')
+      .not('from_airport_city', 'is', null)
+      .not('from_airport_city', 'eq', '')
     
     if (dealsError) {
       throw dealsError
     }
     
-    const uniqueCities = [...new Set(deals?.map(d => d.departure_city) || [])]
+    const uniqueCities = [...new Set(deals?.map(d => d.from_airport_city) || [])]
     console.log(`Found ${uniqueCities.length} unique departure cities in deals`)
     
     // Get existing cities

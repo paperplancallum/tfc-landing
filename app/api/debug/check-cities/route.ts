@@ -18,14 +18,14 @@ export async function GET(request: NextRequest) {
     // Get count of deals by departure city
     const { data: dealCities, error: dealsError } = await supabase
       .from('deals')
-      .select('departure_city')
-      .not('departure_city', 'is', null)
+      .select('from_airport_city')
+      .not('from_airport_city', 'is', null)
     
     if (dealsError) {
       throw dealsError
     }
     
-    const uniqueDealCities = [...new Set(dealCities?.map(d => d.departure_city) || [])]
+    const uniqueDealCities = [...new Set(dealCities?.map(d => d.from_airport_city) || [])]
     
     return NextResponse.json({
       total_cities_in_table: cities?.length || 0,
