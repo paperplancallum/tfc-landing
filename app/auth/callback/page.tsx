@@ -19,9 +19,14 @@ function AuthCallbackContent() {
         const code = searchParams.get('code')
         const type = searchParams.get('type')
         
+        console.log('Auth callback - code:', code?.substring(0, 10) + '...', 'type:', type)
+        console.log('Full URL:', window.location.href)
+        
         if (code) {
           // Handle OAuth code exchange
-          const { error } = await supabase.auth.exchangeCodeForSession(code)
+          const { error, data } = await supabase.auth.exchangeCodeForSession(code)
+          
+          console.log('Exchange code result:', { error, session: !!data?.session })
           
           if (error) {
             console.error('Error exchanging code:', error)
@@ -30,8 +35,30 @@ function AuthCallbackContent() {
             return
           }
           
+          // Check the current session to determine the flow type
+          const { data: sessionData } = await supabase.auth.getSession()
+          
+          // For password reset, Supabase sets specific user metadata
+          const user = sessionData?.session?.user
+          const isPasswordReset = !!(
+            type === 'recovery' || 
+            user?.recovery_sent_at ||
+            user?.app_metadata?.provider === 'email' &&
+            user?.aud === 'authenticated' &&
+            !user?.confirmed_at // Often unconfirmed for password reset
+          )
+          
+          console.log('Session check:', {
+            isPasswordReset,
+            type,
+            recovery_sent_at: user?.recovery_sent_at,
+            provider: user?.app_metadata?.provider,
+            aud: user?.aud,
+            confirmed_at: user?.confirmed_at
+          })
+          
           // Check if this is a password reset flow
-          if (type === 'recovery') {
+          if (isPasswordReset || type === 'recovery') {
             setMessage('Password reset verified! Redirecting...')
             setTimeout(() => {
               window.location.href = '/auth/reset-password'
@@ -59,6 +86,13 @@ function AuthCallbackContent() {
         const params = new URLSearchParams(hashFragment.substring(1))
         const accessToken = params.get('access_token')
         const refreshToken = params.get('refresh_token')
+        const hashType = params.get('type')
+
+        console.log('Hash fragment params:', {
+          hasAccessToken: !!accessToken,
+          hasRefreshToken: !!refreshToken,
+          type: hashType
+        })
 
         if (!accessToken || !refreshToken) {
           setMessage('Invalid authentication data')
@@ -80,6 +114,18 @@ function AuthCallbackContent() {
         }
 
         if (data.session) {
+          // Check if this is a password reset flow
+          const isPasswordReset = hashType === 'recovery' || type === 'recovery'
+          
+          if (isPasswordReset) {
+            setMessage('Password reset verified! Redirecting...')
+            window.history.replaceState(null, '', window.location.pathname)
+            setTimeout(() => {
+              window.location.href = '/auth/reset-password'
+            }, 500)
+            return
+          }
+          
           setMessage('Login successful! Redirecting...')
           // Clear the hash from the URL
           window.history.replaceState(null, '', window.location.pathname)
