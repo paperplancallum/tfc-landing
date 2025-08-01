@@ -15,17 +15,17 @@ function AuthCallbackContent() {
       try {
         const supabase = createClient()
         
-        // For password reset, first check if we already have a session
-        const { data: currentSession } = await supabase.auth.getSession()
-        if (currentSession?.session) {
-          console.log('Session already exists, checking if password reset...')
-          const user = currentSession.session.user
-          const isPasswordReset = !!(
-            searchParams.get('type') === 'recovery' ||
-            user?.recovery_sent_at
-          )
+        // Check if this is explicitly a recovery flow
+        const isRecoveryType = searchParams.get('type') === 'recovery'
+        
+        // For password reset, we need to handle the callback properly
+        if (isRecoveryType) {
+          console.log('Password recovery flow detected')
           
-          if (isPasswordReset) {
+          // Check if we already have a session from the email link
+          const { data: currentSession } = await supabase.auth.getSession()
+          if (currentSession?.session) {
+            console.log('Session exists, redirecting to reset password')
             setMessage('Password reset verified! Redirecting...')
             setTimeout(() => {
               window.location.href = '/auth/reset-password'

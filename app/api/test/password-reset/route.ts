@@ -13,13 +13,14 @@ export async function POST(request: NextRequest) {
     
     // Always use production URL for password reset
     const baseUrl = 'https://www.tomsflightclub.com'
+    const redirectUrl = `${baseUrl}/auth/callback?type=recovery`
     
     console.log('Testing password reset for:', email)
     console.log('Base URL:', baseUrl)
-    console.log('Redirect URL:', `${baseUrl}/auth/callback?type=recovery`)
+    console.log('Redirect URL:', redirectUrl)
     
     const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${baseUrl}/auth/callback?type=recovery`,
+      redirectTo: redirectUrl,
     })
     
     if (error) {

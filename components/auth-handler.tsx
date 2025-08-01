@@ -11,6 +11,26 @@ export function AuthHandler() {
 
   useEffect(() => {
     const handleAuthCode = async () => {
+      // Check for error parameters first
+      const error = searchParams.get('error')
+      const errorCode = searchParams.get('error_code')
+      const errorDescription = searchParams.get('error_description')
+      
+      if (error) {
+        console.error('Auth error:', { error, errorCode, errorDescription })
+        
+        // Handle specific errors
+        if (errorCode === 'otp_expired') {
+          // Redirect to forgot password page with error message
+          router.replace('/auth/forgot-password?error=expired')
+          return
+        }
+        
+        // For other errors, redirect to login
+        router.replace('/auth/login?error=' + encodeURIComponent(errorDescription || error))
+        return
+      }
+      
       // Check if we have an auth code in the URL
       const code = searchParams.get('code')
       const type = searchParams.get('type')

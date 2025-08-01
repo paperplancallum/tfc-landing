@@ -1,18 +1,28 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import { Mail, AlertCircle, CheckCircle } from 'lucide-react'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 
-export default function ForgotPasswordPage() {
+function ForgotPasswordForm() {
   const [email, setEmail] = useState('')
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
   
   const supabase = createClient()
+  const searchParams = useSearchParams()
+  
+  useEffect(() => {
+    // Check for error parameter
+    const errorParam = searchParams.get('error')
+    if (errorParam === 'expired') {
+      setError('Your password reset link has expired. Please request a new one.')
+    }
+  }, [searchParams])
 
   const handleResetPassword = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -21,12 +31,9 @@ export default function ForgotPasswordPage() {
 
     console.log('Sending password reset email to:', email)
     
-    // Always use production URL for password reset unless on localhost
-    const baseUrl = window.location.hostname === 'localhost' 
-      ? window.location.origin 
-      : 'https://www.tomsflightclub.com'
-    
-    const redirectUrl = `${baseUrl}/auth/callback?type=recovery`
+    // For production, always use the production domain
+    // This ensures the email links work regardless of where the request originates
+    const redirectUrl = 'https://www.tomsflightclub.com/auth/callback?type=recovery'
     
     console.log('Current hostname:', window.location.hostname)
     console.log('Redirect URL:', redirectUrl)
@@ -124,5 +131,17 @@ export default function ForgotPasswordPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function ForgotPasswordPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">Loading...</div>
+      </div>
+    }>
+      <ForgotPasswordForm />
+    </Suspense>
   )
 }
