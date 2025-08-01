@@ -42,16 +42,19 @@ export default async function AllDealsPage() {
   const dealsByCity = []
   const seenCities = new Set<string>()
   
-  // Fetch all deals with a single optimized query
+  // First, get all deals ordered by most recent
   const { data: allDeals, error: dealsError } = await supabase
     .from('deals')
-    .select(`
-      *,
-      destination_airport:airports!deals_to_airport_code_fkey (
-        city_image_url
-      )
-    `)
+    .select('*')
     .order('deal_found_date', { ascending: false })
+  
+  // Get all airports with city images
+  const { data: airports } = await supabase
+    .from('airports')
+    .select('iata_code, city_image_url')
+  
+  // Create a map for quick lookup
+  const airportImageMap = new Map(airports?.map(a => [a.iata_code, a.city_image_url]) || [])
   
   if (dealsError) {
     console.error('Error fetching deals:', dealsError)
@@ -75,11 +78,11 @@ export default async function AllDealsPage() {
         iata_code: deal.from_airport_code || 'XXX'
       }
       
-      // Extract destination city image from the joined data
+      // Add destination city image from airports table
+      const destinationAirport = deal.to_airport_code || deal.destination_airport
       const dealWithImage = {
         ...deal,
-        destination_city_image: deal.destination_airport?.city_image_url || null,
-        destination_airport: undefined // Remove the joined object from the deal
+        destination_city_image: destinationAirport ? airportImageMap.get(destinationAirport) : null
       }
       
       dealsByCity.push({
