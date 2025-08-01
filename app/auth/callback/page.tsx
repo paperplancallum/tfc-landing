@@ -40,7 +40,6 @@ function AuthCallbackContent() {
         
         console.log('Auth callback - code:', code?.substring(0, 10) + '...', 'type:', type)
         console.log('Full URL:', window.location.href)
-        console.log('Verify OTP error:', verifyError)
         
         if (code) {
           // For PKCE flow, we need to use the proper exchange method
