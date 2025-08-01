@@ -98,12 +98,12 @@ export function Navbar({ user }: { user: any }) {
               </div>
             ) : (
               <div className="flex items-center space-x-4">
-                <Link href="/auth/login">
-                  <Button variant="ghost" className="text-white hover:text-white/80 hover:bg-white/10">Log In</Button>
-                </Link>
-                <Link href="/join">
-                  <Button className="bg-white text-primary hover:bg-white/90">Join For Free</Button>
-                </Link>
+                <Button variant="ghost" className="text-white hover:text-white/80 hover:bg-white/10" asChild>
+                  <Link href="/auth/login">Log In</Link>
+                </Button>
+                <Button className="bg-white text-primary hover:bg-white/90" asChild>
+                  <Link href="/join">Join For Free</Link>
+                </Button>
               </div>
             )}
           </div>
@@ -166,12 +166,14 @@ export function Navbar({ user }: { user: any }) {
                   <Link
                     href="/auth/login"
                     className="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-white/80 hover:bg-white/10"
+                    onClick={() => setMobileMenuOpen(false)}
                   >
                     Log In
                   </Link>
                   <Link
                     href="/join"
                     className="block px-3 py-2 rounded-md text-base font-medium bg-white text-primary hover:bg-white/90"
+                    onClick={() => setMobileMenuOpen(false)}
                   >
                     Join For Free
                   </Link>
