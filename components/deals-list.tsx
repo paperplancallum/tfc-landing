@@ -53,9 +53,15 @@ export async function DealsList({ city, userPlan, page = 1 }: DealsListProps) {
   let premiumDeals = []
 
   if (userPlan === 'free' && dealsWithImages) {
-    // Free users see only 1 deal, rest are premium
-    freeDeals = dealsWithImages.slice(0, 1)
-    premiumDeals = dealsWithImages.slice(1)
+    // Free users see only the very first deal on page 1
+    if (page === 1) {
+      freeDeals = dealsWithImages.slice(0, 1)
+      premiumDeals = dealsWithImages.slice(1)
+    } else {
+      // On subsequent pages, all deals are premium
+      freeDeals = []
+      premiumDeals = dealsWithImages
+    }
   } else {
     // Premium users see all deals
     freeDeals = dealsWithImages
