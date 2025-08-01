@@ -15,16 +15,48 @@ function AuthCallbackContent() {
       try {
         const supabase = createClient()
         
-        // Check for code in search params (OAuth flow)
+        // For password reset, first check if we already have a session
+        const { data: currentSession } = await supabase.auth.getSession()
+        if (currentSession?.session) {
+          console.log('Session already exists, checking if password reset...')
+          const user = currentSession.session.user
+          const isPasswordReset = !!(
+            searchParams.get('type') === 'recovery' ||
+            user?.recovery_sent_at
+          )
+          
+          if (isPasswordReset) {
+            setMessage('Password reset verified! Redirecting...')
+            setTimeout(() => {
+              window.location.href = '/auth/reset-password'
+            }, 500)
+            return
+          }
+        }
+        
+        // If that didn't work, check for code in search params (OAuth flow)
         const code = searchParams.get('code')
         const type = searchParams.get('type')
         
         console.log('Auth callback - code:', code?.substring(0, 10) + '...', 'type:', type)
         console.log('Full URL:', window.location.href)
+        console.log('Verify OTP error:', verifyError)
         
         if (code) {
-          // Handle OAuth code exchange
-          const { error, data } = await supabase.auth.exchangeCodeForSession(code)
+          // For PKCE flow, we need to use the proper exchange method
+          // Check if we have the code verifier stored
+          const codeVerifier = sessionStorage.getItem('code_verifier')
+          
+          let exchangeResult
+          if (codeVerifier) {
+            // Use PKCE flow
+            exchangeResult = await supabase.auth.exchangeCodeForSession(code)
+          } else {
+            // Try without PKCE
+            exchangeResult = await supabase.auth.exchangeCodeForSession(code)
+          }
+          
+          const { error, data } = exchangeResult
           
           console.log('Exchange code result:', { error, session: !!data?.session })
           
