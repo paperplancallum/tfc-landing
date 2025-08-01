@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import { render } from '@react-email/render'
 import ConfirmEmail from '@/emails/confirm-email'
-import { createClient } from '@/lib/supabase/server'
+import { createServiceClient } from '@/lib/supabase/service'
 
 const resend = process.env.RESEND_API_KEY 
   ? new Resend(process.env.RESEND_API_KEY) 
@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
       )
     }
     
-    const supabase = await createClient()
+    const supabase = createServiceClient()
     
     // Generate a secure confirmation token using Web Crypto API
     const randomValues = new Uint8Array(32)
