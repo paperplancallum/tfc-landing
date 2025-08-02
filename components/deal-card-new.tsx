@@ -52,14 +52,14 @@ export function DealCardNew({ deal, isLocked = false, priority = false }: DealCa
   return (
     <div className="card overflow-hidden relative flex flex-col">
       
-      <div className="relative h-48 bg-gray-200">
+      <Link href={isLocked ? '/join' : dealUrl} className="relative h-48 bg-gray-200 block group">
         {deal.destination_city_image ? (
           <Image
             src={deal.destination_city_image}
             alt={deal.to_airport_city || deal.to_airport_code}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover"
+            className="object-cover group-hover:opacity-90 transition-opacity"
             loading={priority ? "eager" : "lazy"}
           />
         ) : (
@@ -73,25 +73,27 @@ export function DealCardNew({ deal, isLocked = false, priority = false }: DealCa
             <span className="text-sm font-semibold">Premium</span>
           </div>
         )}
-      </div>
+      </Link>
       
       <div className="p-4">
         <div className="flex items-start justify-between mb-2">
           <p className="text-sm text-gray-600">
             {deal.from_airport_city || deal.from_airport_code} → {deal.to_airport_city || deal.to_airport_code}
           </p>
-          <span className="text-lg font-bold text-primary">
+          <Link href={isLocked ? '/join' : dealUrl} className="text-lg font-bold text-primary hover:text-primary/80 transition-colors">
             {deal.currency === 'USD' ? '$' : deal.currency === 'GBP' ? '£' : deal.currency === 'EUR' ? '€' : deal.currency}
             {deal.price ? (
               // All prices are stored in cents/pence
               Math.floor(deal.price / 100)
             ) : 'TBD'}
-          </span>
+          </Link>
         </div>
         
-        <h3 className="font-semibold text-lg mb-3">
-          {deal.to_airport_city || deal.to_airport_code}
-        </h3>
+        <Link href={isLocked ? '/join' : dealUrl} className="block mb-3">
+          <h3 className="font-semibold text-lg hover:text-primary transition-colors">
+            {deal.to_airport_city || deal.to_airport_code}
+          </h3>
+        </Link>
         
         <div className="space-y-2">
           <div className="flex items-center gap-1 text-sm text-gray-600">
