@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { ArrowLeft, Calendar, Clock, MapPin, Users, ExternalLink, Plane } from 'lucide-react'
+import { ArrowLeft, Calendar, Clock, MapPin, Users, ExternalLink, Plane, Lock } from 'lucide-react'
 import { format } from 'date-fns'
 
 interface DealPageProps {
@@ -229,6 +229,25 @@ export default async function DealPage({ params }: DealPageProps) {
     canViewPremium = profile?.plan === 'premium'
   }
   
+  // Get other deals for the same route (excluding current deal)
+  const { data: relatedDeals } = await supabase
+    .from('deals')
+    .select('*')
+    .eq('from_airport_code', deal.from_airport_code)
+    .eq('to_airport_code', deal.to_airport_code)
+    .neq('id', deal.id)
+    .order('deal_found_date', { ascending: false })
+    .limit(10)
+    
+  // Get other deals from the same departure airport (excluding current route)
+  const { data: otherDealsFromOrigin } = await supabase
+    .from('deals')
+    .select('*')
+    .eq('from_airport_code', deal.from_airport_code)
+    .neq('to_airport_code', deal.to_airport_code)
+    .order('deal_found_date', { ascending: false })
+    .limit(6)
+  
   // If it's a premium deal and user doesn't have access, redirect to join page
   // Note: New structure doesn't have is_premium field, so we'll skip this check for now
   if (false && !canViewPremium) {
@@ -360,6 +379,190 @@ export default async function DealPage({ params }: DealPageProps) {
             
           </div>
           
+          {/* More Deals Section */}
+          {relatedDeals && relatedDeals.length > 0 && (
+            <div className="mt-8">
+              <div className="bg-gray-50 rounded-lg p-8">
+                <div className="mb-6">
+                  <h2 className="text-2xl font-semibold mb-2">
+                    More deals from {deal.from_airport_city || deal.from_airport_code} to {deal.to_airport_city || deal.to_airport_code}
+                  </h2>
+                  <p className="text-gray-600">
+                    Find more great deals on this popular route
+                  </p>
+                </div>
+
+                {/* Related deals list */}
+                <div className="space-y-3 mb-6">
+                  {relatedDeals.map((relatedDeal) => {
+                    // All other deals are premium-only for free users
+                    const isPremium = !canViewPremium
+                    
+                    // Format date for URL as DDMMYYYY
+                    const formatDateForUrl = (dateString: string) => {
+                      const date = new Date(dateString)
+                      const day = date.getUTCDate().toString().padStart(2, '0')
+                      const month = (date.getUTCMonth() + 1).toString().padStart(2, '0')
+                      const year = date.getUTCFullYear()
+                      return `${day}${month}${year}`
+                    }
+                    
+                    const dateString = formatDateForUrl(relatedDeal.deal_found_date)
+                    const dealIdentifier = relatedDeal.deal_number || relatedDeal.id
+                    const dealUrl = `/deal/${relatedDeal.from_airport_code.toLowerCase()}-${relatedDeal.to_airport_code.toLowerCase()}-${dateString}-${dealIdentifier}`
+                    
+                    return (
+                      <Link 
+                        key={relatedDeal.id} 
+                        href={isPremium ? '/join' : dealUrl}
+                        className="block"
+                      >
+                        <div className="bg-white rounded-lg p-4 flex items-center justify-between hover:shadow-md transition-shadow cursor-pointer">
+                          <div className="flex items-center gap-4">
+                            <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center">
+                              {isPremium ? (
+                                <Lock size={20} className="text-gray-400" />
+                              ) : (
+                                <Plane size={20} className="text-gray-400" />
+                              )}
+                            </div>
+                            <div>
+                              <h3 className="font-semibold text-lg">{relatedDeal.to_airport_city || relatedDeal.to_airport_code}</h3>
+                              <p className="text-sm text-gray-600">
+                                {relatedDeal.departure_date 
+                                  ? canViewPremium 
+                                    ? `${format(new Date(relatedDeal.departure_date), 'MMM d')} - ${relatedDeal.return_date ? format(new Date(relatedDeal.return_date), 'MMM d, yyyy') : 'One way'}`
+                                    : format(new Date(relatedDeal.departure_date), 'MMMM yyyy')
+                                  : 'Flexible dates'
+                                }
+                              </p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-6">
+                            {isPremium && (
+                              <div className="bg-gradient-to-r from-slate-600 to-slate-700 text-white px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
+                                <Lock size={12} />
+                                Premium
+                              </div>
+                            )}
+                            <div className="text-right">
+                              <span className="text-2xl font-bold text-primary">
+                                {relatedDeal.currency === 'USD' ? '$' : relatedDeal.currency === 'GBP' ? '£' : relatedDeal.currency === 'EUR' ? '€' : relatedDeal.currency}
+                                {relatedDeal.price ? Math.floor(relatedDeal.price / 100) : 'TBD'}
+                              </span>
+                            </div>
+                            <ArrowLeft className="h-5 w-5 text-gray-400 rotate-180" />
+                          </div>
+                        </div>
+                      </Link>
+                    )
+                  })}
+                </div>
+
+              {/* View all link */}
+              <div className="text-center">
+                <Link href={`/deals/${(deal.from_airport_city || 'all').toLowerCase().replace(/\s+/g, '-')}`} 
+                      className="inline-flex items-center text-primary hover:text-primary/80 font-medium">
+                  View all deals from {deal.from_airport_city || deal.from_airport_code}
+                  <ArrowLeft className="ml-2 h-4 w-4 rotate-180" />
+                </Link>
+              </div>
+            </div>
+          </div>
+          )}
+
+          {/* Other Deals from Same Origin */}
+          {otherDealsFromOrigin && otherDealsFromOrigin.length > 0 && (
+            <div className="mt-8">
+              <div className="bg-gray-50 rounded-lg p-8">
+                <div className="mb-6">
+                  <h2 className="text-2xl font-semibold mb-2">
+                    More deals from {deal.from_airport_city || deal.from_airport_code}
+                  </h2>
+                  <p className="text-gray-600">
+                    Explore other destinations from your departure city
+                  </p>
+                </div>
+
+                {/* Other deals grid - 2 columns on desktop, 1 on mobile */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                  {otherDealsFromOrigin.map((otherDeal) => {
+                    // All other deals are premium-only for free users
+                    const isPremium = !canViewPremium
+                    
+                    // Format date for URL as DDMMYYYY
+                    const formatDateForUrl = (dateString: string) => {
+                      const date = new Date(dateString)
+                      const day = date.getUTCDate().toString().padStart(2, '0')
+                      const month = (date.getUTCMonth() + 1).toString().padStart(2, '0')
+                      const year = date.getUTCFullYear()
+                      return `${day}${month}${year}`
+                    }
+                    
+                    const dateString = formatDateForUrl(otherDeal.deal_found_date)
+                    const dealIdentifier = otherDeal.deal_number || otherDeal.id
+                    const dealUrl = `/deal/${otherDeal.from_airport_code.toLowerCase()}-${otherDeal.to_airport_code.toLowerCase()}-${dateString}-${dealIdentifier}`
+                    
+                    return (
+                      <Link 
+                        key={otherDeal.id} 
+                        href={isPremium ? '/join' : dealUrl}
+                        className="block"
+                      >
+                        <div className="bg-white rounded-lg p-4 flex items-center justify-between hover:shadow-md transition-shadow cursor-pointer">
+                          <div className="flex items-center gap-4">
+                            <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center">
+                              {isPremium ? (
+                                <Lock size={20} className="text-gray-400" />
+                              ) : (
+                                <Plane size={20} className="text-gray-400" />
+                              )}
+                            </div>
+                            <div>
+                              <h3 className="font-semibold text-lg">{otherDeal.to_airport_city || otherDeal.to_airport_code}</h3>
+                              <p className="text-sm text-gray-600">
+                                {otherDeal.departure_date 
+                                  ? canViewPremium 
+                                    ? `${format(new Date(otherDeal.departure_date), 'MMM d')} - ${otherDeal.return_date ? format(new Date(otherDeal.return_date), 'MMM d, yyyy') : 'One way'}`
+                                    : format(new Date(otherDeal.departure_date), 'MMMM yyyy')
+                                  : 'Flexible dates'
+                                }
+                              </p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-4">
+                            {isPremium && (
+                              <div className="bg-gradient-to-r from-slate-600 to-slate-700 text-white px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
+                                <Lock size={12} />
+                                Premium
+                              </div>
+                            )}
+                            <div className="text-right">
+                              <span className="text-xl font-bold text-primary">
+                                {otherDeal.currency === 'USD' ? '$' : otherDeal.currency === 'GBP' ? '£' : otherDeal.currency === 'EUR' ? '€' : otherDeal.currency}
+                                {otherDeal.price ? Math.floor(otherDeal.price / 100) : 'TBD'}
+                              </span>
+                            </div>
+                            <ArrowLeft className="h-4 w-4 text-gray-400 rotate-180" />
+                          </div>
+                        </div>
+                      </Link>
+                    )
+                  })}
+                </div>
+
+                {/* View all link */}
+                <div className="text-center">
+                  <Link href={`/deals/${(deal.from_airport_city || 'all').toLowerCase().replace(/\s+/g, '-')}`} 
+                        className="inline-flex items-center text-primary hover:text-primary/80 font-medium">
+                    View all deals from {deal.from_airport_city || deal.from_airport_code}
+                    <ArrowLeft className="ml-2 h-4 w-4 rotate-180" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Additional Info */}
           <div className="mt-8 bg-white rounded-lg shadow-md p-8">
             <h2 className="text-xl font-semibold mb-4">Important Information</h2>
