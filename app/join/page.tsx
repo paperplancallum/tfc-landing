@@ -12,7 +12,8 @@ const features = {
     'Deals sent at 7am',
     { text: 'Deals are more recent and likely to be available still', highlight: true },
     'Priority customer support',
-    'Cancel anytime',
+    'Cancel anytime during trial',
+    '3-day free trial, then billed monthly',
   ],
   free: [
     '1 Daily Deal',
@@ -55,7 +56,7 @@ export default async function JoinPage() {
           </p>
           {userPlan !== 'premium' && (
             <p className="text-lg bg-white/20 backdrop-blur px-4 py-2 rounded-full inline-block">
-              🎉 Start with a <strong>3-day free trial</strong> - Cancel anytime
+              🎉 Start with a <strong>3-day free trial</strong> - Then billed monthly
             </p>
           )}
         </div>
@@ -137,7 +138,7 @@ export default async function JoinPage() {
               Choose Your Plan
             </h2>
             <p className="text-center text-gray-600 mb-12">
-              All plans include a <strong>3-day free trial</strong>. No commitment, cancel anytime.
+              All plans include a <strong>3-day free trial</strong>. After trial, you'll be charged monthly. Cancel anytime.
             </p>
             
             <PlanSelector />

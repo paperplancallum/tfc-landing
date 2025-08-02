@@ -134,6 +134,12 @@ export async function POST(request: NextRequest) {
         email
       },
       subscription_data: {
+        trial_period_days: 3,
+        trial_settings: {
+          end_behavior: {
+            missing_payment_method: 'cancel'
+          }
+        },
         metadata: {
           plan,
           user_id: user?.id || '',

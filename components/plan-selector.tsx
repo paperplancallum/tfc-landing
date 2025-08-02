@@ -119,8 +119,13 @@ export function PlanSelector() {
               {loading === plan.id ? 'Processing...' : 'Select Plan'}
             </Button>
             
-            <div className="mt-4 inline-flex items-center gap-1 bg-green-50 text-green-700 px-3 py-1 rounded-full text-xs font-semibold">
-              <span>✓</span> 3-day free trial available
+            <div className="mt-4 space-y-1">
+              <div className="inline-flex items-center gap-1 bg-green-50 text-green-700 px-3 py-1 rounded-full text-xs font-semibold">
+                <span>✓</span> 3-day free trial
+              </div>
+              <p className="text-xs text-gray-500 text-center">
+                Then {plan.pricing.monthly}/month after 3 days
+              </p>
             </div>
             
             {plan.pricing.savings && (
