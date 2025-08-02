@@ -1,28 +1,21 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { getPlanConfigs } from './plan-configs'
 import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
-
-interface Plan {
-  id: string
-  name: string
-  price: string
-  period: string
-  total: string
-  featured: boolean
-  badge?: string
-  savings?: string
-  stripeLink?: string
-}
+import { CurrencySelector, CurrencyCode, getDefaultCurrency } from './currency-selector'
+import { getFormattedPlans, getBillingDescription } from '@/lib/pricing-data'
 
 export function PlanSelector() {
-  const { plans } = getPlanConfigs()
+  const [selectedCurrency, setSelectedCurrency] = useState<CurrencyCode>('GBP')
   const [userEmail, setUserEmail] = useState<string | null>(null)
+  const [loading, setLoading] = useState<string | null>(null)
   const supabase = createClient()
 
   useEffect(() => {
+    // Set default currency
+    setSelectedCurrency(getDefaultCurrency())
+    
     // Get the current user's email if logged in
     const getUser = async () => {
       const { data: { user } } = await supabase.auth.getUser()
@@ -33,10 +26,17 @@ export function PlanSelector() {
     getUser()
   }, [])
 
-  const [loading, setLoading] = useState<string | null>(null)
+  // Save currency preference
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('preferredCurrency', selectedCurrency)
+    }
+  }, [selectedCurrency])
+
+  const plans = getFormattedPlans(selectedCurrency)
   
-  const handleSelectPlan = async (plan: Plan) => {
-    setLoading(plan.id)
+  const handleSelectPlan = async (planId: string) => {
+    setLoading(planId)
     
     try {
       // Use our API to create a checkout session
@@ -47,7 +47,8 @@ export function PlanSelector() {
         },
         body: JSON.stringify({
           email: userEmail || '', // Send empty string if no email
-          plan: plan.id,
+          plan: planId,
+          currency: selectedCurrency,
           successUrl: `${window.location.origin}/payment-success`,
           cancelUrl: window.location.href
         }),
@@ -72,6 +73,15 @@ export function PlanSelector() {
 
   return (
     <div className="max-w-5xl mx-auto">
+      {/* Currency Selector */}
+      <div className="flex justify-end mb-6">
+        <CurrencySelector
+          selectedCurrency={selectedCurrency}
+          onCurrencyChange={setSelectedCurrency}
+        />
+      </div>
+
+      {/* Pricing Cards */}
       <div className="grid md:grid-cols-3 gap-8">
         {plans.map((plan) => (
           <div
@@ -91,14 +101,16 @@ export function PlanSelector() {
             <h3 className="text-xl font-bold mb-4 text-gray-900">{plan.name}</h3>
             
             <div className="mb-2">
-              <span className="text-4xl font-bold text-gray-900">{plan.price}</span>
-              <span className="text-gray-600">{plan.period}</span>
+              <span className="text-4xl font-bold text-gray-900">{plan.pricing.monthly}</span>
+              <span className="text-gray-600">/month</span>
             </div>
             
-            <p className="text-sm text-gray-600 mb-6">{plan.total}</p>
+            <p className="text-sm text-gray-600 mb-6">
+              {getBillingDescription(plan.id, selectedCurrency)}
+            </p>
             
             <Button
-              onClick={() => handleSelectPlan(plan)}
+              onClick={() => handleSelectPlan(plan.id)}
               variant={plan.featured ? 'default' : 'outline'}
               className="w-full"
               size="lg"
@@ -111,9 +123,9 @@ export function PlanSelector() {
               <span>✓</span> 3-day free trial available
             </div>
             
-            {plan.savings && (
+            {plan.pricing.savings && (
               <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-green-500 text-white px-4 py-1 rounded-full text-xs font-semibold">
-                {plan.savings}
+                Save {plan.pricing.savings}%
               </div>
             )}
           </div>

@@ -6,6 +6,8 @@ import { Button } from '@/components/ui/button'
 import { Check, Shield, Lock, CreditCard, ChevronDown, ChevronUp, ArrowRight } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { FunnelRecentDealsClient } from '@/components/funnel-recent-deals-client'
+import { CurrencySelector, CurrencyCode, getDefaultCurrency, formatPrice } from '@/components/currency-selector'
+import { PRICING_DATA } from '@/lib/pricing-data'
 
 export default function CheckoutClient() {
   const router = useRouter()
@@ -14,6 +16,7 @@ export default function CheckoutClient() {
   const [timeLeft, setTimeLeft] = useState({ minutes: 14, seconds: 50 })
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
   const [selectedPlan, setSelectedPlan] = useState('yearly')
+  const [selectedCurrency, setSelectedCurrency] = useState<CurrencyCode>('GBP')
 
   useEffect(() => {
     // Get stored values
@@ -22,6 +25,9 @@ export default function CheckoutClient() {
       const storedAirport = sessionStorage.getItem('selectedAirport') || sessionStorage.getItem('checkoutAirport') || ''
       setEmail(storedEmail)
       setSelectedAirport(storedAirport)
+      
+      // Set default currency
+      setSelectedCurrency(getDefaultCurrency())
       
       // Debug logging
       console.log('Checkout page loaded with:', { storedEmail, storedAirport })
@@ -63,50 +69,52 @@ export default function CheckoutClient() {
     "Daily support and guidance"
   ]
 
-  // Use test mode when explicitly set in environment
-  const useTestMode = process.env.NEXT_PUBLIC_USE_TEST_STRIPE === 'true'
+  // Save currency preference
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('preferredCurrency', selectedCurrency)
+    }
+  }, [selectedCurrency])
+
+  // Get pricing data for selected currency
+  const currencyData = PRICING_DATA[selectedCurrency]
+  const symbol = currencyData.symbol
 
   const plans = [
     {
       id: '3months',
       name: '3 Months',
-      price: '£7.99',
+      price: `${symbol}${currencyData.plans['3mo'].monthly}`,
       period: '/month',
-      total: '£23.97',
+      total: `${symbol}${currencyData.plans['3mo'].total}`,
       savings: null,
-      priceId: useTestMode
-        ? process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_3MO_TEST
-        : process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_3MO_LIVE
+      planId: 'premium_3mo'
     },
     {
       id: 'yearly',
       name: '1 Year',
-      price: '£4.99',
+      price: `${symbol}${currencyData.plans['year'].monthly}`,
       period: '/month',
-      total: '£59.99',
-      savings: 'Save 37%',
+      total: `${symbol}${currencyData.plans['year'].total}`,
+      savings: currencyData.plans['year'].savings ? `Save ${currencyData.plans['year'].savings}%` : null,
       recommended: true,
-      priceId: useTestMode
-        ? process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_YEAR_TEST
-        : process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_YEAR_LIVE
+      planId: 'premium_year'
     },
     {
       id: '6months',
       name: '6 Months',
-      price: '£5.99',
+      price: `${symbol}${currencyData.plans['6mo'].monthly}`,
       period: '/month',
-      total: '£35.94',
-      savings: 'Save 25%',
-      priceId: useTestMode
-        ? process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_6MO_TEST
-        : process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_6MO_LIVE
+      total: `${symbol}${currencyData.plans['6mo'].total}`,
+      savings: currencyData.plans['6mo'].savings ? `Save ${currencyData.plans['6mo'].savings}%` : null,
+      planId: 'premium_6mo'
     }
   ]
 
   const handleCheckout = async () => {
     const plan = plans.find(p => p.id === selectedPlan)
-    if (!plan || !plan.priceId) {
-      console.error('No price ID found for selected plan')
+    if (!plan) {
+      console.error('No plan found')
       return
     }
 
@@ -125,13 +133,6 @@ export default function CheckoutClient() {
         sessionStorage.setItem('checkoutAirport', selectedAirport)
       }
 
-      // Map plan IDs to the format expected by the API
-      const planMap: { [key: string]: string } = {
-        '3months': 'premium_3mo',
-        '6months': 'premium_6mo',
-        'yearly': 'premium_year'
-      }
-
       // Create checkout session using the new API endpoint
       const response = await fetch('/api/stripe/create-checkout', {
         method: 'POST',
@@ -139,7 +140,8 @@ export default function CheckoutClient() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          plan: planMap[plan.id],
+          plan: plan.planId,
+          currency: selectedCurrency,
           email: email,
           successUrl: `${window.location.origin}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
           cancelUrl: window.location.href,
@@ -172,16 +174,7 @@ export default function CheckoutClient() {
           {String(timeLeft.minutes).padStart(2, '0')}:{String(timeLeft.seconds).padStart(2, '0')}
         </p>
         <p className="text-sm">
-          {(() => {
-            const plan = plans.find(p => p.id === selectedPlan)
-            if (plan?.id === 'yearly') {
-              return 'Monthly rate increasing from £4.99 to £7.49/month'
-            } else if (plan?.id === '6months') {
-              return 'Monthly rate increasing from £5.99 to £8.99/month'
-            } else {
-              return 'Monthly rate increasing from £7.99 to £11.99/month'
-            }
-          })()}
+          Limited time pricing - Secure your discount now!
         </p>
       </div>
 
@@ -198,7 +191,13 @@ export default function CheckoutClient() {
             
             {/* Membership Details */}
             <div className="bg-white rounded-lg shadow p-6 mb-6">
-              <h2 className="font-bold mb-4">Membership Details</h2>
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="font-bold">Membership Details</h2>
+                <CurrencySelector
+                  selectedCurrency={selectedCurrency}
+                  onCurrencyChange={setSelectedCurrency}
+                />
+              </div>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Email address:</span>

@@ -10,19 +10,49 @@ const stripe = stripeKey ? new Stripe(stripeKey, {
   apiVersion: '2024-12-18.acacia',
 }) : null
 
-// Map price IDs to your product prices
+// Map price IDs to your product prices with currency support
 const PRICE_MAP = {
   'premium_3mo': {
-    test: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_3MO_TEST || 'price_test_3months',
-    live: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_3MO_LIVE || 'price_live_3months'
+    GBP: {
+      test: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_3MO_TEST || 'price_test_3months',
+      live: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_3MO_LIVE || 'price_live_3months'
+    },
+    USD: {
+      test: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_3MO_USD_TEST || 'price_test_3months_usd',
+      live: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_3MO_USD_LIVE || 'price_live_3months_usd'
+    },
+    EUR: {
+      test: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_3MO_EUR_TEST || 'price_test_3months_eur',
+      live: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_3MO_EUR_LIVE || 'price_live_3months_eur'
+    }
   },
   'premium_6mo': {
-    test: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_6MO_TEST || 'price_test_6months',
-    live: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_6MO_LIVE || 'price_live_6months'
+    GBP: {
+      test: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_6MO_TEST || 'price_test_6months',
+      live: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_6MO_LIVE || 'price_live_6months'
+    },
+    USD: {
+      test: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_6MO_USD_TEST || 'price_test_6months_usd',
+      live: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_6MO_USD_LIVE || 'price_live_6months_usd'
+    },
+    EUR: {
+      test: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_6MO_EUR_TEST || 'price_test_6months_eur',
+      live: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_6MO_EUR_LIVE || 'price_live_6months_eur'
+    }
   },
   'premium_year': {
-    test: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_YEAR_TEST || 'price_test_yearly',
-    live: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_YEAR_LIVE || 'price_live_yearly'
+    GBP: {
+      test: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_YEAR_TEST || 'price_test_yearly',
+      live: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_YEAR_LIVE || 'price_live_yearly'
+    },
+    USD: {
+      test: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_YEAR_USD_TEST || 'price_test_yearly_usd',
+      live: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_YEAR_USD_LIVE || 'price_live_yearly_usd'
+    },
+    EUR: {
+      test: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_YEAR_EUR_TEST || 'price_test_yearly_eur',
+      live: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_YEAR_EUR_LIVE || 'price_live_yearly_eur'
+    }
   }
 }
 
@@ -32,19 +62,24 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Stripe not configured' }, { status: 503 })
     }
 
-    const { email, plan, successUrl, cancelUrl } = await request.json()
+    const { email, plan, currency = 'GBP', successUrl, cancelUrl } = await request.json()
 
     if (!plan) {
       return NextResponse.json({ error: 'Plan is required' }, { status: 400 })
     }
 
+    // Validate currency
+    if (!['GBP', 'USD', 'EUR'].includes(currency)) {
+      return NextResponse.json({ error: 'Invalid currency' }, { status: 400 })
+    }
+    
     // Check if this is test mode
     const isTestMode = stripeKey?.startsWith('sk_test_')
     
     // Get the appropriate price ID
-    const priceId = PRICE_MAP[plan as keyof typeof PRICE_MAP]?.[isTestMode ? 'test' : 'live']
+    const priceId = PRICE_MAP[plan as keyof typeof PRICE_MAP]?.[currency as 'GBP' | 'USD' | 'EUR']?.[isTestMode ? 'test' : 'live']
     if (!priceId) {
-      return NextResponse.json({ error: 'Invalid plan selected' }, { status: 400 })
+      return NextResponse.json({ error: 'Invalid plan or currency selected' }, { status: 400 })
     }
 
     // Get authenticated user if any
@@ -94,6 +129,7 @@ export async function POST(request: NextRequest) {
       cancel_url: cancelUrl || `${request.headers.get('origin')}/join`,
       metadata: {
         plan,
+        currency,
         user_id: user?.id || '',
         email
       },

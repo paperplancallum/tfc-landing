@@ -125,12 +125,14 @@ export async function POST(request: NextRequest) {
             }
           } else {
             // Update existing user
+            const currency = session.metadata?.currency || 'GBP'
             const { error: updateError } = await supabase
               .from('users')
               .update({
                 stripe_customer_id: session.customer as string,
                 stripe_email: session.customer_email,
                 plan: 'premium',
+                preferred_currency: currency,
               })
               .eq('email', session.customer_email)
             
@@ -146,6 +148,9 @@ export async function POST(request: NextRequest) {
             const fullSubscription = await stripe.subscriptions.retrieve(session.subscription as string)
             const plan = getPlanFromSubscription(fullSubscription)
             
+            // Get currency from metadata or from subscription
+            const currency = session.metadata?.currency || fullSubscription.currency?.toUpperCase() || 'GBP'
+            
             const { data: insertedSub, error: insertError } = await supabase.from('subscriptions').insert({
               user_id: existingUser?.id || session.customer as string,
               stripe_sub_id: session.subscription as string,
@@ -155,6 +160,7 @@ export async function POST(request: NextRequest) {
               stripe_current_period_end: new Date(fullSubscription.current_period_end * 1000).toISOString(),
               stripe_cancel_at_period_end: fullSubscription.cancel_at_period_end || false,
               plan,
+              currency,
               // Include trial info if present
               trial_end: fullSubscription.trial_end ? new Date(fullSubscription.trial_end * 1000).toISOString() : null
             }).select()
