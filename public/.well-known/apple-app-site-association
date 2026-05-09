@@ -1,0 +1,18 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": ["TEAM_ID_PLACEHOLDER.com.paperplan.tfc"],
+        "components": [
+          { "/": "/deals/*", "comment": "Open a specific deal in the iOS app." },
+          { "/": "/cities/*", "comment": "Open a city's deals tab." },
+          { "/": "/auth/callback*", "comment": "Magic-link / OAuth return path." }
+        ]
+      }
+    ]
+  },
+  "webcredentials": {
+    "apps": ["TEAM_ID_PLACEHOLDER.com.paperplan.tfc"]
+  }
+}
