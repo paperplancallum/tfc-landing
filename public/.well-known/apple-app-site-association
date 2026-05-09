@@ -3,7 +3,7 @@
     "apps": [],
     "details": [
       {
-        "appIDs": ["TEAM_ID_PLACEHOLDER.com.paperplan.tfc"],
+        "appIDs": ["DAC4J23BMZ.com.paperplan.tfc"],
         "components": [
           { "/": "/deals/*", "comment": "Open a specific deal in the iOS app." },
           { "/": "/cities/*", "comment": "Open a city's deals tab." },
@@ -13,6 +13,6 @@
     ]
   },
   "webcredentials": {
-    "apps": ["TEAM_ID_PLACEHOLDER.com.paperplan.tfc"]
+    "apps": ["DAC4J23BMZ.com.paperplan.tfc"]
   }
 }
